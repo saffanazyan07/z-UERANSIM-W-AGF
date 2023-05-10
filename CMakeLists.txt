@@ -33,16 +33,16 @@ target_link_libraries(nr-gnb gnb)
 
 #################### CU EXECUTABLE ####################
 
-add_executable(nr-gnb src/gnb.cpp)
+add_executable(nr-CU src/CU.cpp)
 
-target_link_libraries(nr-gnb pthread)
+target_link_libraries(nr-CU pthread)
 
-target_compile_options(nr-gnb PRIVATE -Wall -Wextra -pedantic)
+target_compile_options(nr-CU PRIVATE -Wall -Wextra -pedantic)
 
-target_link_libraries(nr-gnb asn-rrc)
-target_link_libraries(nr-gnb asn-ngap)
-target_link_libraries(nr-gnb common-lib)
-target_link_libraries(nr-gnb gnb)
+target_link_libraries(nr-CU asn-rrc)
+target_link_libraries(nr-CU asn-ngap)
+target_link_libraries(nr-CU common-lib)
+target_link_libraries(nr-CU CU)
 
 #################### UE EXECUTABLE ####################
 
