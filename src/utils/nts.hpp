@@ -27,6 +27,8 @@ enum class NtsMessageType
     RESERVED_END = 1000,
 
     // Start of implementation specific types
+    CU_STATUS_UPDATE,
+    CU_CLI_COMMAND,
     GNB_STATUS_UPDATE,
     GNB_CLI_COMMAND,
     UE_STATUS_UPDATE,
@@ -35,6 +37,16 @@ enum class NtsMessageType
 
     UDP_SERVER_RECEIVE,
     CLI_SEND_RESPONSE,
+
+    //GNB_RLS_TO_RRC,
+    //GNB_RLS_TO_GTP,
+    //GNB_GTP_TO_RLS,
+    //GNB_RRC_TO_RLS,
+    //GNB_RLS_TO_RLS,
+    CU_NGAP_TO_RRC,
+    CU_RRC_TO_NGAP,
+    CU_NGAP_TO_GTP,
+    CU_SCTP,
 
     GNB_RLS_TO_RRC,
     GNB_RLS_TO_GTP,

@@ -5,8 +5,6 @@
 #ifndef UERANSIM_CU_HPP
 #define UERANSIM_CU_HPP
 
-#pragma once
-
 #include "types.hpp"
 
 #include <lib/app/cli_cmd.hpp>
@@ -29,7 +27,7 @@ class CentralUnit
 
   public:
     void start();
-    void pushCommand(std::unique_ptr<app::GnbCliCommand> cmd, const InetAddress &address);
+    void pushCommand(std::unique_ptr<app::CUCliCommand> cmd, const InetAddress &address);
 };
 
 } // namespace nr::CU

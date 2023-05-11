@@ -144,6 +144,16 @@ static opt::OptionsDescription DescForPsEstablish(const std::string &subCommand,
 namespace app
 {
 
+static OrderedMap<std::string, CmdEntry> g_CUCmdEntries = {
+    {"info", {"Show some information about the CU", "", DefaultDesc, false}},
+    {"status", {"Show some status information about the CU", "", DefaultDesc, false}},
+    {"amf-list", {"List all AMFs associated with the CU", "", DefaultDesc, false}},
+    {"amf-info", {"Show some status information about the given AMF", "<amf-id>", DefaultDesc, true}},
+    {"ue-list", {"List all UEs associated with the CU", "", DefaultDesc, false}},
+    {"ue-count", {"Print the total number of UEs connected the this CU", "", DefaultDesc, false}},
+    {"ue-release", {"Request a UE context release for the given UE", "<ue-id>", DefaultDesc, false}},
+};
+
 static OrderedMap<std::string, CmdEntry> g_gnbCmdEntries = {
     {"info", {"Show some information about the gNB", "", DefaultDesc, false}},
     {"status", {"Show some status information about the gNB", "", DefaultDesc, false}},
@@ -168,6 +178,57 @@ static OrderedMap<std::string, CmdEntry> g_ueCmdEntries = {
     {"deregister",
      {"Perform a de-registration by the UE", "<normal|disable-5g|switch-off|remove-sim>", DefaultDesc, true}},
 };
+
+static std::unique_ptr<CUCliCommand> CUCliParseImpl(const std::string &subCmd, const opt::OptionsResult &options,
+                                                      std::string &error)
+{
+    if (subCmd == "info")
+    {
+        return std::make_unique<CUCliCommand>(CUCliCommand::INFO);
+    }
+    if (subCmd == "status")
+    {
+        return std::make_unique<CUCliCommand>(CUCliCommand::STATUS);
+    }
+    else if (subCmd == "amf-list")
+    {
+        return std::make_unique<CUCliCommand>(CUCliCommand::AMF_LIST);
+    }
+    else if (subCmd == "amf-info")
+    {
+        auto cmd = std::make_unique<CUCliCommand>(CUCliCommand::AMF_INFO);
+        if (options.positionalCount() == 0)
+            CMD_ERR("AMF ID is expected")
+        if (options.positionalCount() > 1)
+            CMD_ERR("Only one AMF ID is expected")
+        cmd->amfId = utils::ParseInt(options.getPositional(0));
+        if (cmd->amfId <= 0)
+            CMD_ERR("Invalid AMF ID")
+        return cmd;
+    }
+    else if (subCmd == "ue-list")
+    {
+        return std::make_unique<CUCliCommand>(CUCliCommand::UE_LIST);
+    }
+    else if (subCmd == "ue-count")
+    {
+        return std::make_unique<CUCliCommand>(CUCliCommand::UE_COUNT);
+    }
+    else if (subCmd == "ue-release")
+    {
+        auto cmd = std::make_unique<CUCliCommand>(CUCliCommand::UE_RELEASE_REQ);
+        if (options.positionalCount() == 0)
+            CMD_ERR("UE ID is expected")
+        if (options.positionalCount() > 1)
+            CMD_ERR("Only one UE ID is expected")
+        cmd->ueId = utils::ParseInt(options.getPositional(0));
+        if (cmd->ueId <= 0)
+            CMD_ERR("Invalid UE ID")
+        return cmd;
+    }
+
+    return nullptr;
+}
 
 static std::unique_ptr<GnbCliCommand> GnbCliParseImpl(const std::string &subCmd, const opt::OptionsResult &options,
                                                       std::string &error)
@@ -332,6 +393,16 @@ static std::unique_ptr<UeCliCommand> UeCliParseImpl(const std::string &subCmd, c
         return std::make_unique<UeCliCommand>(UeCliCommand::COVERAGE);
     }
 
+    return nullptr;
+}
+
+std::unique_ptr<CUCliCommand> ParseCUCliCommand(std::vector<std::string> &&tokens, std::string &error,
+                                                  std::string &output)
+{
+    std::string subCmd{};
+    auto options = ParseCliCommandCommon(g_gnbCmdEntries, std::move(tokens), error, output, subCmd);
+    if (options.has_value())
+        return CUCliParseImpl(subCmd, *options, error);
     return nullptr;
 }
 

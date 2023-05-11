@@ -1,7 +1,7 @@
 file(GLOB_RECURSE HDR_FILES *.hpp)
 file(GLOB_RECURSE SRC_FILES *.cpp)
 
-add_library(CU ${HDR_FILES} ${SRC_FILES} types.cpp types.hpp)
+add_library(CU ${HDR_FILES} ${SRC_FILES})
 
 target_compile_options(CU PRIVATE -Wall -Wextra -pedantic -Wno-unused-parameter)
 

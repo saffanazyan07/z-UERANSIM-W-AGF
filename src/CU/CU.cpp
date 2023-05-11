@@ -3,27 +3,70 @@
 //
 
 #include "CU.hpp"
-#include <iostream>
+#include "app/task.hpp"
+#include "gtp/task.hpp"
+#include "ngap/task.hpp"
+//#include "rls/task.hpp"
+#include "rrc/task.hpp"
+#include "sctp/task.hpp"
+
+#include <lib/app/cli_base.hpp>
 
 namespace nr::CU
 {
 
-void CentralUnit::pushCommand(std::unique_ptr<app::GnbCliCommand> cmd, const InetAddress &address)
-{
-    std::cout << "pushCommand" << std::endl;
-}
 CentralUnit::CentralUnit(CUConfig *config, app::INodeListener *nodeListener, NtsTask *cliCallbackTask)
 {
-    std::cout << "CentralUnit" << std::endl;
+    auto *base = new TaskBase();
+    base->config = config;
+    base->logBase = new LogBase("logs/" + config->name + ".log");
+    base->nodeListener = nodeListener;
+    base->cliCallbackTask = cliCallbackTask;
+
+    base->appTask = new CUAppTask(base);
+    base->sctpTask = new SctpTask(base);
+    base->ngapTask = new NgapTask(base);
+    base->rrcTask = new CURrcTask(base);
+    base->gtpTask = new GtpTask(base);
+//    base->rlsTask = new CURlsTask(base);
+
+    taskBase = base;
 }
-void CentralUnit::start()
-{
-    std::cout << "start" << std::endl;
-}
+
 CentralUnit::~CentralUnit()
 {
-    std::cout << "~CentralUnit" << std::endl;
+    taskBase->appTask->quit();
+    taskBase->sctpTask->quit();
+    taskBase->ngapTask->quit();
+    taskBase->rrcTask->quit();
+    taskBase->gtpTask->quit();
+//    taskBase->rlsTask->quit();
+
+    delete taskBase->appTask;
+    delete taskBase->sctpTask;
+    delete taskBase->ngapTask;
+    delete taskBase->rrcTask;
+    delete taskBase->gtpTask;
+//    delete taskBase->rlsTask;
+
+    delete taskBase->logBase;
+
+    delete taskBase;
 }
 
+void CentralUnit::start()
+{
+    taskBase->appTask->start();
+    taskBase->sctpTask->start();
+    taskBase->ngapTask->start();
+    taskBase->rrcTask->start();
+//    taskBase->rlsTask->start();
+    taskBase->gtpTask->start();
 }
 
+void CentralUnit::pushCommand(std::unique_ptr<app::CUCliCommand> cmd, const InetAddress &address)
+{
+    taskBase->appTask->push(std::make_unique<NmCUCliCommand>(std::move(cmd), address));
+}
+
+} // namespace nr::CU

@@ -40,7 +40,7 @@ static nr::CU::CUConfig *ReadConfigYaml()
     result->plmn.mnc = yaml::GetInt32(config, "mnc", 0, 999);
     result->plmn.isLongMnc = yaml::GetString(config, "mnc", 2, 3).size() == 3;
 
-    result->CU_ID = yaml::GetInt64(config, "CU_ID", 0, 0xFFFFFFFFFll);
+    result->nci = yaml::GetInt64(config, "CU_ID", 0, 0xFFFFFFFFFll);
     result->CUIdLength = yaml::GetInt32(config, "idLength", 22, 32);
     result->tac = yaml::GetInt32(config, "tac", 0, 0xFFFFFF);
 
@@ -53,7 +53,7 @@ static nr::CU::CUConfig *ReadConfigYaml()
 
     result->ignoreStreamIds = yaml::GetBool(config, "ignoreStreamIds");
     result->pagingDrx = EPagingDrx::V128;
-    result->name = "UERANSIM-gnb-" + std::to_string(result->plmn.mcc) + "-" + std::to_string(result->plmn.mnc) + "-" +
+    result->name = "UERANSIM-CU-" + std::to_string(result->plmn.mcc) + "-" + std::to_string(result->plmn.mnc) + "-" +
                    std::to_string(result->getCUId()); // NOTE: Avoid using "/" dir separator character.
 
     for (auto &amfConfig : yaml::GetSequence(config, "amfConfigs"))
@@ -80,7 +80,7 @@ static void ReadOptions(int argc, char **argv)
 {
     opt::OptionsDescription desc{cons::Project,
                                  cons::Tag,
-                                 "5G-SA gNB-CU implementation",
+                                 "5G-SA CU-CU implementation",
                                  cons::Owner,
                                  "nr-CU",
                                  {"-c <config-file> [option...]"},
@@ -88,7 +88,7 @@ static void ReadOptions(int argc, char **argv)
                                  true,
                                  false};
 
-    opt::OptionItem itemConfigFile = {'c', "config", "Use specified configuration file for gNB-CU", "config-file"};
+    opt::OptionItem itemConfigFile = {'c', "config", "Use specified configuration file for CU-CU", "config-file"};
     opt::OptionItem itemDisableCmd = {'l', "disable-cmd", "Disable command line functionality for this instance",
                                       std::nullopt};
 
@@ -136,7 +136,7 @@ static void ReceiveCommand(app::CliMessage &msg)
     }
 
     std::string error{}, output{};
-    auto cmd = app::ParseGnbCliCommand(std::move(tokens), error, output);
+    auto cmd = app::ParseCUCliCommand(std::move(tokens), error, output);
     if (!error.empty())
     {
         g_cliServer->sendMessage(app::CliMessage::Error(msg.clientAddr, error));
