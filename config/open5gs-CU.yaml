@@ -1,12 +1,15 @@
 mcc: '999'          # Mobile Country Code value
 mnc: '70'           # Mobile Network Code value (2 or 3 digits)
 
-CU_ID: '0x000000010'  # NR Cell Identity (36-bit)
-idLength: 32        # NR gNB ID length in bits [22...32]
+DU_ID: '0x000000010'  # NR DU Identity (36-bit)
+idLength: 32        # NR DU ID length in bits [22...32]
 tac: 1              # Tracking Area Code
 
+f1apIp: 127.0.0.1   # CU's local IP address for F1 Interface (Usually same with local IP)
 ngapIp: 172.31.11.131   # gNB's local IP address for N2 Interface (Usually same with local IP)
 gtpIp: 172.31.11.131    # gNB's local IP address for N3 Interface (Usually same with local IP)
+
+f1apPort: 38472 # Port for F1AP
 
 # List of AMF address information
 amfConfigs:

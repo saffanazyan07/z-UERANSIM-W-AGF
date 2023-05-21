@@ -15,6 +15,7 @@ add_subdirectory(src/asn/rrc)
 add_subdirectory(src/asn/ngap)
 add_subdirectory(src/lib)
 add_subdirectory(src/CU)
+add_subdirectory(src/DU)
 add_subdirectory(src/ue)
 
 #################### CU EXECUTABLE ####################
@@ -29,6 +30,18 @@ target_link_libraries(nr-CU asn-rrc)
 target_link_libraries(nr-CU asn-ngap)
 target_link_libraries(nr-CU common-lib)
 target_link_libraries(nr-CU CU)
+
+#################### DU EXECUTABLE ####################
+
+add_executable(nr-DU src/DU.cpp)
+
+target_link_libraries(nr-DU pthread)
+
+target_compile_options(nr-DU PRIVATE -Wall -Wextra -pedantic)
+
+target_link_libraries(nr-DU asn-rrc)
+target_link_libraries(nr-DU common-lib)
+target_link_libraries(nr-DU DU)
 
 #################### UE EXECUTABLE ####################
 

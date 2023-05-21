@@ -305,9 +305,10 @@ struct CUConfig
     int tac{};
     NetworkSlice nssai{};
     std::vector<CUAmfConfig> amfConfigs{};
-    std::string linkIp{};
+    std::string f1apIp{};
     std::string ngapIp{};
     std::string gtpIp{};
+    uint16_t f1apPort{};
     std::optional<std::string> gtpAdvertiseIp{};
     bool ignoreStreamIds{};
 

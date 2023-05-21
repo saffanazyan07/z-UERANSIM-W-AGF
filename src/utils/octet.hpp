@@ -211,6 +211,10 @@ struct octet8
     {
     }
 
+    explicit octet8(double value) noexcept : value(value)
+    {
+    }
+
     octet8(uint8_t octet0, uint8_t octet1, uint8_t octet2, uint8_t octet3, uint8_t octet4, uint8_t octet5,
            uint8_t octet6, uint8_t octet7) noexcept
         : value{(static_cast<uint64_t>(octet0) << 56U) | (static_cast<uint64_t>(octet1) << 48U) |

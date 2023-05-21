@@ -90,6 +90,11 @@ void OctetString::appendOctet8(uint64_t v)
     appendOctet8(octet8{v});
 }
 
+void OctetString::appendOctet8(double v)
+{
+    appendOctet8(octet8{v});
+}
+
 void OctetString::appendOctet4(int v)
 {
     appendOctet4(octet4{v});

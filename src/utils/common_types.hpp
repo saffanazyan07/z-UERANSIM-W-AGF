@@ -174,13 +174,13 @@ enum class ECellCategory
 
 struct Vector3
 {
-    int x{};
-    int y{};
-    int z{};
+    double x{};
+    double y{};
+    double z{};
 
     Vector3() = default;
 
-    Vector3(int x, int y, int z) : x(x), y(y), z(z)
+    Vector3(double x, double y, double z) : x(x), y(y), z(z)
     {
     }
 };

@@ -50,6 +50,7 @@ class OctetString
     void appendOctet8(octet8 v);
     void appendOctet8(int64_t v);
     void appendOctet8(uint64_t v);
+    void appendOctet8(double v);
     void appendPadding(int length);
 
   public:

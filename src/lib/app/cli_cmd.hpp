@@ -18,6 +18,30 @@
 namespace app
 {
 
+struct DUCliCommand
+{
+    enum PR
+    {
+        STATUS,
+        INFO,
+//        AMF_LIST,
+//        AMF_INFO,
+//        UE_LIST,
+//        UE_COUNT,
+//        UE_RELEASE_REQ,
+    } present;
+
+    // CU_INFO
+    int cuId{};
+
+    // UE_RELEASE_REQ
+    int ueId{};
+
+    explicit DUCliCommand(PR present) : present(present)
+    {
+    }
+};
+
 struct CUCliCommand
 {
     enum PR
@@ -99,11 +123,14 @@ struct UeCliCommand
     }
 };
 
+std::unique_ptr<DUCliCommand> ParseDUCliCommand(std::vector<std::string> &&tokens, std::string &error,
+                                                std::string &output);
+
 std::unique_ptr<CUCliCommand> ParseCUCliCommand(std::vector<std::string> &&tokens, std::string &error,
                                                   std::string &output);
 
-std::unique_ptr<GnbCliCommand> ParseGnbCliCommand(std::vector<std::string> &&tokens, std::string &error,
-                                                  std::string &output);
+//std::unique_ptr<GnbCliCommand> ParseGnbCliCommand(std::vector<std::string> &&tokens, std::string &error,
+//                                                  std::string &output);
 
 std::unique_ptr<UeCliCommand> ParseUeCliCommand(std::vector<std::string> &&tokens, std::string &error,
                                                 std::string &output);

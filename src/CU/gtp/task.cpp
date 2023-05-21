@@ -5,7 +5,7 @@
 #include "task.hpp"
 
 #include <CU/gtp/proto.hpp>
-#include <CU/rls/task.hpp>
+//#include <CU/rls/task.hpp>
 #include <utils/constants.hpp>
 #include <utils/libc_error.hpp>
 
@@ -73,17 +73,17 @@ void GtpTask::onLoop()
         }
         break;
     }
-    case NtsMessageType::CU_RLS_TO_GTP: {
-        auto &w = dynamic_cast<NmCURlsToGtp &>(*msg);
-        switch (w.present)
-        {
-        case NmCURlsToGtp::DATA_PDU_DELIVERY: {
-            handleUplinkData(w.ueId, w.psi, std::move(w.pdu));
-            break;
-        }
-        }
-        break;
-    }
+//    case NtsMessageType::CU_RLS_TO_GTP: {
+//        auto &w = dynamic_cast<NmCURlsToGtp &>(*msg);
+//        switch (w.present)
+//        {
+//        case NmCURlsToGtp::DATA_PDU_DELIVERY: {
+//            handleUplinkData(w.ueId, w.psi, std::move(w.pdu));
+//            break;
+//        }
+//        }
+//        break;
+//    }
     case NtsMessageType::UDP_SERVER_RECEIVE:
         handleUdpReceive(dynamic_cast<udp::NwUdpServerReceive &>(*msg));
         break;
@@ -222,24 +222,24 @@ void GtpTask::handleUdpReceive(const udp::NwUdpServerReceive &msg)
 
     switch (gtp->msgType)
     {
-    case gtp::GtpMessage::MT_G_PDU: {
-        auto sessionInd = m_sessionTree.findByDownTeid(gtp->teid);
-        if (sessionInd == 0)
-        {
-            m_logger->err("TEID %d not found on GTP-U Downlink", gtp->teid);
-            return;
-        }
-
-        if (m_rateLimiter->allowDownlinkPacket(sessionInd, gtp->payload.length()))
-        {
-            auto w = std::make_unique<NmCUGtpToRls>(NmCUGtpToRls::DATA_PDU_DELIVERY);
-            w->ueId = GetUeId(sessionInd);
-            w->psi = GetPsi(sessionInd);
-            w->pdu = std::move(gtp->payload);
-            m_base->rlsTask->push(std::move(w));
-        }
-        return;
-    }
+//    case gtp::GtpMessage::MT_G_PDU: {
+//        auto sessionInd = m_sessionTree.findByDownTeid(gtp->teid);
+//        if (sessionInd == 0)
+//        {
+//            m_logger->err("TEID %d not found on GTP-U Downlink", gtp->teid);
+//            return;
+//        }
+//
+//        if (m_rateLimiter->allowDownlinkPacket(sessionInd, gtp->payload.length()))
+//        {
+//            auto w = std::make_unique<NmCUGtpToRls>(NmCUGtpToRls::DATA_PDU_DELIVERY);
+//            w->ueId = GetUeId(sessionInd);
+//            w->psi = GetPsi(sessionInd);
+//            w->pdu = std::move(gtp->payload);
+//            m_base->rlsTask->push(std::move(w));
+//        }
+//        return;
+//    }
     case gtp::GtpMessage::MT_ECHO_REQUEST: {
         gtp::GtpMessage gtpResponse{};
         gtpResponse.msgType = gtp::GtpMessage::MT_ECHO_RESPONSE;

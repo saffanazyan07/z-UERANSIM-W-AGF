@@ -25,9 +25,10 @@ void EncodeRlsMessage(const RlsMessage &msg, OctetString &stream)
     if (msg.msgType == EMessageType::HEARTBEAT)
     {
         auto &m = (const RlsHeartBeat &)msg;
-        stream.appendOctet4(m.simPos.x);
-        stream.appendOctet4(m.simPos.y);
-        stream.appendOctet4(m.simPos.z);
+        stream.appendOctet8(m.simPos.x);
+        stream.appendOctet8(m.simPos.y);
+        stream.appendOctet8(m.simPos.z);
+
     }
     else if (msg.msgType == EMessageType::HEARTBEAT_ACK)
     {

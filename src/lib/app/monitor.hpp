@@ -17,7 +17,8 @@ namespace app
 enum class ConnectionType
 {
     SCTP,
-    NGAP
+    NGAP,
+    F1AP
 };
 
 enum class NodeType
@@ -26,7 +27,9 @@ enum class NodeType
     UE,
     GNB,
     AMF,
-    UPF
+    UPF,
+    CU,
+    DU
 };
 
 enum class StateType

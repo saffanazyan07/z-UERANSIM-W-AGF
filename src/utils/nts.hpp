@@ -29,6 +29,8 @@ enum class NtsMessageType
     // Start of implementation specific types
     CU_STATUS_UPDATE,
     CU_CLI_COMMAND,
+    DU_STATUS_UPDATE,
+    DU_CLI_COMMAND,
     GNB_STATUS_UPDATE,
     GNB_CLI_COMMAND,
     UE_STATUS_UPDATE,
@@ -47,6 +49,16 @@ enum class NtsMessageType
     CU_RRC_TO_NGAP,
     CU_NGAP_TO_GTP,
     CU_SCTP,
+
+    //GNB_RLS_TO_RRC,
+    //GNB_RLS_TO_GTP,
+    //GNB_GTP_TO_RLS,
+    //GNB_RRC_TO_RLS,
+    //GNB_RLS_TO_RLS,
+    //DU_NGAP_TO_RRC,
+    //DU_RRC_TO_NGAP,
+    //DU_NGAP_TO_GTP,
+    DU_SCTP,
 
     GNB_RLS_TO_RRC,
     GNB_RLS_TO_GTP,

@@ -1,5 +1,5 @@
 //
-// Created by Hoonyong Park on 5/10/23.
+// Created by Hoonyong Park on 5/20/23.
 //
 
 #include <iostream>
@@ -8,7 +8,7 @@
 
 #include <unistd.h>
 
-#include <CU/CU.hpp>
+#include <DU/DU.hpp>
 #include <lib/app/base_app.hpp>
 #include <lib/app/cli_base.hpp>
 #include <lib/app/cli_cmd.hpp>
@@ -20,8 +20,8 @@
 #include <yaml-cpp/yaml.h>
 
 static app::CliServer *g_cliServer = nullptr;
-static nr::CU::CUConfig *g_refConfig = nullptr;
-static std::unordered_map<std::string, nr::CU::CentralUnit *> g_CUMap{};
+static nr::DU::DUConfig *g_refConfig = nullptr;
+static std::unordered_map<std::string, nr::DU::DistributedUnit *> g_DUMap{};
 static app::CliResponseTask *g_cliRespTask = nullptr;
 
 static struct Options
@@ -30,9 +30,9 @@ static struct Options
     bool disableCmd{};
 } g_options{};
 
-static nr::CU::CUConfig *ReadConfigYaml()
+static nr::DU::DUConfig *ReadConfigYaml()
 {
-    auto *result = new nr::CU::CUConfig();
+    auto *result = new nr::DU::DUConfig();
     auto config = YAML::LoadFile(g_options.configFile);
 
     result->plmn.mcc = yaml::GetInt32(config, "mcc", 1, 999);
@@ -40,15 +40,13 @@ static nr::CU::CUConfig *ReadConfigYaml()
     result->plmn.mnc = yaml::GetInt32(config, "mnc", 0, 999);
     result->plmn.isLongMnc = yaml::GetString(config, "mnc", 2, 3).size() == 3;
 
-    result->nci = yaml::GetInt64(config, "CU_ID", 0, 0xFFFFFFFFFll);
-    result->CUIdLength = yaml::GetInt32(config, "idLength", 22, 32);
+    result->nci = yaml::GetInt64(config, "DU_ID", 0, 0xFFFFFFFFFll);
+    result->DUIdLength = yaml::GetInt32(config, "idLength", 22, 32);
     result->tac = yaml::GetInt32(config, "tac", 0, 0xFFFFFF);
 
+    result->linkIp = yaml::GetIp(config, "linkIp");
     result->f1apIp = yaml::GetIp(config, "f1apIp");
-    result->ngapIp = yaml::GetIp(config, "ngapIp");
     result->gtpIp = yaml::GetIp(config, "gtpIp");
-
-    result->f1apPort = static_cast<uint16_t>(yaml::GetInt32(config, "f1apPort", 1024, 65535));
 
     if (yaml::HasField(config, "gtpAdvertiseIp"))
         result->gtpAdvertiseIp = yaml::GetIp(config, "gtpAdvertiseIp");
@@ -56,14 +54,14 @@ static nr::CU::CUConfig *ReadConfigYaml()
     result->ignoreStreamIds = yaml::GetBool(config, "ignoreStreamIds");
     result->pagingDrx = EPagingDrx::V128;
     result->name = "UERANSIM-CU-" + std::to_string(result->plmn.mcc) + "-" + std::to_string(result->plmn.mnc) + "-" +
-                   std::to_string(result->getCUId()); // NOTE: Avoid using "/" dir separator character.
+                   std::to_string(result->getDUId()); // NOTE: Avoid using "/" dir separator character.
 
-    for (auto &amfConfig : yaml::GetSequence(config, "amfConfigs"))
+    for (auto &cuConfig : yaml::GetSequence(config, "cuConfigs"))
     {
-        nr::CU::CUAmfConfig c{};
-        c.address = yaml::GetIp(amfConfig, "address");
-        c.port = static_cast<uint16_t>(yaml::GetInt32(amfConfig, "port", 1024, 65535));
-        result->amfConfigs.push_back(c);
+        nr::DU::DUCUConfig c{};
+        c.address = yaml::GetIp(cuConfig, "address");
+        c.port = static_cast<uint16_t>(yaml::GetInt32(cuConfig, "port", 1024, 65535));
+        result->cuConfigs.push_back(c);
     }
 
     for (auto &nssai : yaml::GetSequence(config, "slices"))
@@ -82,15 +80,15 @@ static void ReadOptions(int argc, char **argv)
 {
     opt::OptionsDescription desc{cons::Project,
                                  cons::Tag,
-                                 "5G-SA nr-CU implementation",
+                                 "5G-SA nr-DU implementation",
                                  cons::Owner,
-                                 "nr-CU",
+                                 "nr-DU",
                                  {"-c <config-file> [option...]"},
                                  {},
                                  true,
                                  false};
 
-    opt::OptionItem itemConfigFile = {'c', "config", "Use specified configuration file for nr-CU", "config-file"};
+    opt::OptionItem itemConfigFile = {'c', "config", "Use specified configuration file for nr-DU", "config-file"};
     opt::OptionItem itemDisableCmd = {'l', "disable-cmd", "Disable command line functionality for this instance",
                                       std::nullopt};
 
@@ -138,7 +136,7 @@ static void ReceiveCommand(app::CliMessage &msg)
     }
 
     std::string error{}, output{};
-    auto cmd = app::ParseCUCliCommand(std::move(tokens), error, output);
+    auto cmd = app::ParseDUCliCommand(std::move(tokens), error, output);
     if (!error.empty())
     {
         g_cliServer->sendMessage(app::CliMessage::Error(msg.clientAddr, error));
@@ -155,14 +153,14 @@ static void ReceiveCommand(app::CliMessage &msg)
         return;
     }
 
-    if (g_CUMap.count(msg.nodeName) == 0)
+    if (g_DUMap.count(msg.nodeName) == 0)
     {
         g_cliServer->sendMessage(app::CliMessage::Error(msg.clientAddr, "Node not found: " + msg.nodeName));
         return;
     }
 
-    auto *CU = g_CUMap[msg.nodeName];
-    CU->pushCommand(std::move(cmd), msg.clientAddr);
+    //auto *DU = g_DUMap[msg.nodeName];
+    //DU->pushCommand(std::move(cmd), msg.clientAddr);
 }
 
 static void Loop()
@@ -211,16 +209,16 @@ int main(int argc, char **argv)
         g_cliRespTask = new app::CliResponseTask(g_cliServer);
     }
 
-    auto *CU = new nr::CU::CentralUnit(g_refConfig, nullptr, g_cliRespTask);
-    g_CUMap[g_refConfig->name] = CU;
+    auto *DU = new nr::DU::DistributedUnit(g_refConfig, nullptr, g_cliRespTask);
+    g_DUMap[g_refConfig->name] = DU;
 
     if (!g_options.disableCmd)
     {
-        app::CreateProcTable(g_CUMap, g_cliServer->assignedAddress().getPort());
+        app::CreateProcTable(g_DUMap, g_cliServer->assignedAddress().getPort());
         g_cliRespTask->start();
     }
 
-    CU->start();
+    DU->start();
 
     while (true)
         Loop();

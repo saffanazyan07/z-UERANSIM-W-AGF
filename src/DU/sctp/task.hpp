@@ -1,5 +1,5 @@
 //
-// Created by Hoonyong Park on 5/11/23.
+// Created by Hoonyong Park on 5/20/23.
 //
 
 #pragma once
@@ -9,13 +9,13 @@
 #include <unordered_map>
 #include <vector>
 
-#include <CU/nts.hpp>
+#include <DU/nts.hpp>
 #include <lib/sctp/sctp.hpp>
 #include <utils/logger.hpp>
 #include <utils/nts.hpp>
 #include <utils/scoped_thread.hpp>
 
-namespace nr::CU
+namespace nr::DU
 {
 
 class SctpTask : public NtsTask
@@ -35,7 +35,7 @@ class SctpTask : public NtsTask
     std::unique_ptr<Logger> m_logger;
     std::unordered_map<int, ClientEntry *> m_clients;
 
-    friend class CUCmdHandler;
+    friend class DUCmdHandler;
 
   public:
     explicit SctpTask(TaskBase *base);
@@ -61,4 +61,4 @@ class SctpTask : public NtsTask
     void receiveSendMessage(int clientId, uint16_t stream, UniqueBuffer &&buffer);
 };
 
-} // namespace nr::CU
+} // namespace nr::DU
