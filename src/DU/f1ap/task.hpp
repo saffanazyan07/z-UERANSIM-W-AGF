@@ -1,27 +1,23 @@
 //
-// Created by Hoonyong Park on 5/20/23.
+// Created by Hoonyong Park on 5/25/23.
 //
 
 #pragma once
 
-#include <CU/f1ap/sctp_task.hpp>
+#include <DU/nts.hpp>
+#include <DU/types.hpp>
 
-#include <CU/nts.hpp>
-#include <CU/types.hpp>
-#include <lib/app/monitor.hpp>
-#include <utils/logger.hpp>
-#include <utils/nts.hpp>
-
-namespace nr::CU
+namespace nr::DU
 {
 
 class F1apTask : public NtsTask
 {
+
   private:
     TaskBase *m_base;
     std::unique_ptr<Logger> m_logger;
 
-    SctpServerTask *m_sctpServer;
+    F1apCUContext *m_cuCtx;
 
     friend class CUCmdHandler;
 
@@ -35,8 +31,8 @@ class F1apTask : public NtsTask
     void onQuit() override;
 
   private:
-
-
+    void createCUContext(const DUCUConfig &config);
 
 };
+
 }

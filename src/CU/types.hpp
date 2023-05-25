@@ -26,6 +26,7 @@ class NgapTask;
 class CURrcTask;
 //class CURlsTask;
 class SctpTask;
+class F1apTask;
 
 enum class EAmfState
 {
@@ -340,6 +341,7 @@ struct TaskBase
     NgapTask *ngapTask{};
     CURrcTask *rrcTask{};
     SctpTask *sctpTask{};
+    F1apTask *f1apTask{};
     //CURlsTask *rlsTask{};
 };
 

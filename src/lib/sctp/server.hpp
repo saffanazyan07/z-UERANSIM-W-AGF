@@ -18,11 +18,17 @@ class SctpServer
   private:
     int sd;
 
+
   public:
     SctpServer(const std::string &address, uint16_t port);
     ~SctpServer();
 
     void start();
+    void loop();
+    void quit();
+
+
+
 
 
     // TODO: Other functionalities

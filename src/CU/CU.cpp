@@ -6,6 +6,7 @@
 #include "app/task.hpp"
 #include "gtp/task.hpp"
 #include "ngap/task.hpp"
+#include "f1ap/task.hpp"
 //#include "rls/task.hpp"
 #include "rrc/task.hpp"
 #include "sctp/task.hpp"
@@ -28,6 +29,7 @@ CentralUnit::CentralUnit(CUConfig *config, app::INodeListener *nodeListener, Nts
     base->ngapTask = new NgapTask(base);
     base->rrcTask = new CURrcTask(base);
     base->gtpTask = new GtpTask(base);
+    base->f1apTask = new F1apTask(base);
 //    base->rlsTask = new CURlsTask(base);
 
     taskBase = base;
@@ -40,6 +42,7 @@ CentralUnit::~CentralUnit()
     taskBase->ngapTask->quit();
     taskBase->rrcTask->quit();
     taskBase->gtpTask->quit();
+    taskBase->f1apTask->quit();
 //    taskBase->rlsTask->quit();
 
     delete taskBase->appTask;
@@ -47,6 +50,7 @@ CentralUnit::~CentralUnit()
     delete taskBase->ngapTask;
     delete taskBase->rrcTask;
     delete taskBase->gtpTask;
+    delete taskBase->f1apTask;
 //    delete taskBase->rlsTask;
 
     delete taskBase->logBase;
@@ -62,6 +66,7 @@ void CentralUnit::start()
     taskBase->rrcTask->start();
 //    taskBase->rlsTask->start();
     taskBase->gtpTask->start();
+    taskBase->f1apTask->start();
 }
 
 void CentralUnit::pushCommand(std::unique_ptr<app::CUCliCommand> cmd, const InetAddress &address)

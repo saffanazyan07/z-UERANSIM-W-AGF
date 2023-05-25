@@ -19,7 +19,8 @@ namespace sctp
 
 enum class PayloadProtocolId
 {
-    NGAP = 60
+    NGAP = 60,
+    F1AP = 61
 };
 
 class SctpError : public std::runtime_error

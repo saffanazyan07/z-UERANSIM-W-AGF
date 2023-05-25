@@ -8,6 +8,7 @@
 
 #include "server.hpp"
 #include "internal.hpp"
+#include <iostream>
 
 sctp::SctpServer::SctpServer(const std::string &address, uint16_t port) : sd(0)
 {
@@ -15,8 +16,8 @@ sctp::SctpServer::SctpServer(const std::string &address, uint16_t port) : sd(0)
     {
         sd = CreateSocket();
         BindSocket(sd, address, port);
-        SetInitOptions(sd, 10, 10, 10, 10 * 1000);
-        SetEventOptions(sd);
+        SetInitOptions(sd, 64, 64, 64, 10 * 1000);
+        //SetEventOptions(sd);
         StartListening(sd);
     }
     catch (const SctpError &e)
@@ -34,4 +35,5 @@ sctp::SctpServer::~SctpServer()
 void sctp::SctpServer::start()
 {
     Accept(sd);
+
 }
