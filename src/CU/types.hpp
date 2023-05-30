@@ -14,6 +14,7 @@
 #include <utils/nts.hpp>
 #include <utils/octet_string.hpp>
 
+#include <utils/scoped_thread.hpp>
 #include <asn/ngap/ASN_NGAP_QosFlowSetupRequestList.h>
 #include <asn/rrc/ASN_RRC_InitialUE-Identity.h>
 
@@ -27,6 +28,7 @@ class CURrcTask;
 //class CURlsTask;
 class SctpTask;
 class F1apTask;
+class SctpServerTask;
 
 enum class EAmfState
 {
@@ -342,6 +344,7 @@ struct TaskBase
     CURrcTask *rrcTask{};
     SctpTask *sctpTask{};
     F1apTask *f1apTask{};
+    SctpServerTask *sctpServerTask{};
     //CURlsTask *rlsTask{};
 };
 

@@ -8,32 +8,56 @@
 
 #include "server.hpp"
 #include "internal.hpp"
-#include <iostream>
+#include <string.h>
 
-sctp::SctpServer::SctpServer(const std::string &address, uint16_t port) : sd(0)
+#define RECEIVE_BUFFER_SIZE 8192u
+
+namespace sctp
+{
+
+SctpServer::SctpServer(const std::string &address, uint16_t port, int ppid) : lfd(0), ppid(ppid)
 {
     try
     {
-        sd = CreateSocket();
-        BindSocket(sd, address, port);
-        SetInitOptions(sd, 64, 64, 64, 10 * 1000);
-        //SetEventOptions(sd);
-        StartListening(sd);
+        lfd = CreateSocket();
+        BindSocket(lfd, address, port);
+        SetInitOptions(lfd, 64, 64, 64, 10 * 1000);
+        // SetEventOptions(sd);
+        StartListening(lfd);
     }
     catch (const SctpError &e)
     {
-        CloseSocket(sd);
+        CloseSocket(lfd);
         throw;
     }
 }
 
-sctp::SctpServer::~SctpServer()
+SctpServer::~SctpServer()
 {
-    CloseSocket(sd);
+    CloseSocket(lfd);
 }
 
-void sctp::SctpServer::start()
+int SctpServer::Accept()
 {
-    Accept(sd);
+    int cfd = sctp::Accept(lfd);
+
+    SetEventOptions(cfd);
+
+    return cfd;
+}
+void SctpServer::CloseSocket(int fd)
+{
+    sctp::CloseSocket(fd);
+}
+
+void SctpServer::send(int cfd, uint16_t stream, const uint8_t *buffer, size_t offset, size_t length)
+{
+    SendMessage(cfd, buffer + offset, length, static_cast<uint32_t>(ppid), stream);
+}
+
+void SctpServer::receive(int cfd, ISctpHandler *handler)
+{
+    ReceiveMessage(cfd, static_cast<uint32_t>(ppid), handler);
+}
 
 }

@@ -279,6 +279,51 @@ struct NmCUSctp : NtsMessage
     }
 };
 
+struct NmCUF1APSctp : NtsMessage
+{
+    enum PR
+    {
+        CONNECTION_REQUEST,
+        CONNECTION_CLOSE,
+        ASSOCIATION_SETUP,
+        ASSOCIATION_SHUTDOWN,
+        RECEIVE_MESSAGE,
+        SEND_MESSAGE,
+        UNHANDLED_NOTIFICATION,
+    } present;
+
+    // CONNECTION_REQUEST
+    // CONNECTION_CLOSE
+    // ASSOCIATION_SETUP
+    // ASSOCIATION_SHUTDOWN
+    // RECEIVE_MESSAGE
+    // SEND_MESSAGE
+    // UNHANDLED_NOTIFICATION
+    int clientId{};
+
+    // CONNECTION_REQUEST
+    std::string localAddress{};
+    uint16_t localPort{};
+    std::string remoteAddress{};
+    uint16_t remotePort{};
+    sctp::PayloadProtocolId ppid{};
+    NtsTask *associatedTask{};
+
+    // ASSOCIATION_SETUP
+    int associationId{};
+    int inStreams{};
+    int outStreams{};
+
+    // RECEIVE_MESSAGE
+    // SEND_MESSAGE
+    UniqueBuffer buffer{};
+    uint16_t stream{};
+
+    explicit NmCUF1APSctp(PR present) : NtsMessage(NtsMessageType::CU_F1AP_SCTP), present(present)
+    {
+    }
+};
+
 struct NmCUStatusUpdate : NtsMessage
 {
     static constexpr const int NGAP_IS_UP = 1;

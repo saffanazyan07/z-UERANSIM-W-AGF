@@ -49,6 +49,7 @@ enum class NtsMessageType
     CU_RRC_TO_NGAP,
     CU_NGAP_TO_GTP,
     CU_SCTP,
+    CU_F1AP_SCTP,
 
     //GNB_RLS_TO_RRC,
     //GNB_RLS_TO_GTP,

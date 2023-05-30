@@ -8,7 +8,11 @@
 
 #pragma once
 
+#include <lib/sctp/types.hpp>
+
 #include <string>
+#include <unordered_map>
+
 
 namespace sctp
 {
@@ -16,18 +20,21 @@ namespace sctp
 class SctpServer
 {
   private:
-    int sd;
+    int lfd;
+    int ppid;
+
 
 
   public:
-    SctpServer(const std::string &address, uint16_t port);
+    SctpServer(const std::string &address, uint16_t port, int ppid);
     ~SctpServer();
 
-    void start();
-    void loop();
-    void quit();
+    int Accept();
+    void CloseSocket(int fd);
 
+    void receive(int cfd, ISctpHandler *handler);
 
+    void send(int cfd, uint16_t stream, const uint8_t *buffer, size_t offset, size_t length);
 
 
 

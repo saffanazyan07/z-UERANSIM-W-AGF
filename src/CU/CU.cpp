@@ -26,6 +26,7 @@ CentralUnit::CentralUnit(CUConfig *config, app::INodeListener *nodeListener, Nts
 
     base->appTask = new CUAppTask(base);
     base->sctpTask = new SctpTask(base);
+    base->sctpServerTask = new SctpServerTask(base);
     base->ngapTask = new NgapTask(base);
     base->rrcTask = new CURrcTask(base);
     base->gtpTask = new GtpTask(base);
@@ -39,14 +40,17 @@ CentralUnit::~CentralUnit()
 {
     taskBase->appTask->quit();
     taskBase->sctpTask->quit();
+    taskBase->sctpServerTask->quit();
     taskBase->ngapTask->quit();
     taskBase->rrcTask->quit();
     taskBase->gtpTask->quit();
     taskBase->f1apTask->quit();
+
 //    taskBase->rlsTask->quit();
 
     delete taskBase->appTask;
     delete taskBase->sctpTask;
+    delete taskBase->sctpServerTask;
     delete taskBase->ngapTask;
     delete taskBase->rrcTask;
     delete taskBase->gtpTask;
@@ -62,6 +66,7 @@ void CentralUnit::start()
 {
     taskBase->appTask->start();
     taskBase->sctpTask->start();
+    taskBase->sctpServerTask->start();
     taskBase->ngapTask->start();
     taskBase->rrcTask->start();
 //    taskBase->rlsTask->start();

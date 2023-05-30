@@ -115,7 +115,7 @@ void CloseSocket(int sd)
     close(sd);
 }
 
-void Accept(int sd)
+int Accept(int sd)
 {
     sockaddr saddr{};
     socklen_t saddr_size{};
@@ -123,9 +123,8 @@ void Accept(int sd)
     int clientSd = accept(sd, &saddr, &saddr_size);
     if (clientSd < 0)
         ThrowError("SCTP accept failure: ", errno);
-    else
-        ThrowError("SCTP accept Success: ", errno);
 
+    return clientSd;
 }
 
 void Connect(int sd, const std::string &address, uint16_t port)
