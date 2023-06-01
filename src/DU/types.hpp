@@ -27,6 +27,13 @@ class DURrcTask;
 class DURlsTask;
 class SctpTask;
 
+enum class ECUState
+{
+    NOT_CONNECTED = 0,
+    WAITING_F1_SETUP,
+    CONNECTED
+};
+
 struct SctpAssociation
 {
     int associationId{};
@@ -41,14 +48,13 @@ struct DUStatusInfo
 
 struct F1apCUContext
 {
-    int ctxId{};
     SctpAssociation association{};
     int nextStream{}; // next available SCTP stream for uplink
     std::string address{};
     uint16_t port{};
     std::string CUName{};
     int64_t relativeCapacity{};
-    //EAmfState state{};
+    ECUState state{};
     //OverloadInfo overloadInfo{};
     //std::vector<ServedGuami *> servedGuamiList{};
     std::vector<PlmnSupport *> plmnSupportList{};

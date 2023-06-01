@@ -26,7 +26,7 @@ class DistributedUnit
 
   public:
     void start();
-    //void pushCommand(std::unique_ptr<app::DUCliCommand> cmd, const InetAddress &address);
+    void pushCommand(std::unique_ptr<app::DUCliCommand> cmd, const InetAddress &address);
 };
 
 } // namespace nr::DU

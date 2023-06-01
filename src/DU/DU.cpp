@@ -64,9 +64,9 @@ void DistributedUnit::start()
 //    taskBase->gtpTask->start();
 }
 
-//void DistributedUnit::pushCommand(std::unique_ptr<app::DUCliCommand> cmd, const InetAddress &address)
-//{
-//    taskBase->appTask->push((std::make_unique<NmDUCliCommand>(std::move(cmd), address)));
-//}
+void DistributedUnit::pushCommand(std::unique_ptr<app::DUCliCommand> cmd, const InetAddress &address)
+{
+    taskBase->appTask->push((std::make_unique<NmDUCliCommand>(std::move(cmd), address)));
+}
 
 } // namespace nr::DU

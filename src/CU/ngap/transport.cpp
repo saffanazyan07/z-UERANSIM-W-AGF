@@ -117,7 +117,7 @@ void NgapTask::sendNgapNonUe(int associatedAmf, ASN_NGAP_NGAP_PDU *pdu)
 
         if (m_base->nodeListener)
         {
-            std::string xer = ngap_encode::EncodeXer(asn_DEF_ASN_NGAP_NGAP_PDU, pdu);
+            std::string xer = f1ap_encode::EncodeXer(asn_DEF_ASN_NGAP_NGAP_PDU, pdu);
             if (xer.length() > 0)
             {
                 m_base->nodeListener->onSend(app::NodeType::CU, m_base->config->name, app::NodeType::AMF, amf->amfName,

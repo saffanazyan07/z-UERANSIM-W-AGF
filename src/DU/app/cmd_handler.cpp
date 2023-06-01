@@ -6,9 +6,9 @@
 
 #include <DU/app/task.hpp>
 //#include <DU/gtp/task.hpp>
-//#include <DU/f1ap/task.hpp>
+#include <DU/f1ap/task.hpp>
 //#include <DU/rrc/task.hpp>
-//#include <DU/sctp/task.hpp>
+#include <DU/sctp/task.hpp>
 #include <utils/common.hpp>
 #include <utils/printer.hpp>
 
@@ -32,18 +32,18 @@ void DUCmdHandler::pauseTasks()
 {
 //    m_base->gtpTask->requestPause();
 //    m_base->rlsTask->requestPause();
-//    m_base->f1apTask->requestPause();
+    m_base->f1apTask->requestPause();
 //    m_base->rrcTask->requestPause();
-//    m_base->sctpTask->requestPause();
+    m_base->sctpTask->requestPause();
 }
 
 void DUCmdHandler::unpauseTasks()
 {
 //    m_base->gtpTask->requestUnpause();
 //    m_base->rlsTask->requestUnpause();
-//    m_base->f1apTask->requestUnpause();
+    m_base->f1apTask->requestUnpause();
 //    m_base->rrcTask->requestUnpause();
-//    m_base->sctpTask->requestUnpause();
+    m_base->sctpTask->requestUnpause();
 }
 
 bool DUCmdHandler::isAllPaused()
@@ -52,12 +52,12 @@ bool DUCmdHandler::isAllPaused()
 //        return false;
 //    //    if (!m_base->rlsTask->isPauseConfirmed())
 //    //        return false;
-//    if (!m_base->f1apTask->isPauseConfirmed())
-//        return false;
+    if (!m_base->f1apTask->isPauseConfirmed())
+        return false;
 //    if (!m_base->rrcTask->isPauseConfirmed())
 //        return false;
-//    if (!m_base->sctpTask->isPauseConfirmed())
-//        return false;
+    if (!m_base->sctpTask->isPauseConfirmed())
+        return false;
     return true;
 }
 

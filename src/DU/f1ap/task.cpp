@@ -22,7 +22,7 @@ void F1apTask::onStart()
         m_logger->warn("No CU configuration is provided");
 
     auto msg = std::make_unique<NmDUSctp>(NmDUSctp::CONNECTION_REQUEST);
-    msg->clientId = m_cuCtx->ctxId;
+    msg->clientId = 0;
     msg->localAddress = m_base->config->f1apIp;
     msg->localPort = 0;
     msg->remoteAddress = m_cuCtx->address;
@@ -34,6 +34,55 @@ void F1apTask::onStart()
 
 void F1apTask::onLoop()
 {
+    auto msg = take();
+    if (!msg)
+        return;
+
+    switch (msg->msgType)
+    {
+//    case NtsMessageType::CU_RRC_TO_NGAP: {
+//        auto &w = dynamic_cast<NmCURrcToNgap &>(*msg);
+//        switch (w.present)
+//        {
+//        case NmCURrcToNgap::INITIAL_NAS_DELIVERY: {
+//            handleInitialNasTransport(w.ueId, w.pdu, w.rrcEstablishmentCause, w.sTmsi);
+//            break;
+//        }
+//        case NmCURrcToNgap::UPLINK_NAS_DELIVERY: {
+//            handleUplinkNasTransport(w.ueId, w.pdu);
+//            break;
+//        }
+//        case NmCURrcToNgap::RADIO_LINK_FAILURE: {
+//            handleRadioLinkFailure(w.ueId);
+//            break;
+//        }
+//        }
+//        break;
+//    }
+    case NtsMessageType::DU_SCTP: {
+        auto &w = dynamic_cast<NmDUSctp &>(*msg);
+        switch (w.present)
+        {
+        case NmDUSctp::ASSOCIATION_SETUP:
+            handleAssociationSetup(w.associationId, w.inStreams, w.outStreams);
+            break;
+        case NmDUSctp::RECEIVE_MESSAGE:
+            handleSctpMessage(w.stream, w.buffer);
+            break;
+        case NmDUSctp::ASSOCIATION_SHUTDOWN:
+            handleAssociationShutdown();
+            break;
+        default:
+            m_logger->unhandledNts(*msg);
+            break;
+        }
+        break;
+    }
+    default: {
+        m_logger->unhandledNts(*msg);
+        break;
+    }
+    }
 }
 
 void F1apTask::onQuit()
@@ -41,14 +90,6 @@ void F1apTask::onQuit()
     delete m_cuCtx;
 }
 
-void F1apTask::createCUContext(const DUCUConfig &conf)
-{
-    auto *ctx = new F1apCUContext();
-    ctx->ctxId = 0;
-    //ctx->state = EAmfState::NOT_CONNECTED;
-    ctx->address = conf.address;
-    ctx->port = conf.port;
-    m_cuCtx = ctx;
-}
+
 
 }

@@ -33,7 +33,6 @@ Json ToJson(const DUConfig &v)
 Json ToJson(const F1apCUContext &v)
 {
     return Json::Obj({
-        {"id", v.ctxId},
         {"name", v.CUName},
         {"address", ((utils::GetIpVersion(v.address) == 6) ? "[" + v.address + "]" : v.address) + ":" + std::to_string(v.port)},
         //{"state", ToJson(v.state).str()},

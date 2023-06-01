@@ -7,8 +7,16 @@
 #include <DU/nts.hpp>
 #include <DU/types.hpp>
 
+
+extern "C"
+{
+    struct ASN_F1AP_F1AP_PDU;
+}
+
 namespace nr::DU
 {
+
+class SctpTask;
 
 class F1apTask : public NtsTask
 {
@@ -32,6 +40,16 @@ class F1apTask : public NtsTask
 
   private:
     void createCUContext(const DUCUConfig &config);
+    void deleteCUContext();
+
+    /* Interface management */
+    void handleAssociationSetup(int ascId, int inCount, int outCount);
+    void handleAssociationShutdown();
+    void sendF1SetupRequest();
+
+    /* Message transport */
+    void handleSctpMessage(uint16_t stream, const UniqueBuffer &buffer);
+    void sendF1apNonUe(ASN_F1AP_F1AP_PDU *pdu);
 
 };
 
