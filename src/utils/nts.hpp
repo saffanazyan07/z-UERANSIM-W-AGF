@@ -60,6 +60,7 @@ enum class NtsMessageType
     //DU_RRC_TO_NGAP,
     //DU_NGAP_TO_GTP,
     DU_SCTP,
+    DU_F1AP_TO_RRC,
 
     GNB_RLS_TO_RRC,
     GNB_RLS_TO_GTP,

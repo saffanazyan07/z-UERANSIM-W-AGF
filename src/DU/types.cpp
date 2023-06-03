@@ -39,7 +39,7 @@ Json ToJson(const F1apCUContext &v)
         {"capacity", v.relativeCapacity},
         {"association", ToJson(v.association)},
         //{"served-guami", ::ToJson(v.servedGuamiList)},
-        {"served-plmn", ::ToJson(v.plmnSupportList)},
+        //{"served-plmn", ::ToJson(v.plmnSupportList)},
     });
 }
 

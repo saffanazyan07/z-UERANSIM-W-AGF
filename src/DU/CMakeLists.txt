@@ -7,6 +7,5 @@ target_compile_options(DU PRIVATE -Wall -Wextra -pedantic -Wno-unused-parameter)
 
 target_link_libraries(DU asn-ngap)
 target_link_libraries(DU asn-rrc)
-target_link_libraries(CU asn-f1ap)
 target_link_libraries(DU common-lib)
 

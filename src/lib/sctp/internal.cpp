@@ -164,6 +164,7 @@ void SendMessage(int sd, const uint8_t *buffer, size_t length, int ppid, uint16_
 {
     if (sctp_sendmsg(sd, buffer, length, nullptr, 0, htonl(ppid), 0, stream, 0, 0) < 0)
         ThrowError("SCTP send message failure: ", errno);
+
 }
 
 void ReceiveMessage(int sd, uint32_t ppid, ISctpHandler *handler)

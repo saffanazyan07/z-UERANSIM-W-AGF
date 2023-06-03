@@ -67,6 +67,32 @@ struct NmDUSctp : NtsMessage
     }
 };
 
+struct NmDUF1apToRrc : NtsMessage
+{
+    enum PR
+    {
+        RADIO_POWER_ON,
+        NAS_DELIVERY,
+        AN_RELEASE,
+        PAGING,
+    } present;
+
+    // NAS_DELIVERY
+    // AN_RELEASE
+    int ueId{};
+
+    // NAS_DELIVERY
+    OctetString pdu{};
+
+    // PAGING
+    //asn::Unique<ASN_NGAP_FiveG_S_TMSI> uePagingTmsi{};
+    //asn::Unique<ASN_NGAP_TAIListForPaging> taiListForPaging{};
+
+    explicit NmDUF1apToRrc(PR present) : NtsMessage(NtsMessageType::DU_F1AP_TO_RRC), present(present)
+    {
+    }
+};
+
 struct NmDUStatusUpdate : NtsMessage
 {
     static constexpr const int F1AP_IS_UP = 1;

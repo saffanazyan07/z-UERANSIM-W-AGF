@@ -4,7 +4,7 @@
 
 #include "task.hpp"
 
-namespace nr::DU
+namespace nr::CU
 {
 
 std::string F1apTask::decode(const UniqueBuffer &buffer)

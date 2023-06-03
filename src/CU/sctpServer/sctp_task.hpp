@@ -2,6 +2,8 @@
 // Created by Hoonyong Park on 5/25/23.
 //
 
+#pragma once
+
 #include "CU/nts.hpp"
 #include "CU/types.hpp"
 #include "utils/logger.hpp"

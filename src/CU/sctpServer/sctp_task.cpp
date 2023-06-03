@@ -200,53 +200,6 @@ void SctpServerTask::DeleteClientEntry(ClientSock *entry)
     delete entry;
 }
 
-//void SctpServerTask::receiveSctpConnectionSetupRequest(int clientId, const std::string &localAddress, uint16_t localPort,
-//                                                 const std::string &remoteAddress, uint16_t remotePort,
-//                                                 sctp::PayloadProtocolId ppid, NtsTask *associatedTask)
-//{
-//    m_logger->info("Trying to establish SCTP connection... (%s:%d)", remoteAddress.c_str(), remotePort);
-//
-//    auto *client = new sctp::SctpClient(ppid);
-//
-//    try
-//    {
-//        client->bind(localAddress, localPort);
-//    }
-//    catch (const sctp::SctpError &exc)
-//    {
-//        m_logger->err("Binding to %s:%d failed. %s", localAddress.c_str(), localPort, exc.what());
-//        delete client;
-//        return;
-//    }
-//
-//    try
-//    {
-//        client->connect(remoteAddress, remotePort);
-//    }
-//    catch (const sctp::SctpError &exc)
-//    {
-//        m_logger->err("Connecting to %s:%d failed. %s", remoteAddress.c_str(), remotePort, exc.what());
-//        delete client;
-//        return;
-//    }
-//
-//    m_logger->info("SCTP connection established (%s:%d)", remoteAddress.c_str(), remotePort);
-//
-//    sctp::ISctpHandler *handler = new SctpServerHandler(this, clientId);
-//
-//    auto *entry = new ClientSock;
-//    m_clients[clientId] = entry;
-//
-//    entry->cfd = clientId;
-//    entry->handler = handler;
-//    entry->associatedTask = associatedTask;
-//    entry->receiverThread = new ScopedThread(
-//        [](void *arg) { ReceiverThread(reinterpret_cast<std::pair<sctp::SctpClient *, sctp::ISctpHandler *> *>(arg)); },
-//        new std::pair<sctp::SctpClient *, sctp::ISctpHandler *>(client, handler));
-//}
-
-
-
 void SctpServerTask::receiveAssociationSetup(int clientId, int associationId, int inStreams, int outStreams)
 {
     m_logger->debug("SCTP association setup ascId[%d]", associationId);

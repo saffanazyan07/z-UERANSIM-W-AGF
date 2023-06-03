@@ -44,6 +44,13 @@ struct SctpAssociation
     int outStreams{};
 };
 
+struct F1apDuContext
+{
+    int ctxId{};
+    int gNB_DU_ID{};
+//    int cellID;
+};
+
 struct Guami
 {
     Plmn plmn{};

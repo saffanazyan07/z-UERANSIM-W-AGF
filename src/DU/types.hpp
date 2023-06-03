@@ -27,6 +27,20 @@ class DURrcTask;
 class DURlsTask;
 class SctpTask;
 
+struct RrcUeContext
+{
+    const int ueId{};
+
+    int64_t initialId = -1; // 39-bit value, or -1
+    bool isInitialIdSTmsi{}; // TMSI-part-1 or a random value
+    int64_t establishmentCause{};
+    //std::optional<GutiMobileIdentity> sTmsi{};
+
+    explicit RrcUeContext(const int ueId) : ueId(ueId)
+    {
+    }
+};
+
 enum class ECUState
 {
     NOT_CONNECTED = 0,
@@ -57,7 +71,7 @@ struct F1apCUContext
     ECUState state{};
     //OverloadInfo overloadInfo{};
     //std::vector<ServedGuami *> servedGuamiList{};
-    std::vector<PlmnSupport *> plmnSupportList{};
+    //std::vector<PlmnSupport *> plmnSupportList{};
 };
 
 struct DUCUConfig
