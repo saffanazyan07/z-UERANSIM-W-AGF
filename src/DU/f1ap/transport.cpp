@@ -14,7 +14,7 @@ using namespace std;
 namespace nr::DU
 {
 
-vector<string> split(string input, char delimiter)
+vector<string> F1apTask::split(string input, char delimiter)
 {
     vector<string> answer;
     stringstream ss(input);
@@ -48,9 +48,14 @@ void F1apTask::handleSctpMessage(uint16_t stream, const UniqueBuffer &buffer)
         m_logger->debug("F1 Setup Response received From CU");
         receiveF1SetupResponse();
     }
+    else if (msg.front() == "DLRrcMessageTransfer")
+    {
+        m_logger->debug("DL Rrc Message Transfer received From CU");
+        receiveDLRrcMessageTransfer(msg);
+    }
 }
 
-void F1apTask::sendF1apNonUe(std::string *pdu)
+void F1apTask::sendF1ap(std::string *pdu)
 {
     auto *cu = m_cuCtx;
     if (cu == nullptr)
@@ -77,6 +82,35 @@ void F1apTask::sendF1apNonUe(std::string *pdu)
 
 
     //delete pdu;
+}
+
+void F1apTask::handleULRrcTransfer(rrc::RrcChannel rrcChannel, std::string pdu)
+{
+    m_logger->debug("UL RRC Transfer");
+
+    auto *cu = m_cuCtx;
+    if (cu == nullptr)
+        return;
+
+    std::string* buffer = new std::string();
+    *buffer = "ULRrcMessageTransfer|";
+
+    switch (rrcChannel)
+    {
+    case rrc::RrcChannel::UL_CCCH: {
+        *buffer = *buffer + "UL_CCCH|";
+        break;
+    }
+    case rrc::RrcChannel::UL_DCCH: {
+        *buffer = *buffer + "UL_DCCH|";
+        break;
+    }
+    default:
+        break;
+    }
+
+    *buffer = *buffer + pdu;
+    sendF1ap(buffer);
 }
 
 }

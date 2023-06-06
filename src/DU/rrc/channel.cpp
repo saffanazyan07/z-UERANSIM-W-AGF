@@ -1,37 +1,19 @@
 //
-// This file is a part of UERANSIM open source project.
-// Copyright (c) 2021 ALİ GÜNGÖR.
-//
-// The software and all associated files are licensed under GPL-3.0
-// and subject to the terms and conditions defined in LICENSE file.
+// Created by Hoonyong Park on 6/3/23.
 //
 
 #include "task.hpp"
 
-//#include <CU/rls/task.hpp>
+#include <DU/rls/task.hpp>
 #include <lib/rrc/encode.hpp>
 
 #include <asn/rrc/ASN_RRC_UL-CCCH-Message.h>
 #include <asn/rrc/ASN_RRC_UL-DCCH-Message.h>
 
-namespace nr::CU
+namespace nr::DU
 {
 
-void CURrcTask::handleUplinkRrcCCCH(int duId, int gNB_DU_ID, std::string data)
-{
-    auto msg = split(data, '|');
-    if (msg.front() == "RRCSetupRequest")
-    {
-        receiveRrcSetupRequest(duId, gNB_DU_ID, data);
-    }
-}
-
-void CURrcTask::handleUplinkRrcDCCH(int duId, int gNB_DU_ID, std::string data)
-{
-    //if ()
-}
-
-void CURrcTask::handleUplinkRrc(int ueId, rrc::RrcChannel channel, const OctetString &rrcPdu)
+void DURrcTask::handleUplinkRrc(int ueId, rrc::RrcChannel channel, const OctetString &rrcPdu)
 {
     switch (channel)
     {
@@ -79,92 +61,92 @@ void CURrcTask::handleUplinkRrc(int ueId, rrc::RrcChannel channel, const OctetSt
     }
 }
 
-void CURrcTask::sendRrcMessage(ASN_RRC_BCCH_BCH_Message *msg)
+void DURrcTask::sendRrcMessage(ASN_RRC_BCCH_BCH_Message *msg)
 {
-    /*OctetString pdu = rrc::encode::EncodeS(asn_DEF_ASN_RRC_BCCH_BCH_Message, msg);
+    OctetString pdu = rrc::encode::EncodeS(asn_DEF_ASN_RRC_BCCH_BCH_Message, msg);
     if (pdu.length() == 0)
     {
         m_logger->err("RRC BCCH-BCH encoding failed.");
         return;
     }
 
-    auto w = std::make_unique<NmCURrcToRls>(NmCURrcToRls::RRC_PDU_DELIVERY);
+    auto w = std::make_unique<NmDURrcToRls>(NmDURrcToRls::RRC_PDU_DELIVERY);
     w->ueId = 0;
     w->channel = rrc::RrcChannel::BCCH_BCH;
     w->pdu = std::move(pdu);
-    m_base->rlsTask->push(std::move(w));*/
+    m_base->rlsTask->push(std::move(w));
 }
 
-void CURrcTask::sendRrcMessage(ASN_RRC_BCCH_DL_SCH_Message *msg)
+void DURrcTask::sendRrcMessage(ASN_RRC_BCCH_DL_SCH_Message *msg)
 {
-    /*OctetString pdu = rrc::encode::EncodeS(asn_DEF_ASN_RRC_BCCH_DL_SCH_Message, msg);
+    OctetString pdu = rrc::encode::EncodeS(asn_DEF_ASN_RRC_BCCH_DL_SCH_Message, msg);
     if (pdu.length() == 0)
     {
         m_logger->err("RRC BCCH-DL-SCH encoding failed.");
         return;
     }
 
-    auto w = std::make_unique<NmCURrcToRls>(NmCURrcToRls::RRC_PDU_DELIVERY);
+    auto w = std::make_unique<NmDURrcToRls>(NmDURrcToRls::RRC_PDU_DELIVERY);
     w->ueId = 0;
     w->channel = rrc::RrcChannel::BCCH_DL_SCH;
     w->pdu = std::move(pdu);
-    m_base->rlsTask->push(std::move(w));*/
+    m_base->rlsTask->push(std::move(w));
 }
 
-void CURrcTask::sendRrcMessage(int ueId, ASN_RRC_DL_CCCH_Message *msg)
+void DURrcTask::sendRrcMessage(int ueId, ASN_RRC_DL_CCCH_Message *msg)
 {
-//    OctetString pdu = rrc::encode::EncodeS(asn_DEF_ASN_RRC_DL_CCCH_Message, msg);
-//    if (pdu.length() == 0)
-//    {
-//        m_logger->err("RRC DL-CCCH encoding failed.");
-//        return;
-//    }
-//
-//    auto w = std::make_unique<NmCURrcToRls>(NmCURrcToRls::RRC_PDU_DELIVERY);
-//    w->ueId = ueId;
-//    w->channel = rrc::RrcChannel::DL_CCCH;
-//    w->pdu = std::move(pdu);
-//    m_base->rlsTask->push(std::move(w));
+    OctetString pdu = rrc::encode::EncodeS(asn_DEF_ASN_RRC_DL_CCCH_Message, msg);
+    if (pdu.length() == 0)
+    {
+        m_logger->err("RRC DL-CCCH encoding failed.");
+        return;
+    }
+
+    auto w = std::make_unique<NmDURrcToRls>(NmDURrcToRls::RRC_PDU_DELIVERY);
+    w->ueId = ueId;
+    w->channel = rrc::RrcChannel::DL_CCCH;
+    w->pdu = std::move(pdu);
+    m_base->rlsTask->push(std::move(w));
 }
 
-void CURrcTask::sendRrcMessage(int ueId, ASN_RRC_DL_DCCH_Message *msg)
+void DURrcTask::sendRrcMessage(int ueId, ASN_RRC_DL_DCCH_Message *msg)
 {
-//    OctetString pdu = rrc::encode::EncodeS(asn_DEF_ASN_RRC_DL_DCCH_Message, msg);
-//    if (pdu.length() == 0)
-//    {
-//        m_logger->err("RRC DL-DCCH encoding failed.");
-//        return;
-//    }
-//
-//    auto w = std::make_unique<NmCURrcToRls>(NmCURrcToRls::RRC_PDU_DELIVERY);
-//    w->ueId = ueId;
-//    w->channel = rrc::RrcChannel::DL_DCCH;
-//    w->pdu = std::move(pdu);
-//    m_base->rlsTask->push(std::move(w));
+    OctetString pdu = rrc::encode::EncodeS(asn_DEF_ASN_RRC_DL_DCCH_Message, msg);
+    if (pdu.length() == 0)
+    {
+        m_logger->err("RRC DL-DCCH encoding failed.");
+        return;
+    }
+
+    auto w = std::make_unique<NmDURrcToRls>(NmDURrcToRls::RRC_PDU_DELIVERY);
+    w->ueId = ueId;
+    w->channel = rrc::RrcChannel::DL_DCCH;
+    w->pdu = std::move(pdu);
+    m_base->rlsTask->push(std::move(w));
 }
 
-void CURrcTask::sendRrcMessage(ASN_RRC_PCCH_Message *msg)
+void DURrcTask::sendRrcMessage(ASN_RRC_PCCH_Message *msg)
 {
-//    OctetString pdu = rrc::encode::EncodeS(asn_DEF_ASN_RRC_PCCH_Message, msg);
-//    if (pdu.length() == 0)
-//    {
-//        m_logger->err("RRC PCCH encoding failed.");
-//        return;
-//    }
-//
-//    auto w = std::make_unique<NmCURrcToRls>(NmCURrcToRls::RRC_PDU_DELIVERY);
-//    w->ueId = 0;
-//    w->channel = rrc::RrcChannel::PCCH;
-//    w->pdu = std::move(pdu);
-//    m_base->rlsTask->push(std::move(w));
+    OctetString pdu = rrc::encode::EncodeS(asn_DEF_ASN_RRC_PCCH_Message, msg);
+    if (pdu.length() == 0)
+    {
+        m_logger->err("RRC PCCH encoding failed.");
+        return;
+    }
+
+    auto w = std::make_unique<NmDURrcToRls>(NmDURrcToRls::RRC_PDU_DELIVERY);
+    w->ueId = 0;
+    w->channel = rrc::RrcChannel::PCCH;
+    w->pdu = std::move(pdu);
+    m_base->rlsTask->push(std::move(w));
 }
 
-void CURrcTask::receiveRrcMessage(int ueId, ASN_RRC_BCCH_BCH_Message *msg)
+void DURrcTask::receiveRrcMessage(int ueId, ASN_RRC_BCCH_BCH_Message *msg)
 {
     // TODO
 }
 
-void CURrcTask::receiveRrcMessage(int ueId, ASN_RRC_UL_CCCH_Message *msg)
+void DURrcTask::receiveRrcMessage(int ueId, ASN_RRC_UL_CCCH_Message *msg)
 {
     if (msg->message.present != ASN_RRC_UL_CCCH_MessageType_PR_c1)
         return;
@@ -175,7 +157,8 @@ void CURrcTask::receiveRrcMessage(int ueId, ASN_RRC_UL_CCCH_Message *msg)
     case ASN_RRC_UL_CCCH_MessageType__c1_PR_NOTHING:
         return;
     case ASN_RRC_UL_CCCH_MessageType__c1_PR_rrcSetupRequest:
-        //receiveRrcSetupRequest(ueId, *c1->choice.rrcSetupRequest);
+        receiveRrcSetupRequest(ueId, *c1->choice.rrcSetupRequest);
+        m_logger->debug("RRC Setup Request Recevied From UE[%d]", ueId);
         break;
     case ASN_RRC_UL_CCCH_MessageType__c1_PR_rrcResumeRequest:
         break; // todo
@@ -186,12 +169,12 @@ void CURrcTask::receiveRrcMessage(int ueId, ASN_RRC_UL_CCCH_Message *msg)
     }
 }
 
-void CURrcTask::receiveRrcMessage(int ueId, ASN_RRC_UL_CCCH1_Message *msg)
+void DURrcTask::receiveRrcMessage(int ueId, ASN_RRC_UL_CCCH1_Message *msg)
 {
     // TODO
 }
 
-void CURrcTask::receiveRrcMessage(int ueId, ASN_RRC_UL_DCCH_Message *msg)
+void DURrcTask::receiveRrcMessage(int ueId, ASN_RRC_UL_DCCH_Message *msg)
 {
     if (msg->message.present != ASN_RRC_UL_DCCH_MessageType_PR_c1)
         return;
@@ -206,7 +189,7 @@ void CURrcTask::receiveRrcMessage(int ueId, ASN_RRC_UL_DCCH_Message *msg)
     case ASN_RRC_UL_DCCH_MessageType__c1_PR_rrcReconfigurationComplete:
         break; // TODO
     case ASN_RRC_UL_DCCH_MessageType__c1_PR_rrcSetupComplete:
-        //receiveRrcSetupComplete(ueId, *c1->choice.rrcSetupComplete);
+        receiveRrcSetupComplete(ueId, *c1->choice.rrcSetupComplete);
         break;
     case ASN_RRC_UL_DCCH_MessageType__c1_PR_rrcReestablishmentComplete:
         break; // TODO
@@ -217,7 +200,7 @@ void CURrcTask::receiveRrcMessage(int ueId, ASN_RRC_UL_DCCH_Message *msg)
     case ASN_RRC_UL_DCCH_MessageType__c1_PR_securityModeFailure:
         break; // TODO
     case ASN_RRC_UL_DCCH_MessageType__c1_PR_ulInformationTransfer:
-        receiveUplinkInformationTransfer(ueId, *c1->choice.ulInformationTransfer);
+        //receiveUplinkInformationTransfer(ueId, *c1->choice.ulInformationTransfer);
         break;
     case ASN_RRC_UL_DCCH_MessageType__c1_PR_locationMeasurementIndication:
         break; // TODO
@@ -238,4 +221,6 @@ void CURrcTask::receiveRrcMessage(int ueId, ASN_RRC_UL_DCCH_Message *msg)
     }
 }
 
-} // namespace nr::CU
+
+
+}

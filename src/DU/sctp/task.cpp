@@ -327,5 +327,26 @@ void SctpTask::receiveSendMessage(int clientId, uint16_t stream, UniqueBuffer &&
     entry->client->send(stream, buffer.data(), 0, buffer.size());
 #endif
 }
+void SctpTask::receiveSendMessage2(int clientId, uint16_t stream, OctetString buffer)
+{
+    ClientEntry *entry = m_clients[clientId];
+    if (entry == nullptr)
+    {
+        m_logger->warn("Client entry not found for id: %d", clientId);
+        return;
+    }
+
+#ifdef MOCKED_PACKETS
+    {
+        std::string ss = MOCK_LIST[++MOCK_INDEX];
+        OctetString data = OctetString::FromHex(ss);
+        auto *copy = new uint8_t[data.length()];
+        std::memcpy(copy, data.data(), data.length());
+        receiveClientReceive(clientId, 0, copy, data.length());
+    }
+#else
+    entry->client->send(stream, buffer.data(), 0, static_cast<size_t>(buffer.length()));
+#endif
+}
 
 } // namespace nr::DU

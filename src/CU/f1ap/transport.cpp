@@ -12,7 +12,7 @@ using namespace std;
 namespace nr::CU
 {
 
-vector<string> split(string input, char delimiter)
+vector<string> F1apTask::split(string input, char delimiter)
 {
     vector<string> answer;
     stringstream ss(input);
@@ -24,6 +24,20 @@ vector<string> split(string input, char delimiter)
     }
 
     return answer;
+}
+
+string F1apTask::Merge(vector<string> vec)
+{
+    string result = "";
+
+    for (string &s : vec)
+    {
+        result = result + s + "|";
+    }
+
+    result = result.substr(0, result.length() - 1);
+
+    return result;
 }
 
 void F1apTask::handleSctpMessage(int duId, uint16_t stream, const UniqueBuffer &buffer)
@@ -48,6 +62,27 @@ void F1apTask::handleSctpMessage(int duId, uint16_t stream, const UniqueBuffer &
     {
         receiveF1SetupRequest(duId, stoi(msg.at(1)));
         m_logger->debug("F1 Setup Request received From %s", msg.at(1).c_str());
+    }
+    else if (msg.front() == "ULRrcMessageTransfer") //RRC Message
+    {
+        auto *du = findDuContext(duId);
+        if (du == nullptr)
+            return;
+
+        if (msg.at(1) == "UL_CCCH")
+        {
+            string rrcMsg = Merge(vector<string>(msg.begin() + 2, msg.begin() + msg.size() + 1));
+            receiveRrc_UL_CCCH_Message(duId, rrcMsg);
+        }
+        else if (msg.at(1) == "UL_DCCH")
+        {
+            string rrcMsg = Merge(vector<string>(msg.begin() + 2, msg.begin() + msg.size() + 1));
+            receiveRrc_UL_DCCH_Message(duId, rrcMsg);
+        }
+        else
+        {
+            m_logger->err("Unknown RRC Channel");
+        }
     }
 
 //    if (!handleSctpStreamId(du->ctxId, stream, pdu))

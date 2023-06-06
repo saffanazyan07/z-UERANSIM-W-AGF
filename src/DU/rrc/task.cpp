@@ -4,6 +4,12 @@
 
 #include "task.hpp"
 
+#include <DU/nts.hpp>
+#include <lib/rrc/encode.hpp>
+
+#include <asn/rrc/ASN_RRC_DLInformationTransfer-IEs.h>
+#include <asn/rrc/ASN_RRC_DLInformationTransfer.h>
+
 static constexpr const int TIMER_ID_SI_BROADCAST = 1;
 static constexpr const int TIMER_PERIOD_SI_BROADCAST = 10'000;
 
@@ -34,10 +40,10 @@ void DURrcTask::onLoop()
 
     switch (msg->msgType)
     {
-        //    case NtsMessageType::CU_RLS_TO_RRC: {
-        //        handleRlsSapMessage(dynamic_cast<NmCURlsToRrc &>(*msg));
-        //        break;
-        //    }
+    case NtsMessageType::DU_RLS_TO_RRC: {
+        handleRlsSapMessage(dynamic_cast<NmDURlsToRrc &>(*msg));
+        break;
+    }
     case NtsMessageType::DU_F1AP_TO_RRC: {
         auto &w = dynamic_cast<NmDUF1apToRrc &>(*msg);
         switch (w.present)
@@ -47,18 +53,25 @@ void DURrcTask::onLoop()
             triggerSysInfoBroadcast();
             break;
         }
-        case NmDUF1apToRrc::NAS_DELIVERY: {
-            handleDownlinkNasDelivery(w.ueId, w.pdu);
+        case NmDUF1apToRrc::DL_RRC_TRANSFER: {
+            handleDownlinkRrcTransfer(w.buffer);
             break;
         }
+//        case NmDUF1apToRrc::NAS_DELIVERY: {
+//            handleDownlinkNasDelivery(w.ueId, w.pdu);
+//            break;
+//        }
         case NmDUF1apToRrc::AN_RELEASE: {
             releaseConnection(w.ueId);
             break;
         }
-        case NmDUF1apToRrc::PAGING:
-            handlePaging(w.uePagingTmsi, w.taiListForPaging);
+//        case NmDUF1apToRrc::PAGING:
+//            handlePaging(w.uePagingTmsi, w.taiListForPaging);
+//            break;
+        default:
             break;
         }
+
         break;
     }
     case NtsMessageType::TIMER_EXPIRED: {
@@ -75,7 +88,5 @@ void DURrcTask::onLoop()
         break;
     }
 }
-
-
 
 }

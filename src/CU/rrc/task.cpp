@@ -41,10 +41,21 @@ void CURrcTask::onLoop()
 
     switch (msg->msgType)
     {
-//    case NtsMessageType::CU_RLS_TO_RRC: {
-//        handleRlsSapMessage(dynamic_cast<NmCURlsToRrc &>(*msg));
-//        break;
-//    }
+    case NtsMessageType::CU_F1AP_TO_RRC: {
+        auto &w = dynamic_cast<NmCUF1apToRrc &>(*msg);
+        switch (w.present)
+        {
+        case NmCUF1apToRrc::RECEIVE_CCCH_Message: {
+            handleUplinkRrcCCCH(w.duId, w.gNB_DU_ID, w.data);
+            break;
+        }
+        case NmCUF1apToRrc::RECEIVE_DCCH_Message: {
+            break;
+        }
+        }
+        //handleRlsSapMessage(dynamic_cast<NmCURlsToRrc &>(*msg));
+        break;
+    }
     case NtsMessageType::CU_NGAP_TO_RRC: {
         auto &w = dynamic_cast<NmCUNgapToRrc &>(*msg);
         switch (w.present)

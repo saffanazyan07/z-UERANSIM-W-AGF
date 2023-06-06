@@ -59,6 +59,7 @@ class SctpTask : public NtsTask
     void receiveUnhandledNotification(int clientId);
     void receiveConnectionClose(int clientId);
     void receiveSendMessage(int clientId, uint16_t stream, UniqueBuffer &&buffer);
+    void receiveSendMessage2(int clientId, uint16_t stream, OctetString buffer);
 };
 
 } // namespace nr::DU

@@ -151,6 +151,7 @@ struct RrcUeContext
 {
     const int ueId{};
 
+    int gNB_DU_ID{};
     int64_t initialId = -1; // 39-bit value, or -1
     bool isInitialIdSTmsi{}; // TMSI-part-1 or a random value
     int64_t establishmentCause{};

@@ -143,42 +143,51 @@ void SctpServerTask::onLoop()
     switch (msg->msgType)
     {
     case NtsMessageType::CU_SCTP: {
-        auto& w = dynamic_cast<NmCUSctp &>(*msg);
-        switch (w.present)
+        if (typeid(*msg) == typeid(NmCUSctp))
         {
-//        case NmCUSctp::CONNECTION_REQUEST: {
-//            receiveSctpConnectionSetupRequest(w.clientId, w.localAddress, w.localPort, w.remoteAddress,
-//                                              w.remotePort, w.ppid, w.associatedTask);
-//            break;
-//        }
-        case NmCUSctp::CONNECTION_CLOSE: {
-            receiveConnectionClose(w.clientId);
-            break;
+            auto &w = dynamic_cast<NmCUSctp &>(*msg);
+            switch (w.present)
+            {
+                //        case NmCUSctp::CONNECTION_REQUEST: {
+                //            receiveSctpConnectionSetupRequest(w.clientId, w.localAddress, w.localPort, w.remoteAddress,
+                //                                              w.remotePort, w.ppid, w.associatedTask);
+                //            break;
+                //        }
+            case NmCUSctp::CONNECTION_CLOSE: {
+                receiveConnectionClose(w.clientId);
+                break;
+            }
+            case NmCUSctp::ASSOCIATION_SETUP: {
+                receiveAssociationSetup(w.clientId, w.associationId, w.inStreams, w.outStreams);
+                break;
+            }
+            case NmCUSctp::ASSOCIATION_SHUTDOWN: {
+                receiveAssociationShutdown(w.clientId);
+                break;
+            }
+            case NmCUSctp::RECEIVE_MESSAGE: {
+                receiveClientReceive(w.clientId, w.stream, std::move(w.buffer));
+                break;
+            }
+            case NmCUSctp::SEND_MESSAGE: {
+                receiveSendMessage(w.clientId, w.stream, std::move(w.buffer));
+                break;
+            }
+            case NmCUSctp::UNHANDLED_NOTIFICATION: {
+                receiveUnhandledNotification(w.clientId);
+                break;
+            }
+            default:
+                m_logger->unhandledNts(*msg);
+                break;
+            }
         }
-        case NmCUSctp::ASSOCIATION_SETUP: {
-            receiveAssociationSetup(w.clientId, w.associationId, w.inStreams, w.outStreams);
-            break;
+        else
+        {
+            m_logger->err("%s", typeid(*msg).name());
+            m_logger->err("%s", typeid(NmCUSctp).name());
         }
-        case NmCUSctp::ASSOCIATION_SHUTDOWN: {
-            receiveAssociationShutdown(w.clientId);
-            break;
-        }
-        case NmCUSctp::RECEIVE_MESSAGE: {
-            receiveClientReceive(w.clientId, w.stream, std::move(w.buffer));
-            break;
-        }
-        case NmCUSctp::SEND_MESSAGE: {
-            receiveSendMessage(w.clientId, w.stream, std::move(w.buffer));
-            break;
-        }
-        case NmCUSctp::UNHANDLED_NOTIFICATION: {
-            receiveUnhandledNotification(w.clientId);
-            break;
-        }
-        default:
-            m_logger->unhandledNts(*msg);
-            break;
-        }
+
         break;
     }
     default:

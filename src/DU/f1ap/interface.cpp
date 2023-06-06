@@ -60,7 +60,7 @@ void F1apTask::sendF1SetupRequest()
 //        auto *pdu = asn::f1ap::NewMessagePdu<F1SetupRequest>(
 //            {ieGlobalCUId, ieRanNodeName, ieSupportedTaList, iePagingDrx});
 
-    sendF1apNonUe(pdu);
+    sendF1ap(pdu);
 }
 
 void F1apTask::receiveF1SetupResponse()
@@ -78,6 +78,12 @@ void F1apTask::receiveF1SetupResponse()
     m_base->rrcTask->push(std::make_unique<NmDUF1apToRrc>(NmDUF1apToRrc::RADIO_POWER_ON));
 }
 
+void F1apTask::receiveDLRrcMessageTransfer(std::vector<std::string> msg)
+{
+    auto w = std::make_unique<NmDUF1apToRrc>(NmDUF1apToRrc::DL_RRC_TRANSFER);
+    w->buffer = msg;
+    m_base->rrcTask->push(std::move(w));
+}
 
 
 

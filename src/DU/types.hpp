@@ -15,7 +15,7 @@
 #include <utils/octet_string.hpp>
 
 //#include <asn/ngap/ASN_NGAP_QosFlowSetupRequestList.h>
-//#include <asn/rrc/ASN_RRC_InitialUE-Identity.h>
+#include <asn/rrc/ASN_RRC_InitialUE-Identity.h>
 
 namespace nr::DU
 {
@@ -34,7 +34,7 @@ struct RrcUeContext
     int64_t initialId = -1; // 39-bit value, or -1
     bool isInitialIdSTmsi{}; // TMSI-part-1 or a random value
     int64_t establishmentCause{};
-    //std::optional<GutiMobileIdentity> sTmsi{};
+    std::optional<GutiMobileIdentity> sTmsi{};
 
     explicit RrcUeContext(const int ueId) : ueId(ueId)
     {

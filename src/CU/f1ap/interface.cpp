@@ -38,7 +38,7 @@ void F1apTask::receiveF1SetupRequest(int duId, int gNB_DU_ID /*, int cellId*/)
 
 void F1apTask::sendF1SetupResponse(int duId)
 {
-    m_logger->debug("Sending F1 Setup Request To %d", duId);
+    m_logger->debug("Sending F1 Setup Response To %d", duId);
 
     auto *du = findDuContext(duId);
     if (du == nullptr)
@@ -53,5 +53,37 @@ void F1apTask::sendF1SetupResponse(int duId)
 
     sendF1ap(duId, pdu);
 }
+
+void F1apTask::sendDLRrcMessageTransfer(int duId, rrc::RrcChannel rrcChannel, std::string msg)
+{
+    auto *du = findDuContext(duId);
+    if (du == nullptr)
+        return;
+
+    m_logger->debug("Sending DLRrcMessageTransfer To %d", duId);
+
+    std::string *pdu = new std::string();
+
+    *pdu = "DLRrcMessageTransfer|";
+
+    switch (rrcChannel)
+    {
+    case rrc::RrcChannel::DL_CCCH: {
+        *pdu = *pdu + "DL_CCCH|";
+        break;
+    }
+    case rrc::RrcChannel::DL_DCCH: {
+        *pdu = *pdu + "DL_DCCH|";
+        break;
+    }
+    default:
+        break;
+    }
+
+    *pdu = *pdu + msg;
+
+    sendF1ap(duId, pdu);
+}
+
 
 }

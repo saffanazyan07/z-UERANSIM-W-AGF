@@ -27,26 +27,44 @@ extern "C"
 namespace nr::CU
 {
 
-/*struct NmCURlsToRrc : NtsMessage
+struct NmCUF1apToRrc : NtsMessage
 {
     enum PR
     {
-        SIGNAL_DETECTED,
-        UPLINK_RRC,
+        RECEIVE_CCCH_Message,
+        RECEIVE_DCCH_Message
     } present;
 
-    // SIGNAL_DETECTED
-    // UPLINK_RRC
-    int ueId{};
+    int duId{};
+    int gNB_DU_ID{};
 
-    // UPLINK_RRC
-    OctetString data;
+    std::string data;
+
+    explicit NmCUF1apToRrc(PR present) : NtsMessage(NtsMessageType::CU_F1AP_TO_RRC), present(present)
+    {
+
+    }
+};
+
+struct NmCURrcToF1ap : NtsMessage
+{
+    enum PR
+    {
+        SEND_MESSAGE,
+        SEND_MESSAGE2,
+    } present;
+
+    int duId{};
+
     rrc::RrcChannel rrcChannel{};
 
-    explicit NmCURlsToRrc(PR present) : NtsMessage(NtsMessageType::CU_RLS_TO_RRC), present(present)
+    std::string data;
+
+    explicit NmCURrcToF1ap(PR present) : NtsMessage(NtsMessageType::CU_RRC_TO_F1AP), present(present)
     {
+
     }
-};*/
+};
 
 //struct NmCURlsToGtp : NtsMessage
 //{

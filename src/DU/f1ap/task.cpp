@@ -40,25 +40,17 @@ void F1apTask::onLoop()
 
     switch (msg->msgType)
     {
-//    case NtsMessageType::CU_RRC_TO_NGAP: {
-//        auto &w = dynamic_cast<NmCURrcToNgap &>(*msg);
-//        switch (w.present)
-//        {
-//        case NmCURrcToNgap::INITIAL_NAS_DELIVERY: {
-//            handleInitialNasTransport(w.ueId, w.pdu, w.rrcEstablishmentCause, w.sTmsi);
-//            break;
-//        }
-//        case NmCURrcToNgap::UPLINK_NAS_DELIVERY: {
-//            handleUplinkNasTransport(w.ueId, w.pdu);
-//            break;
-//        }
-//        case NmCURrcToNgap::RADIO_LINK_FAILURE: {
-//            handleRadioLinkFailure(w.ueId);
-//            break;
-//        }
-//        }
-//        break;
-//    }
+    case NtsMessageType::DU_RRC_TO_F1AP: {
+        auto &w = dynamic_cast<NmDURrcToF1ap &>(*msg);
+        switch (w.present)
+        {
+        case NmDURrcToF1ap::UL_RRC_TRANSFER: {
+            handleULRrcTransfer(w.rrcChannel, w.buffer);
+            break;
+        }
+        }
+        break;
+    }
     case NtsMessageType::DU_SCTP: {
         auto &w = dynamic_cast<NmDUSctp &>(*msg);
         switch (w.present)

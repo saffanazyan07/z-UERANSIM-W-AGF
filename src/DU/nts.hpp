@@ -22,6 +22,125 @@
 namespace nr::DU
 {
 
+struct NmDURlsToRrc : NtsMessage
+{
+    enum PR
+    {
+        SIGNAL_DETECTED,
+        UPLINK_RRC,
+    } present;
+
+    // SIGNAL_DETECTED
+    // UPLINK_RRC
+    int ueId{};
+
+    // UPLINK_RRC
+    OctetString data;
+    rrc::RrcChannel rrcChannel{};
+
+    explicit NmDURlsToRrc(PR present) : NtsMessage(NtsMessageType::DU_RLS_TO_RRC), present(present)
+    {
+    }
+};
+
+struct NmDURlsToRls : NtsMessage
+{
+    enum PR
+    {
+        SIGNAL_DETECTED,
+        SIGNAL_LOST,
+        RECEIVE_RLS_MESSAGE,
+        DOWNLINK_RRC,
+        DOWNLINK_DATA,
+        UPLINK_RRC,
+        UPLINK_DATA,
+        RADIO_LINK_FAILURE,
+        TRANSMISSION_FAILURE,
+    } present;
+
+    // SIGNAL_DETECTED
+    // SIGNAL_LOST
+    // DOWNLINK_RRC
+    // DOWNLINK_DATA
+    // UPLINK_DATA
+    // UPLINK_RRC
+    int ueId{};
+
+    // RECEIVE_RLS_MESSAGE
+    std::unique_ptr<rls::RlsMessage> msg{};
+
+    // DOWNLINK_DATA
+    // UPLINK_DATA
+    int psi{};
+
+    // DOWNLINK_DATA
+    // DOWNLINK_RRC
+    // UPLINK_DATA
+    // UPLINK_RRC
+    OctetString data;
+
+    // DOWNLINK_RRC
+    uint32_t pduId{};
+
+    // DOWNLINK_RRC
+    // UPLINK_RRC
+    rrc::RrcChannel rrcChannel{};
+
+    // RADIO_LINK_FAILURE
+    rls::ERlfCause rlfCause{};
+
+    // TRANSMISSION_FAILURE
+    std::vector<rls::PduInfo> pduList;
+
+    explicit NmDURlsToRls(PR present) : NtsMessage(NtsMessageType::DU_RLS_TO_RLS), present(present)
+    {
+    }
+};
+
+struct NmDURrcToRls : NtsMessage
+{
+    enum PR
+    {
+        RRC_PDU_DELIVERY,
+    } present;
+
+    // RRC_PDU_DELIVERY
+    int ueId{};
+    rrc::RrcChannel channel{};
+    OctetString pdu{};
+
+    explicit NmDURrcToRls(PR present) : NtsMessage(NtsMessageType::DU_RRC_TO_RLS), present(present)
+    {
+    }
+};
+
+struct NmDURrcToF1ap : NtsMessage
+{
+    enum PR
+    {
+        UL_RRC_TRANSFER,
+        INITIAL_NAS_DELIVERY,
+
+    } present;
+
+    // RRC_PDU_DELIVERY
+    int ueId{};
+    std::string buffer{};
+    rrc::RrcChannel rrcChannel{};
+
+    // INITIAL_NAS_DELIVERY
+    // UPLINK_NAS_DELIVERY
+    OctetString pdu{};
+
+    // INITIAL_NAS_DELIVERY
+    int64_t rrcEstablishmentCause{};
+    std::optional<GutiMobileIdentity> sTmsi{};
+
+    explicit NmDURrcToF1ap(PR present) : NtsMessage(NtsMessageType::DU_RRC_TO_F1AP), present(present)
+    {
+    }
+};
+
 struct NmDUSctp : NtsMessage
 {
     enum PR
@@ -32,6 +151,7 @@ struct NmDUSctp : NtsMessage
         ASSOCIATION_SHUTDOWN,
         RECEIVE_MESSAGE,
         SEND_MESSAGE,
+        SEND_MESSAGE2,
         UNHANDLED_NOTIFICATION,
     } present;
 
@@ -75,6 +195,7 @@ struct NmDUF1apToRrc : NtsMessage
         NAS_DELIVERY,
         AN_RELEASE,
         PAGING,
+        DL_RRC_TRANSFER,
     } present;
 
     // NAS_DELIVERY
@@ -83,6 +204,8 @@ struct NmDUF1apToRrc : NtsMessage
 
     // NAS_DELIVERY
     OctetString pdu{};
+
+    std::vector<std::string> buffer{};
 
     // PAGING
     //asn::Unique<ASN_NGAP_FiveG_S_TMSI> uePagingTmsi{};
