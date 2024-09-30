@@ -11,7 +11,8 @@ build: FORCE
 	# cmake --build cmake-build-debug --target all
 	cmake --build cmake-build-release --target all
 	
-	cp cmake-build-release/nr-gnb build/
+	cp cmake-build-release/nr-CU build/
+	cp cmake-build-release/nr-w-agf build/
 	cp cmake-build-release/nr-ue build/
 	cp cmake-build-release/nr-cli build/
 	cp cmake-build-release/libdevbnd.so build/
