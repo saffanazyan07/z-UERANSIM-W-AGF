@@ -11,6 +11,7 @@ build: FORCE
 	# cmake --build cmake-build-debug --target all
 	cmake --build cmake-build-release --target all
 	
+
 	cp cmake-build-release/nr-CU build/
 	cp cmake-build-release/nr-w-agf build/
 	cp cmake-build-release/nr-ue build/
