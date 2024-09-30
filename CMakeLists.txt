@@ -1,3 +1,4 @@
+############### edited by zyz 09/30/24 #################
 cmake_minimum_required(VERSION 3.17)
 project(ueransim)
 
@@ -13,10 +14,11 @@ add_subdirectory(src/utils)
 add_subdirectory(src/asn/asn1c)
 add_subdirectory(src/asn/rrc)
 add_subdirectory(src/asn/ngap)
+add_subdirectory(src/asn/f1ap)
 add_subdirectory(src/lib)
 add_subdirectory(src/CU)
-add_subdirectory(src/DU)
-add_subdirectory(src/ue)
+add_subdirectory(src/w-agf)
+add_subdirectory(src/fnrg)
 
 #################### CU EXECUTABLE ####################
 
@@ -28,29 +30,31 @@ target_compile_options(nr-CU PRIVATE -Wall -Wextra -pedantic)
 
 target_link_libraries(nr-CU asn-rrc)
 target_link_libraries(nr-CU asn-ngap)
+target_link_libraries(nr-CU asn-f1ap)
 target_link_libraries(nr-CU common-lib)
 target_link_libraries(nr-CU CU)
 
 #################### DU EXECUTABLE ####################
 
-add_executable(nr-DU src/DU.cpp)
+add_executable(nr-w-agf src/w-agf.cpp)
 
-target_link_libraries(nr-DU pthread)
+target_link_libraries(nr-w-agf pthread)
 
-target_compile_options(nr-DU PRIVATE -Wall -Wextra -pedantic)
+target_compile_options(nr-w-agf PRIVATE -Wall -Wextra -pedantic)
 
-target_link_libraries(nr-DU asn-rrc)
-target_link_libraries(nr-DU common-lib)
-target_link_libraries(nr-DU DU)
+target_link_libraries(nr-w-agf asn-rrc)
+target_link_libraries(nr-w-agf asn-f1ap)
+target_link_libraries(nr-w-agf common-lib)
+target_link_libraries(nr-w-agf w-agf)
 
-#################### UE EXECUTABLE ####################
+#################### FN-RG EXECUTABLE ####################
 
-add_executable(nr-ue src/ue.cpp)
-target_link_libraries(nr-ue pthread)
-target_compile_options(nr-ue PRIVATE -Wall -Wextra -pedantic)
+add_executable(nr-fnrg src/fnrg.cpp)
+target_link_libraries(nr-fnrg pthread)
+target_compile_options(nr-fnrg PRIVATE -Wall -Wextra -pedantic)
 
-target_link_libraries(nr-ue common-lib)
-target_link_libraries(nr-ue ue)
+target_link_libraries(nr-fnrg common-lib)
+target_link_libraries(nr-fnrg fnrg)
 
 ###################### IF BINDER ######################
 add_library(devbnd SHARED src/binder.cpp)
