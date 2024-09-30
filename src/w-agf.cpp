@@ -1,18 +1,24 @@
 //
 // Created by Hoonyong Park on 5/20/23.
+// Edited by Zyzy on 9/30/24
 //
 
+#include <chrono> //zy
 #include <iostream>
 #include <stdexcept>
 #include <unordered_map>
+#include <thread>
 
 #include <unistd.h>
 
-#include <DU/DU.hpp>
+#include <w-agf/w-agf.hpp> //zy
 #include <lib/app/base_app.hpp>
 #include <lib/app/cli_base.hpp>
 #include <lib/app/cli_cmd.hpp>
 #include <lib/app/proc_table.hpp>
+#include <lib/app/ue_ctl.hpp> //zy
+#include <utils/common.hpp> //zy
+#include <utils/concurrent_map.hpp>
 #include <utils/constants.hpp>
 #include <utils/io.hpp>
 #include <utils/options.hpp>
@@ -20,19 +26,24 @@
 #include <yaml-cpp/yaml.h>
 
 static app::CliServer *g_cliServer = nullptr;
-static nr::DU::DUConfig *g_refConfig = nullptr;
-static std::unordered_map<std::string, nr::DU::DistributedUnit *> g_DUMap{};
+static nr::w-agf::w-agfConfig *g_refConfig = nullptr;
+//static ConcurrentMap<std::string, nr::ue::UserEquipment *> g_ueMap{};
+static std::unordered_map<std::string, nr::w-agf::AccessGatewayFunction *> g_w-agfMap{};
 static app::CliResponseTask *g_cliRespTask = nullptr;
 
 static struct Options
 {
     std::string configFile{};
+    bool noRoutingConfigs{};
     bool disableCmd{};
+    std::string imsi{};
+    int count{};
+    int tempo{};
 } g_options{};
-
-static nr::DU::DUConfig *ReadConfigYaml()
+//zy
+static nr::w-agf::w-agfConfig *ReadConfigYaml()
 {
-    auto *result = new nr::DU::DUConfig();
+    auto *result = new nr::w-agf::w-agfConfig();
     auto config = YAML::LoadFile(g_options.configFile);
 
     result->plmn.mcc = yaml::GetInt32(config, "mcc", 1, 999);
@@ -40,9 +51,9 @@ static nr::DU::DUConfig *ReadConfigYaml()
     result->plmn.mnc = yaml::GetInt32(config, "mnc", 0, 999);
     result->plmn.isLongMnc = yaml::GetString(config, "mnc", 2, 3).size() == 3;
 
-    result->nci = yaml::GetInt64(config, "DU_ID", 0, 0xFFFFFFFFFll);
-    result->DUIdLength = yaml::GetInt32(config, "idLength", 22, 32);
-    result->tac = yaml::GetInt32(config, "tac", 0, 0xFFFFFF);
+    result->nci = yaml::GetInt64(config, "w-agf_ID", 0, 0xFFFFFFFFFll); //w-agf config
+    result->DUIdLength = yaml::GetInt32(config, "idLength", 22, 32); //w-agf config
+    result->tac = yaml::GetInt32(config, "tac", 0, 0xFFFFFF); 
 
     result->linkIp = yaml::GetIp(config, "linkIp");
     result->f1apIp = yaml::GetIp(config, "f1apIp");
