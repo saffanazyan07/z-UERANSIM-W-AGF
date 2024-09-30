@@ -97,8 +97,71 @@ To update **asn1c**, you can follow the steps below depending on the operating s
   the required version is **v0.9.29**
    You will see the latest installed version displayed.
 
-By following these steps, you will have the latest version of `asn1c` installed on your system. If you encounter any issues during this process, feel free to let me know, and I can assist you further!
+By following these steps, you will have the latest version of `asn1c` installed on your system. If you want to compile ASN.1 files into **`.h`** (header) and **`.c`** (source code) files using the ASN.1 Compiler (`asn1c`), here are the steps you can follow:
 
+### 1. **Ensure `asn1c` is Installed**
+   If it’s not installed yet, make sure you’ve installed `asn1c` according to the instructions previously explained.
+
+### 2. **Compile ASN.1 Files into `.h` and `.c` Files**
+
+   Suppose you're in the directory that contains the ASN.1 files, for example:
+
+   ```bash
+   cd tool/f1ap/ASN1/R16.3.1
+   ```
+
+   Run the following command to compile all ASN.1 files into **`.h`** and **`.c`** files:
+
+   ```bash
+   asn1c -fcompound-names -gen-PER *.asn
+   ```
+
+   These options mean:
+   - `-fcompound-names`: Prevents name clashes by generating longer type names (in case there are types with the same name).
+   - `-gen-PER`: Generates code for PER (Packed Encoding Rules) encoder/decoder.
+   
+   **Note:** You can add other options such as `-findirect-choice` if there are CHOICE types that need to be processed as pointers.
+
+### 3. **Check the Results**
+   After compiling, you will get **`.c`** and **`.h`** files in the same directory. For instance, if there’s an ASN.1 file defining the F1AP type, you might get files like:
+
+   - `F1AP-IEs.c`
+   - `F1AP-IEs.h`
+   - `F1AP-Constants.c`
+   - `F1AP-Constants.h`
+
+### 4. **Compile the C Code**
+   Once you have the **`.h`** and **`.c`** files, you can compile them using **gcc** or another C compiler:
+
+   ```bash
+   gcc -o f1ap_example *.c -lm
+   ```
+
+   The `-lm` option is used to link the math library if needed.
+
+### Complete Example Steps:
+
+1. **Enter the directory containing the ASN.1 files**:
+
+   ```bash
+   cd tool/f1ap/ASN1/R16.3.1
+   ```
+
+2. **Run `asn1c` to compile the ASN.1 files into `.h` and `.c` files**:
+
+   ```bash
+   asn1c -fcompound-names -gen-PER *.asn
+   ```
+
+3. **Check the results**: Look at the `.h` and `.c` files generated in the directory.
+
+4. **Compile with gcc**:
+
+   ```bash
+   gcc -o f1ap_example *.c -lm
+   ```
+
+After these steps, you will have an executable that can be used to run the code generated from the ASN.1 files.
 
 ## License
 
