@@ -113,7 +113,7 @@ By following these steps, you will have the latest version of `asn1c` installed 
    Run the following command to compile all ASN.1 files into **`.h`** and **`.c`** files:
 
    ```bash
-   asn1c -fcompound-names -gen-PER *.asn
+  sudo asn1c -fcompound-names -gen-PER -D . *.asn
    ```
 
    These options mean:
