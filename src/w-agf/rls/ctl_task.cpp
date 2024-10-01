@@ -16,7 +16,7 @@ static constexpr const int TIMER_ID_ACK_SEND = 2;
 static constexpr const int TIMER_PERIOD_ACK_CONTROL = 1500;
 static constexpr const int TIMER_PERIOD_ACK_SEND = 2250;
 
-namespace nr::DU
+namespace nr::w_agf
 {
 
 RlsControlTask::RlsControlTask(TaskBase *base, uint64_t sti)
@@ -251,4 +251,4 @@ void RlsControlTask::onAckSendTimerExpired()
     }
 }
 
-} // namespace nr::DU
+} // namespace nr::w_agf

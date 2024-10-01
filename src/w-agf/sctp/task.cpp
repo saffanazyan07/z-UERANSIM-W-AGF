@@ -34,7 +34,7 @@ static std::string MOCK_LIST[] = {
 static int MOCK_INDEX = -1;
 #endif
 
-namespace nr::DU
+namespace nr::w_agf
 {
 
 class SctpHandler : public sctp::ISctpHandler
@@ -349,4 +349,4 @@ void SctpTask::receiveSendMessage2(int clientId, uint16_t stream, OctetString bu
 #endif
 }
 
-} // namespace nr::DU
+} // namespace nr::w_agf

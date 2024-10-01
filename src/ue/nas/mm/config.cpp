@@ -13,7 +13,7 @@
 #include <lib/nas/utils.hpp>
 #include <ue/nas/sm/sm.hpp>
 
-namespace nr::ue
+namespace nr::w_agf
 {
 
 void NasMm::receiveConfigurationUpdate(const nas::ConfigurationUpdateCommand &msg)
@@ -237,4 +237,4 @@ void NasMm::updateForbiddenTaiListsForAllowedIndications()
     }
 }
 
-} // namespace nr::ue
+} // namespace nr::w_agf

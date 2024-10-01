@@ -17,7 +17,7 @@
 #include <ue/types.hpp>
 #include <utils/nts.hpp>
 
-namespace nr::ue
+namespace nr::w_agf
 {
 
 class NasTask : public NtsTask
@@ -46,4 +46,4 @@ class NasTask : public NtsTask
     void performTick();
 };
 
-} // namespace nr::ue
+} // namespace nr::w_agf

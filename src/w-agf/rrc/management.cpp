@@ -4,7 +4,7 @@
 
 #include "task.hpp"
 
-namespace nr::DU
+namespace nr::w_agf
 {
 
 RrcUeContext *DURrcTask::createUe(int id)

@@ -9,13 +9,13 @@
 #include <unordered_map>
 #include <vector>
 
-#include <DU/nts.hpp>
+#include <w_agf/nts.hpp>
 #include <lib/sctp/sctp.hpp>
 #include <utils/logger.hpp>
 #include <utils/nts.hpp>
 #include <utils/scoped_thread.hpp>
 
-namespace nr::DU
+namespace nr::w_agf
 {
 
 class SctpTask : public NtsTask
@@ -62,4 +62,4 @@ class SctpTask : public NtsTask
     void receiveSendMessage2(int clientId, uint16_t stream, OctetString buffer);
 };
 
-} // namespace nr::DU
+} // namespace nr::w_agf

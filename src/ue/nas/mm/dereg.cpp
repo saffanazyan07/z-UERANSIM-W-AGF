@@ -12,7 +12,7 @@
 #include <ue/app/task.hpp>
 #include <ue/nas/sm/sm.hpp>
 
-namespace nr::ue
+namespace nr::w_agf
 {
 
 static nas::IEDeRegistrationType MakeDeRegistrationType(EDeregCause deregCause)
@@ -367,4 +367,4 @@ void NasMm::performLocalDeregistration()
     switchMmState(EMmSubState::MM_DEREGISTERED_PS);
 }
 
-} // namespace nr::ue
+} // namespace nr::w_agf

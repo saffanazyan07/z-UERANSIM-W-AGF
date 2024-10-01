@@ -11,7 +11,7 @@
 #include <lib/nas/utils.hpp>
 #include <ue/nas/keys.hpp>
 
-namespace nr::ue
+namespace nr::w_agf
 {
 
 void NasMm::receiveAuthenticationRequest(const nas::AuthenticationRequest &msg)
@@ -538,4 +538,4 @@ bool NasMm::networkFailingTheAuthCheck(bool hasChance)
     return true;
 }
 
-} // namespace nr::ue
+} // namespace nr::w_agf

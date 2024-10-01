@@ -17,7 +17,7 @@ static const int N_RRC_int_alg = 0x04;
 static const int N_UP_enc_alg = 0x05;
 static const int N_UP_int_alg = 0x06;
 
-namespace nr::ue::keys
+namespace nr::w_agf::keys
 {
 
 void DeriveKeysSeafAmf(const UeConfig &ueConfig, const Plmn &currentPlmn, NasSecurityContext &nasSecurityContext)
@@ -154,4 +154,4 @@ OctetString CalculateAuts(const OctetString &sqn, const OctetString &ak, const O
     return auts;
 }
 
-} // namespace nr::ue::keys
+} // namespace nr::w_agf::keys

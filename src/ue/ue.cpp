@@ -13,7 +13,7 @@
 #include "rls/task.hpp"
 #include "rrc/task.hpp"
 
-namespace nr::ue
+namespace nr::w_agf
 {
 
 UserEquipment::UserEquipment(UeConfig *config, app::IUeController *ueController, app::INodeListener *nodeListener,
@@ -65,4 +65,4 @@ void UserEquipment::pushCommand(std::unique_ptr<app::UeCliCommand> cmd, const In
     taskBase->appTask->push(std::make_unique<NmUeCliCommand>(std::move(cmd), address));
 }
 
-} // namespace nr::ue
+} // namespace nr::w_agf

@@ -8,7 +8,7 @@
 
 #include "usim.hpp"
 
-namespace nr::ue
+namespace nr::w_agf
 {
 
 void ue::Usim::initialize(bool hasSupi)
@@ -28,4 +28,4 @@ void Usim::invalidate()
     m_isValid = false;
 }
 
-} // namespace nr::ue
+} // namespace nr::w_agf

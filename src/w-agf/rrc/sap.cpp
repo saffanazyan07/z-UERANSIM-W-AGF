@@ -7,7 +7,7 @@
 #include <DU/f1ap/task.hpp>
 #include <lib/rrc/encode.hpp>
 
-namespace nr::DU
+namespace nr::w_agf
 {
 
 void DURrcTask::handleRlsSapMessage(NmDURlsToRrc &msg)
@@ -26,4 +26,4 @@ void DURrcTask::handleRlsSapMessage(NmDURlsToRrc &msg)
     }
 }
 
-} // namespace nr::DU
+} // namespace nr::w_agf

@@ -9,7 +9,7 @@
 #include "types.hpp"
 #include <utils/printer.hpp>
 
-namespace nr::ue
+namespace nr::w_agf
 {
 
 NasTimers::NasTimers()
@@ -304,4 +304,4 @@ RrcTimers::RrcTimers() : t300(300, false, 1)
 {
 }
 
-} // namespace nr::ue
+} // namespace nr::w_agf

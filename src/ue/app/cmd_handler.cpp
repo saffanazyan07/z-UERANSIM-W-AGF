@@ -31,7 +31,7 @@ static std::string SignalDescription(int dbm)
     return "Poor";
 }
 
-namespace nr::ue
+namespace nr::w_agf
 {
 
 void UeCmdHandler::sendResult(const InetAddress &address, const std::string &output)
@@ -270,4 +270,4 @@ void UeCmdHandler::handleCmdImpl(NmUeCliCommand &msg)
     }
 }
 
-} // namespace nr::ue
+} // namespace nr::w_agf

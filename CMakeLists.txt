@@ -17,7 +17,7 @@ add_subdirectory(src/asn/ngap)
 add_subdirectory(src/asn/f1ap)
 add_subdirectory(src/lib)
 add_subdirectory(src/CU)
-add_subdirectory(src/w-agf)
+add_subdirectory(src/w_agf)
 add_subdirectory(src/fnrg)
 
 #################### CU EXECUTABLE ####################
@@ -36,16 +36,16 @@ target_link_libraries(nr-CU CU)
 
 #################### DU EXECUTABLE ####################
 
-add_executable(nr-w-agf src/w-agf.cpp)
+add_executable(nr-w_agf src/w_agf.cpp)
 
-target_link_libraries(nr-w-agf pthread)
+target_link_libraries(nr-w_agf pthread)
 
-target_compile_options(nr-w-agf PRIVATE -Wall -Wextra -pedantic)
+target_compile_options(nr-w_agf PRIVATE -Wall -Wextra -pedantic)
 
-target_link_libraries(nr-w-agf asn-rrc)
-target_link_libraries(nr-w-agf asn-f1ap)
-target_link_libraries(nr-w-agf common-lib)
-target_link_libraries(nr-w-agf w-agf)
+target_link_libraries(nr-w_agf asn-rrc)
+target_link_libraries(nr-w_agf asn-f1ap)
+target_link_libraries(nr-w_agf common-lib)
+target_link_libraries(nr-w_agf w_agf)
 
 #################### FN-RG EXECUTABLE ####################
 

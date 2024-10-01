@@ -10,7 +10,7 @@
 
 #include <utils/common.hpp>
 
-namespace nr::ue
+namespace nr::w_agf
 {
 
 void NasMm::handleRrcEvent(const NmUeRrcToNas &msg)
@@ -80,4 +80,4 @@ void NasMm::handleNasEvent(const NmUeNasToNas &msg)
     }
 }
 
-} // namespace nr::ue
+} // namespace nr::w_agf

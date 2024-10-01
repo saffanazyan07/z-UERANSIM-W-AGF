@@ -1,5 +1,6 @@
 //
 // Created by Hoonyong Park on 6/3/23.
+// Edited by Zyzy on 1/10/24
 //
 
 #include "task.hpp"
@@ -58,7 +59,7 @@ void F1apTask::handleSctpMessage(int duId, uint16_t stream, const UniqueBuffer &
 
     vector<string> msg = split(pdu, '|');
 
-    if (msg.front() == "F1SetupReqeust")
+    if (msg.front() == "F1SetupRequest")
     {
         receiveF1SetupRequest(duId, stoi(msg.at(1)));
         m_logger->debug("F1 Setup Request received From %s", msg.at(1).c_str());

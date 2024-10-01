@@ -12,7 +12,7 @@
 #include <lib/nas/utils.hpp>
 #include <ue/nas/task.hpp>
 
-namespace nr::ue
+namespace nr::w_agf
 {
 
 EProcRc NasMm::sendInitialRegistration(EInitialRegCause regCause)
@@ -1034,4 +1034,4 @@ void NasMm::resetRegAttemptCounter()
     m_storage->storedSuci->clear();
 }
 
-} // namespace nr::ue
+} // namespace nr::w_agf

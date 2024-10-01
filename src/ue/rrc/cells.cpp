@@ -11,7 +11,7 @@
 #include <lib/rrc/encode.hpp>
 #include <ue/nas/task.hpp>
 
-namespace nr::ue
+namespace nr::w_agf
 {
 
 void UeRrcTask::handleCellSignalChange(int cellId, int dbm)
@@ -101,4 +101,4 @@ void UeRrcTask::updateAvailablePlmns()
     m_base->nasTask->push(std::make_unique<NmUeRrcToNas>(NmUeRrcToNas::NAS_NOTIFY));
 }
 
-} // namespace nr::ue
+} // namespace nr::w_agf

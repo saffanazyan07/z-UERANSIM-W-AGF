@@ -10,7 +10,7 @@
 #include <asn/rrc/ASN_RRC_UL-CCCH-Message.h>
 #include <asn/rrc/ASN_RRC_UL-DCCH-Message.h>
 
-namespace nr::DU
+namespace nr::w_agf
 {
 
 void DURrcTask::handleUplinkRrc(int ueId, rrc::RrcChannel channel, const OctetString &rrcPdu)

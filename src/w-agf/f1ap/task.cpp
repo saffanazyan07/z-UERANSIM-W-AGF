@@ -4,9 +4,9 @@
 
 #include "task.hpp"
 
-#include <DU/sctp/task.hpp>
+#include <w_agf/sctp/task.hpp>
 
-namespace nr::DU
+namespace nr::w_agf
 {
 
 F1apTask::F1apTask(TaskBase *base) : m_base{base}, m_logger{}, m_cuCtx{}

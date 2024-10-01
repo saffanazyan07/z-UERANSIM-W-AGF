@@ -11,7 +11,7 @@
 
 #include <unistd.h>
 
-#include <w-agf/w-agf.hpp> //zy
+#include <w_agf/w_agf.hpp> //zy
 #include <lib/app/base_app.hpp>
 #include <lib/app/cli_base.hpp>
 #include <lib/app/cli_cmd.hpp>
@@ -26,9 +26,9 @@
 #include <yaml-cpp/yaml.h>
 
 static app::CliServer *g_cliServer = nullptr;
-static nr::w-agf::w-agfConfig *g_refConfig = nullptr;
-//static ConcurrentMap<std::string, nr::ue::UserEquipment *> g_ueMap{};
-static std::unordered_map<std::string, nr::w-agf::AccessGatewayFunction *> g_w-agfMap{};
+static nr::w_agf::w_agfConfig *g_refConfig = nullptr;
+//static ConcurrentMap<std::string, nr::w_agf::UserEquipment *> g_ueMap{};
+static std::unordered_map<std::string, nr::w_agf::AccessGatewayFunction *> g_w_agfMap{};
 static app::CliResponseTask *g_cliRespTask = nullptr;
 
 static struct Options
@@ -41,9 +41,9 @@ static struct Options
     int tempo{};
 } g_options{};
 //zy
-static nr::w-agf::w-agfConfig *ReadConfigYaml()
+static nr::w_agf::w_agfConfig *ReadConfigYaml()
 {
-    auto *result = new nr::w-agf::w-agfConfig();
+    auto *result = new nr::w_agf::w_agfConfig();
     auto config = YAML::LoadFile(g_options.configFile);
 
     result->plmn.mcc = yaml::GetInt32(config, "mcc", 1, 999);
@@ -51,8 +51,8 @@ static nr::w-agf::w-agfConfig *ReadConfigYaml()
     result->plmn.mnc = yaml::GetInt32(config, "mnc", 0, 999);
     result->plmn.isLongMnc = yaml::GetString(config, "mnc", 2, 3).size() == 3;
 
-    result->nci = yaml::GetInt64(config, "w-agf_ID", 0, 0xFFFFFFFFFll); //w-agf config
-    result->DUIdLength = yaml::GetInt32(config, "idLength", 22, 32); //w-agf config
+    result->nci = yaml::GetInt64(config, "w_agf_ID", 0, 0xFFFFFFFFFll); //w_agf config
+    result->DUIdLength = yaml::GetInt32(config, "idLength", 22, 32); //w_agf config
     result->tac = yaml::GetInt32(config, "tac", 0, 0xFFFFFF); 
 
     result->linkIp = yaml::GetIp(config, "linkIp");
@@ -69,7 +69,7 @@ static nr::w-agf::w-agfConfig *ReadConfigYaml()
 
     for (auto &cuConfig : yaml::GetSequence(config, "cuConfigs"))
     {
-        nr::DU::DUCUConfig c{};
+        nr::w_agf::DUCUConfig c{};
         c.address = yaml::GetIp(cuConfig, "address");
         c.port = static_cast<uint16_t>(yaml::GetInt32(cuConfig, "port", 1024, 65535));
         result->cuConfigs.push_back(c);
@@ -220,7 +220,7 @@ int main(int argc, char **argv)
         g_cliRespTask = new app::CliResponseTask(g_cliServer);
     }
 
-    auto *DU = new nr::DU::DistributedUnit(g_refConfig, nullptr, g_cliRespTask);
+    auto *DU = new nr::w_agf::DistributedUnit(g_refConfig, nullptr, g_cliRespTask);
     g_DUMap[g_refConfig->name] = DU;
 
     if (!g_options.disableCmd)

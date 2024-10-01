@@ -12,7 +12,7 @@
 #include <ue/nas/task.hpp>
 #include <ue/nts.hpp>
 
-namespace nr::ue
+namespace nr::w_agf
 {
 
 void UeRrcTask::declareRadioLinkFailure(rls::ERlfCause cause)
@@ -26,4 +26,4 @@ void UeRrcTask::handleRadioLinkFailure(rls::ERlfCause cause)
     m_base->nasTask->push(std::make_unique<NmUeRrcToNas>(NmUeRrcToNas::RADIO_LINK_FAILURE));
 }
 
-} // namespace nr::ue
+} // namespace nr::w_agf

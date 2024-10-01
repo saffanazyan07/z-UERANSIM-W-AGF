@@ -4,14 +4,14 @@
 
 #include "task.hpp"
 
-#include <DU/sctp/task.hpp>
-#include <DU/nts.hpp>
+#include <w_agf/sctp/task.hpp>
+#include <w_agf/nts.hpp>
 
 #include <sstream>
 
 using namespace std;
 
-namespace nr::DU
+namespace nr::w_agf
 {
 
 vector<string> F1apTask::split(string input, char delimiter)

@@ -11,7 +11,7 @@
 #include <ue/nas/enc.hpp>
 #include <ue/nas/keys.hpp>
 
-namespace nr::ue
+namespace nr::w_agf
 {
 
 static bool IsValidKsi(const nas::IENasKeySetIdentifier &ngKsi)
@@ -296,4 +296,4 @@ nas::IEUeSecurityCapability NasMm::createSecurityCapabilityIe()
     return res;
 }
 
-} // namespace nr::ue
+} // namespace nr::w_agf

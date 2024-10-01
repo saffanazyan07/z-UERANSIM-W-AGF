@@ -18,7 +18,7 @@
 static constexpr const int SWITCH_OFF_TIMER_ID = 1;
 static constexpr const int SWITCH_OFF_DELAY = 500;
 
-namespace nr::ue
+namespace nr::w_agf
 {
 
 UeAppTask::UeAppTask(TaskBase *base) : m_base{base}
@@ -206,4 +206,4 @@ void UeAppTask::setupTunInterface(const PduSession *pduSession)
                    allocatedName.c_str(), ipAddress.c_str());
 }
 
-} // namespace nr::ue
+} // namespace nr::w_agf

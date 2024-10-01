@@ -17,7 +17,7 @@
 //#include <asn/ngap/ASN_NGAP_QosFlowSetupRequestList.h>
 #include <asn/rrc/ASN_RRC_InitialUE-Identity.h>
 
-namespace nr::DU
+namespace nr::w_agf
 {
 
 class DUAppTask;

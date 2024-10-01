@@ -14,7 +14,7 @@
 #include <utils/network.hpp>
 #include <utils/nts.hpp>
 
-namespace nr::ue
+namespace nr::w_agf
 {
 
 class UserEquipment
@@ -32,4 +32,4 @@ class UserEquipment
     void pushCommand(std::unique_ptr<app::UeCliCommand> cmd, const InetAddress &address);
 };
 
-} // namespace nr::ue
+} // namespace nr::w_agf

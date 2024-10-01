@@ -15,7 +15,7 @@
 
 #include <asn/rrc/ASN_RRC_EstablishmentCause.h>
 
-namespace nr::ue
+namespace nr::w_agf
 {
 
 static bool IsUplinkSmMessage(nas::EMessageType type)
@@ -155,4 +155,4 @@ EProcRc NasMm::deliverUlTransport(const nas::UlNasTransport &msg, ENasTransportH
     return EProcRc::OK;
 }
 
-} // namespace nr::ue
+} // namespace nr::w_agf

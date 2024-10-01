@@ -8,7 +8,7 @@
 
 #include "nts.hpp"
 
-namespace nr::ue
+namespace nr::w_agf
 {
 
 }

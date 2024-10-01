@@ -18,7 +18,7 @@
 #include <asn/rrc/ASN_RRC_UAC-BarringPerCat.h>
 #include <asn/rrc/ASN_RRC_UAC-BarringPerCatList.h>
 
-namespace nr::DU
+namespace nr::w_agf
 {
 
 static ASN_RRC_BCCH_BCH_Message *ConstructMibMessage(bool barred, bool intraFreqReselectAllowed)

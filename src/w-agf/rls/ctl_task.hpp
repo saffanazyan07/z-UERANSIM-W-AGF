@@ -6,11 +6,11 @@
 
 #include "udp_task.hpp"
 
-#include <DU/nts.hpp>
-#include <DU/types.hpp>
+#include <w_agf/nts.hpp>
+#include <w_agf/types.hpp>
 #include <utils/nts.hpp>
 
-namespace nr::DU
+namespace nr::w_agf
 {
 
 class RlsControlTask : public NtsTask
@@ -45,4 +45,4 @@ class RlsControlTask : public NtsTask
     void onAckSendTimerExpired();
 };
 
-} // namespace nr::DU
+} // namespace nr::w_agf

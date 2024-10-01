@@ -4,18 +4,18 @@
 
 #include "cmd_handler.hpp"
 
-#include <DU/app/task.hpp>
+#include <w_agf/app/task.hpp>
 //#include <DU/gtp/task.hpp>
 #include <DU/f1ap/task.hpp>
-//#include <DU/rrc/task.hpp>
-#include <DU/sctp/task.hpp>
+//#include <w_agf/rrc/task.hpp>
+#include <w_agf/sctp/task.hpp>
 #include <utils/common.hpp>
 #include <utils/printer.hpp>
 
 #define PAUSE_CONFIRM_TIMEOUT 3000
 #define PAUSE_POLLING 10
 
-namespace nr::DU
+namespace nr::w_agf
 {
 
 void DUCmdHandler::sendResult(const InetAddress &address, const std::string &output)

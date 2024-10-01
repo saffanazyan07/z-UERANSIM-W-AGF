@@ -8,12 +8,12 @@
 #include <unordered_map>
 #include <vector>
 
-#include <DU/types.hpp>
+#include <w_agf/types.hpp>
 #include <lib/rls/rls_pdu.hpp>
 #include <lib/udp/server.hpp>
 #include <utils/nts.hpp>
 
-namespace nr::DU
+namespace nr::w_agf
 {
 
 class RlsUdpTask : public NtsTask
@@ -56,4 +56,4 @@ class RlsUdpTask : public NtsTask
     void send(int ueId, const rls::RlsMessage &msg);
 };
 
-} // namespace nr::DU
+} // namespace nr::w_agf

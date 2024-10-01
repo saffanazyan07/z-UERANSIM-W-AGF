@@ -19,7 +19,7 @@
 #include <utils/octet_string.hpp>
 #include <utils/unique_buffer.hpp>
 
-namespace nr::DU
+namespace nr::w_agf
 {
 
 struct NmDURlsToRrc : NtsMessage

@@ -15,7 +15,7 @@
 #include <ue/nas/task.hpp>
 #include <ue/rrc/task.hpp>
 
-namespace nr::ue
+namespace nr::w_agf
 {
 
 bool NasMm::startECallInactivityIfNeeded()
@@ -99,4 +99,4 @@ bool NasMm::switchToECallInactivityIfNeeded()
     return true;
 }
 
-} // namespace nr::ue
+} // namespace nr::w_agf

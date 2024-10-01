@@ -18,7 +18,7 @@
 #include <ue/types.hpp>
 #include <utils/nts.hpp>
 
-namespace nr::ue
+namespace nr::w_agf
 {
 
 class RlsControlTask : public NtsTask
@@ -53,4 +53,4 @@ class RlsControlTask : public NtsTask
     void onAckSendTimerExpired();
 };
 
-} // namespace nr::ue
+} // namespace nr::w_agf

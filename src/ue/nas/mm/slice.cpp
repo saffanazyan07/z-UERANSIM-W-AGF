@@ -11,7 +11,7 @@
 #include <ue/app/task.hpp>
 #include <ue/nas/sm/sm.hpp>
 
-namespace nr::ue
+namespace nr::w_agf
 {
 
 static bool ContainsSNssai(const NetworkSlice &nssai, const SingleSlice &sNssai)
@@ -74,4 +74,4 @@ void NasMm::handleNetworkSlicingSubscriptionChange()
     // TODO
 }
 
-} // namespace nr::ue
+} // namespace nr::w_agf

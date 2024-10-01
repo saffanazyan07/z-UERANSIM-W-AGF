@@ -4,10 +4,10 @@
 
 #pragma once
 
-#include <DU/nts.hpp>
-#include <DU/types.hpp>
+#include <w_agf/nts.hpp>
+#include <w_agf/types.hpp>
 
-namespace nr::DU
+namespace nr::w_agf
 {
 
 class DUCmdHandler
@@ -35,4 +35,4 @@ class DUCmdHandler
     void sendError(const InetAddress &address, const std::string &output);
 };
 
-} // namespace nr::DU
+} // namespace nr::w_agf

@@ -4,7 +4,7 @@
 
 #include "task.hpp"
 
-#include <DU/nts.hpp>
+#include <w_agf/nts.hpp>
 #include <lib/rrc/encode.hpp>
 
 #include <asn/rrc/ASN_RRC_DLInformationTransfer-IEs.h>
@@ -13,7 +13,7 @@
 static constexpr const int TIMER_ID_SI_BROADCAST = 1;
 static constexpr const int TIMER_PERIOD_SI_BROADCAST = 10'000;
 
-namespace nr::DU
+namespace nr::w_agf
 {
 
 DURrcTask::DURrcTask(TaskBase *base) : m_base{base}, m_ueCtx{}

@@ -12,7 +12,7 @@
 // STEPHANE
 #include <iostream>
 
-namespace nr::ue
+namespace nr::w_agf
 {
 
 void NasMm::receiveIdentityRequest(const nas::IdentityRequest &msg)
@@ -204,4 +204,4 @@ nas::IE5gsMobileIdentity NasMm::getOrGeneratePreferredId()
     }
 }
 
-} // namespace nr::ue
+} // namespace nr::w_agf

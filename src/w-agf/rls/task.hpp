@@ -12,14 +12,14 @@
 #include <unordered_map>
 #include <vector>
 
-#include <DU/nts.hpp>
-#include <DU/types.hpp>
+#include <w_agf/nts.hpp>
+#include <w_agf/types.hpp>
 #include <lib/rls/rls_pdu.hpp>
 #include <lib/udp/server_task.hpp>
 #include <utils/logger.hpp>
 #include <utils/nts.hpp>
 
-namespace nr::DU
+namespace nr::w_agf
 {
 
 class DURlsTask : public NtsTask
@@ -45,4 +45,4 @@ class DURlsTask : public NtsTask
     void onQuit() override;
 };
 
-} // namespace nr::DU
+} // namespace nr::w_agf

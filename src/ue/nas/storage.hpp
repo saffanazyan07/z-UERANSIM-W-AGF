@@ -10,7 +10,7 @@
 #include <lib/nas/storage.hpp>
 #include <ue/types.hpp>
 
-namespace nr::ue
+namespace nr::w_agf
 {
 
 class MmStorage
@@ -50,4 +50,4 @@ class MmStorage
     explicit MmStorage(TaskBase *base);
 };
 
-} // namespace nr::ue
+} // namespace nr::w_agf

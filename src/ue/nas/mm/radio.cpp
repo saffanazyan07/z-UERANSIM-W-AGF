@@ -16,7 +16,7 @@
 #include <ue/rrc/task.hpp>
 #include <utils/common.hpp>
 
-namespace nr::ue
+namespace nr::w_agf
 {
 
 void NasMm::performPlmnSelection()
@@ -385,4 +385,4 @@ void NasMm::handleRrcFallbackIndication()
     }
 }
 
-} // namespace nr::ue
+} // namespace nr::w_agf

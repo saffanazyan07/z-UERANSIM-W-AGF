@@ -4,11 +4,11 @@
 
 #pragma once
 
-#include <DU/nts.hpp>
-#include <DU/types.hpp>
+#include <w_agf/nts.hpp>
+#include <w_agf/types.hpp>
 
 
-namespace nr::DU
+namespace nr::w_agf
 {
 
 class SctpTask;

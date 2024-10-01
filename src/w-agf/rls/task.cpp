@@ -5,11 +5,11 @@
 #include "task.hpp"
 
 //#include <DU/gtp/task.hpp>
-#include <DU/rrc/task.hpp>
+#include <w_agf/rrc/task.hpp>
 #include <utils/common.hpp>
 #include <utils/random.hpp>
 
-namespace nr::DU
+namespace nr::w_agf
 {
 
 DURlsTask::DURlsTask(TaskBase *base) : m_base{base}
@@ -128,4 +128,4 @@ void DURlsTask::onQuit()
     delete m_ctlTask;
 }
 
-} // namespace nr::DU
+} // namespace nr::w_agf

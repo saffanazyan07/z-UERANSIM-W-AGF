@@ -17,7 +17,7 @@
 #include <utils/nts.hpp>
 #include <vector>
 
-namespace nr::ue
+namespace nr::w_agf
 {
 
 class TunTask : public NtsTask
@@ -40,4 +40,4 @@ class TunTask : public NtsTask
     void onQuit() override;
 };
 
-} // namespace nr::ue
+} // namespace nr::w_agf

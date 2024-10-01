@@ -12,7 +12,7 @@
 #include <utils/network.hpp>
 #include <utils/nts.hpp>
 
-namespace nr::DU
+namespace nr::w_agf
 {
 
 class DistributedUnit
@@ -29,4 +29,4 @@ class DistributedUnit
     void pushCommand(std::unique_ptr<app::DUCliCommand> cmd, const InetAddress &address);
 };
 
-} // namespace nr::DU
+} // namespace nr::w_agf

@@ -12,7 +12,7 @@
 
 #include <lib/app/cli_base.hpp>
 
-namespace nr::DU
+namespace nr::w_agf
 {
 
 DistributedUnit::DistributedUnit(DUConfig *config, app::INodeListener *nodeListener, NtsTask *cliCallbackTask)
@@ -69,4 +69,4 @@ void DistributedUnit::pushCommand(std::unique_ptr<app::DUCliCommand> cmd, const 
     taskBase->appTask->push((std::make_unique<NmDUCliCommand>(std::move(cmd), address)));
 }
 
-} // namespace nr::DU
+} // namespace nr::w_agf

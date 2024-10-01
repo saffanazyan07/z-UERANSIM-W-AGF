@@ -14,7 +14,7 @@ static const int NTS_TIMER_ID_MM_CYCLE = 2;
 static const int NTS_TIMER_INTERVAL_NAS_TIMER_CYCLE = 1000;
 static const int NTS_TIMER_INTERVAL_MM_CYCLE = 1100;
 
-namespace nr::ue
+namespace nr::w_agf
 {
 
 NasTask::NasTask(TaskBase *base) : base{base}, timers{}
@@ -172,4 +172,4 @@ void NasTask::performTick()
     sm->onTimerTick();
 }
 
-} // namespace nr::ue
+} // namespace nr::w_agf

@@ -1,5 +1,6 @@
 //
 // Created by Hoonyong Park on 5/20/23.
+// Edited by Zyzy on 1/10/24
 //
 
 #pragma once
@@ -9,11 +10,11 @@
 #include <unordered_map>
 #include <vector>
 
-#include <DU/types.hpp>
+#include <w_agf/types.hpp>
 #include <utils/logger.hpp>
 #include <utils/nts.hpp>
 
-namespace nr::DU
+namespace nr::w_agf
 {
 
 class DUAppTask : public NtsTask

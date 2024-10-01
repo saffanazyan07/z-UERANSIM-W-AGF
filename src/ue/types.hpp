@@ -28,7 +28,7 @@
 #include <utils/nts.hpp>
 #include <utils/octet_string.hpp>
 
-namespace nr::ue
+namespace nr::w_agf
 {
 
 class UeAppTask;
@@ -654,4 +654,4 @@ Json ToJson(const EPsState &v);
 Json ToJson(const EServiceReqCause &v);
 Json ToJson(const ERrcState &v);
 
-} // namespace nr::ue
+} // namespace nr::w_agf

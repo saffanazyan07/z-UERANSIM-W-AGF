@@ -9,7 +9,7 @@
 #include <cstring>
 #include <set>
 
-#include <DU/nts.hpp>
+#include <w_agf/nts.hpp>
 #include <utils/common.hpp>
 #include <utils/constants.hpp>
 #include <utils/libc_error.hpp>
@@ -34,7 +34,7 @@ static int EstimateSimulatedDbm(const Vector3 &myPos, const Vector3 &uePos)
     return -distance;
 }
 
-namespace nr::DU
+namespace nr::w_agf
 {
 
 RlsUdpTask::RlsUdpTask(TaskBase *base, uint64_t sti, Vector3 phyLocation)
@@ -194,4 +194,4 @@ void RlsUdpTask::send(int ueId, const rls::RlsMessage &msg)
     sendRlsPdu(m_ueMap[ueId].address, msg);
 }
 
-} // namespace nr::DU
+} // namespace nr::w_agf

@@ -4,10 +4,10 @@
 
 #include <sstream>
 
-#include <DU/types.hpp>
+#include <w_agf/types.hpp>
 #include <utils/common.hpp>
 
-namespace nr::DU
+namespace nr::w_agf
 {
 
 Json ToJson(const DUStatusInfo &v)

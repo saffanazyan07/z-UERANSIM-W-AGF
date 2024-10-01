@@ -15,7 +15,7 @@
 #include <ue/types.hpp>
 #include <utils/nts.hpp>
 
-namespace nr::ue
+namespace nr::w_agf
 {
 
 class NasMm;
@@ -96,4 +96,4 @@ class NasSm
     void handleDownlinkDataRequest(int psi, OctetString &&data);
 };
 
-} // namespace nr::ue
+} // namespace nr::w_agf

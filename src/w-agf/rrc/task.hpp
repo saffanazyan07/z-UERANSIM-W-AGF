@@ -9,7 +9,7 @@
 #include <unordered_map>
 #include <vector>
 
-#include <DU/nts.hpp>
+#include <w_agf/nts.hpp>
 #include <utils/logger.hpp>
 #include <utils/nts.hpp>
 
@@ -29,7 +29,7 @@ extern "C"
     struct ASN_RRC_ULInformationTransfer;
 }
 
-namespace nr::DU
+namespace nr::w_agf
 {
 
 class DURrcTask : public NtsTask

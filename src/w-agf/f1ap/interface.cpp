@@ -1,15 +1,16 @@
 //
 // Created by Hoonyong Park on 5/30/23.
+// Edited by Zyzy on 1/10/24
 //
 
 #include "task.hpp"
 #include "utils.hpp"
 
-#include <DU/app/task.hpp>
-#include <DU/rrc/task.hpp>
-#include <DU/sctp/task.hpp>
+#include <w_agf/app/task.hpp>
+#include <w_agf/rrc/task.hpp>
+#include <w_agf/sctp/task.hpp>
 
-namespace nr::DU
+namespace nr::w_agf
 {
 
 void F1apTask::handleAssociationSetup(int ascId, int inCount, int outCount)
@@ -55,7 +56,7 @@ void F1apTask::sendF1SetupRequest()
 
     std::string *pdu = new std::string();
 
-    *pdu = "F1SetupReqeust|" + std::to_string(m_base->config->getDUId());
+    *pdu = "F1SetupRequest|" + std::to_string(m_base->config->getDUId());
 
 //        auto *pdu = asn::f1ap::NewMessagePdu<F1SetupRequest>(
 //            {ieGlobalCUId, ieRanNodeName, ieSupportedTaList, iePagingDrx});
