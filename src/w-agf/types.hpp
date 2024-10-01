@@ -80,7 +80,7 @@ struct DUCUConfig
     uint16_t port{};
 };
 
-struct DUConfig
+struct w_agfConfig
 {
     /* Read from config file */
     int64_t nci{};     // 36-bit
@@ -113,7 +113,7 @@ struct DUConfig
 
 struct TaskBase
 {
-    DUConfig *config{};
+    w_agfConfig *config{};
     LogBase *logBase{};
     app::INodeListener *nodeListener{};
     NtsTask *cliCallbackTask{};
@@ -127,7 +127,7 @@ struct TaskBase
 };
 
 Json ToJson(const DUStatusInfo &v);
-Json ToJson(const DUConfig &v);
+Json ToJson(const w_agfConfig &v);
 Json ToJson(const F1apCUContext &v);
 //Json ToJson(const EAmfState &v);
 Json ToJson(const EPagingDrx &v);

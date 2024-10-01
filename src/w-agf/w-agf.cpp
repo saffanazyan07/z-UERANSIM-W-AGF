@@ -15,7 +15,7 @@
 namespace nr::w_agf
 {
 
-DistributedUnit::DistributedUnit(DUConfig *config, app::INodeListener *nodeListener, NtsTask *cliCallbackTask)
+AccessGatewayFunction::AccessGatewayFunction(w_agfConfig *config, app::INodeListener *nodeListener, NtsTask *cliCallbackTask)
 {
     auto *base = new TaskBase();
     base->config = config;
@@ -33,7 +33,7 @@ DistributedUnit::DistributedUnit(DUConfig *config, app::INodeListener *nodeListe
     taskBase = base;
 }
 
-DistributedUnit::~DistributedUnit()
+AccessGatewayFunction::~AccessGatewayFunction()
 {
     taskBase->appTask->quit();
     taskBase->sctpTask->quit();
@@ -54,7 +54,7 @@ DistributedUnit::~DistributedUnit()
     delete taskBase;
 }
 
-void DistributedUnit::start()
+void AccessGatewayFunction::start()
 {
     taskBase->appTask->start();
     taskBase->sctpTask->start();
@@ -64,7 +64,7 @@ void DistributedUnit::start()
 //    taskBase->gtpTask->start();
 }
 
-void DistributedUnit::pushCommand(std::unique_ptr<app::DUCliCommand> cmd, const InetAddress &address)
+void AccessGatewayFunction::pushCommand(std::unique_ptr<app::DUCliCommand> cmd, const InetAddress &address)
 {
     taskBase->appTask->push((std::make_unique<NmDUCliCommand>(std::move(cmd), address)));
 }

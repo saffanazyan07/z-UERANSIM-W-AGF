@@ -16,7 +16,7 @@ namespace nr::w_agf::keys
 /**
  * Derives SEAF and AMF keys
  */
-void DeriveKeysSeafAmf(const UeConfig &ueConfig, const Plmn &currentPlmn, NasSecurityContext &nasSecurityContext);
+void DeriveKeysSeafAmf(const UeConfig &w_agfConfig, const Plmn &currentPlmn, NasSecurityContext &nasSecurityContext);
 
 /**
  * Derives NAS keys

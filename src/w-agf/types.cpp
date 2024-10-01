@@ -15,7 +15,7 @@ Json ToJson(const DUStatusInfo &v)
     return Json::Obj({{"is-f1ap-up", v.isF1apUp}});
 }
 
-Json ToJson(const DUConfig &v)
+Json ToJson(const w_agfConfig &v)
 {
     return Json::Obj({
         {"name", v.name},

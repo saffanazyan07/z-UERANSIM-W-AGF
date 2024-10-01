@@ -20,7 +20,7 @@ static const int N_UP_int_alg = 0x06;
 namespace nr::w_agf::keys
 {
 
-void DeriveKeysSeafAmf(const UeConfig &ueConfig, const Plmn &currentPlmn, NasSecurityContext &nasSecurityContext)
+void DeriveKeysSeafAmf(const UeConfig &w_agfConfig, const Plmn &currentPlmn, NasSecurityContext &nasSecurityContext)
 {
     auto &keys = nasSecurityContext.keys;
     std::string snn = ConstructServingNetworkName(currentPlmn);
@@ -29,7 +29,7 @@ void DeriveKeysSeafAmf(const UeConfig &ueConfig, const Plmn &currentPlmn, NasSec
     s1[0] = crypto::EncodeKdfString(snn);
 
     OctetString s2[2];
-    s2[0] = crypto::EncodeKdfString(ueConfig.supi->value);
+    s2[0] = crypto::EncodeKdfString(w_agfConfig.supi->value);
     s2[1] = keys.abba.copy();
 
     keys.kSeaf = crypto::CalculateKdfKey(keys.kAusf, 0x6C, s1, 1);

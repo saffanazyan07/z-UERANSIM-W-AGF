@@ -15,14 +15,14 @@
 namespace nr::w_agf
 {
 
-class DistributedUnit
+class AccessGatewayFunction
 {
   private:
     TaskBase *taskBase;
 
   public:
-    DistributedUnit(DUConfig *config, app::INodeListener *nodeListener, NtsTask *cliCallbackTask);
-    virtual ~DistributedUnit();
+    AccessGatewayFunction(w_agfConfig *config, app::INodeListener *nodeListener, NtsTask *cliCallbackTask);
+    virtual ~AccessGatewayFunction();
 
   public:
     void start();

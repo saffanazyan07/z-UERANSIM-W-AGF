@@ -4,7 +4,7 @@
 //
 
 #include <chrono> //zy
-#include <iostream>
+#include <iostream> 
 #include <stdexcept>
 #include <unordered_map>
 #include <thread>
@@ -27,7 +27,7 @@
 
 static app::CliServer *g_cliServer = nullptr;
 static nr::w_agf::w_agfConfig *g_refConfig = nullptr;
-//static ConcurrentMap<std::string, nr::w_agf::UserEquipment *> g_ueMap{};
+static ConcurrentMap<std::string, nr::w_agf::UserEquipment *> g_ueMap{};
 static std::unordered_map<std::string, nr::w_agf::AccessGatewayFunction *> g_w_agfMap{};
 static app::CliResponseTask *g_cliRespTask = nullptr;
 
@@ -164,13 +164,13 @@ static void ReceiveCommand(app::CliMessage &msg)
         return;
     }
 
-    if (g_DUMap.count(msg.nodeName) == 0)
+    if (g_w_agfMap.count(msg.nodeName) == 0)
     {
         g_cliServer->sendMessage(app::CliMessage::Error(msg.clientAddr, "Node not found: " + msg.nodeName));
         return;
     }
 
-    //auto *DU = g_DUMap[msg.nodeName];
+    //auto *DU = g_w_agfMap[msg.nodeName];
     //DU->pushCommand(std::move(cmd), msg.clientAddr);
 }
 
@@ -220,12 +220,12 @@ int main(int argc, char **argv)
         g_cliRespTask = new app::CliResponseTask(g_cliServer);
     }
 
-    auto *DU = new nr::w_agf::DistributedUnit(g_refConfig, nullptr, g_cliRespTask);
-    g_DUMap[g_refConfig->name] = DU;
+    auto *DU = new nr::w_agf::AccessGatewayFunction(g_refConfig, nullptr, g_cliRespTask);
+    g_w_agfMap[g_refConfig->name] = DU;
 
     if (!g_options.disableCmd)
     {
-        app::CreateProcTable(g_DUMap, g_cliServer->assignedAddress().getPort());
+        app::CreateProcTable(g_w_agfMap, g_cliServer->assignedAddress().getPort());
         g_cliRespTask->start();
     }
 

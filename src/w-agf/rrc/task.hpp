@@ -36,7 +36,7 @@ class DURrcTask : public NtsTask
 {
   private:
     TaskBase *m_base;
-    DUConfig *m_config;
+    w_agfConfig *m_config;
     std::unique_ptr<Logger> m_logger;
 
     std::unordered_map<int, RrcUeContext *> m_ueCtx;
