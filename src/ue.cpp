@@ -99,7 +99,7 @@ class UeControllerTask : public NtsTask
 };
 
 static UeControllerTask *g_controllerTask;
-
+//zy start
 static nr::w_agf::UeConfig *ReadConfigYaml()
 {
     auto *result = new nr::w_agf::UeConfig();
@@ -310,7 +310,7 @@ static void ReadOptions(int argc, char **argv)
 
     g_options.disableCmd = opt.hasFlag(itemDisableCmd);
 }
-
+// zy end
 static std::string LargeSum(std::string a, std::string b)
 {
     if (a.length() > b.length())
@@ -382,7 +382,7 @@ static nr::w_agf::UeConfig *GetConfigByUe(int ueIndex)
 
     return c;
 }
-
+//zy start
 static void ReceiveCommand(app::CliMessage &msg)
 {
     if (msg.value.empty())
@@ -534,3 +534,4 @@ int main(int argc, char **argv)
     while (true)
         Loop();
 }
+//zy end

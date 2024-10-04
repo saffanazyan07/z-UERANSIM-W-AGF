@@ -83,7 +83,145 @@ static nr::w_agf::w_agfConfig *ReadConfigYaml()
             s.sd = octet3{yaml::GetInt32(nssai, "sd", 0, 0xFFFFFF)};
         result->nssai.slices.push_back(s);
     }
+    //zy from ue
+    if (yaml::HasField(config, "routingIndicator"))
+        result->routingIndicator = yaml::GetString(config, "routingIndicator", 1, 4);
 
+    for (auto &gnbSearchItem : yaml::GetSequence(config, "gnbSearchList"))
+        result->gnbSearchList.push_back(gnbSearchItem.as<std::string>());
+
+    if (yaml::HasField(config, "default-nssai"))
+    {
+        for (auto &sNssai : yaml::GetSequence(config, "default-nssai"))
+        {
+            SingleSlice s{};
+            s.sst = yaml::GetInt32(sNssai, "sst", 0, 0xFF);
+            if (yaml::HasField(sNssai, "sd"))
+                s.sd = octet3{yaml::GetInt32(sNssai, "sd", 0, 0xFFFFFF)};
+            result->defaultConfiguredNssai.slices.push_back(s);
+        }
+    }
+
+    if (yaml::HasField(config, "configured-nssai"))
+    {
+        for (auto &sNssai : yaml::GetSequence(config, "configured-nssai"))
+        {
+            SingleSlice s{};
+            s.sst = yaml::GetInt32(sNssai, "sst", 0, 0xFF);
+            if (yaml::HasField(sNssai, "sd"))
+                s.sd = octet3{yaml::GetInt32(sNssai, "sd", 0, 0xFFFFFF)};
+            result->configuredNssai.slices.push_back(s);
+        }
+    }
+
+    result->key = OctetString::FromHex(yaml::GetString(config, "key", 32, 32));
+    result->opC = OctetString::FromHex(yaml::GetString(config, "op", 32, 32));
+    result->amf = OctetString::FromHex(yaml::GetString(config, "amf", 4, 4));
+
+    result->configureRouting = !g_options.noRoutingConfigs;
+
+    // If we have multiple UEs in the same process, then log names should be separated.
+    result->prefixLogger = g_options.count > 1;
+
+    if (yaml::HasField(config, "supi"))
+        result->supi = Supi::Parse(yaml::GetString(config, "supi"));
+    if (yaml::HasField(config, "protectionScheme"))
+        result->protectionScheme = yaml::GetInt32(config, "protectionScheme", 0, 255);
+    if (yaml::HasField(config, "homeNetworkPublicKeyId"))
+        result->homeNetworkPublicKeyId = yaml::GetInt32(config, "homeNetworkPublicKeyId", 0, 255);
+    if (yaml::HasField(config, "homeNetworkPublicKey"))        
+        result->homeNetworkPublicKey = OctetString::FromHex(yaml::GetString(config, "homeNetworkPublicKey", 64, 64)); 
+    if (yaml::HasField(config, "imei"))
+        result->imei = yaml::GetString(config, "imei", 15, 15);
+    if (yaml::HasField(config, "imeiSv"))
+        result->imeiSv = yaml::GetString(config, "imeiSv", 16, 16);
+    // Interface name has to be 16 bytes long max. Leaving some bytes free for indexing.
+    if (yaml::HasField(config, "tunNamePrefix"))
+        result->tunNamePrefix = yaml::GetString(config, "tunNamePrefix", 1, 13);
+
+    yaml::AssertHasField(config, "integrity");
+    yaml::AssertHasField(config, "ciphering");
+
+    result->supportedAlgs.nia1 = yaml::GetBool(config["integrity"], "IA1");
+    result->supportedAlgs.nia2 = yaml::GetBool(config["integrity"], "IA2");
+    result->supportedAlgs.nia3 = yaml::GetBool(config["integrity"], "IA3");
+    result->supportedAlgs.nea1 = yaml::GetBool(config["ciphering"], "EA1");
+    result->supportedAlgs.nea2 = yaml::GetBool(config["ciphering"], "EA2");
+    result->supportedAlgs.nea3 = yaml::GetBool(config["ciphering"], "EA3");
+
+    std::string opType = yaml::GetString(config, "opType");
+    if (opType == "OP")
+        result->opType = nr::w_agf::OpType::OP;
+    else if (opType == "OPC")
+        result->opType = nr::w_agf::OpType::OPC;
+    else
+        throw std::runtime_error("Invalid OP type: " + opType);
+
+    if (yaml::HasField(config, "sessions"))
+    {
+        for (auto &sess : yaml::GetSequence(config, "sessions"))
+        {
+            nr::w_agf::SessionConfig s{};
+
+            if (yaml::HasField(sess, "apn"))
+                s.apn = yaml::GetString(sess, "apn");
+            if (yaml::HasField(sess, "slice"))
+            {
+                auto slice = sess["slice"];
+                s.sNssai = SingleSlice{};
+                s.sNssai->sst = yaml::GetInt32(slice, "sst", 0, 0xFF);
+                if (yaml::HasField(slice, "sd"))
+                    s.sNssai->sd = octet3{yaml::GetInt32(slice, "sd", 0, 0xFFFFFF)};
+            }
+
+            std::string type = yaml::GetString(sess, "type");
+            if (type == "IPv4")
+                s.type = nas::EPduSessionType::IPV4;
+            else if (type == "IPv6")
+                s.type = nas::EPduSessionType::IPV6;
+            else if (type == "IPv4v6")
+                s.type = nas::EPduSessionType::IPV4V6;
+            else if (type == "Ethernet")
+                s.type = nas::EPduSessionType::ETHERNET;
+            else if (type == "Unstructured")
+                s.type = nas::EPduSessionType::UNSTRUCTURED;
+            else
+                throw std::runtime_error("Invalid PDU session type: " + type);
+
+            s.isEmergency = false;
+
+            result->defaultSessions.push_back(s);
+        }
+    }
+
+    yaml::AssertHasField(config, "integrityMaxRate");
+    {
+        auto uplink = yaml::GetString(config["integrityMaxRate"], "uplink");
+        auto downlink = yaml::GetString(config["integrityMaxRate"], "downlink");
+        if (uplink != "full" && uplink != "64kbps")
+            throw std::runtime_error("Invalid integrity protection maximum uplink data rate: " + uplink);
+        if (downlink != "full" && downlink != "64kbps")
+            throw std::runtime_error("Invalid integrity protection maximum downlink data rate: " + downlink);
+        result->integrityMaxRate.uplinkFull = uplink == "full";
+        result->integrityMaxRate.downlinkFull = downlink == "full";
+    }
+
+    yaml::AssertHasField(config, "uacAic");
+    {
+        result->uacAic.mps = yaml::GetBool(config["uacAic"], "mps");
+        result->uacAic.mcs = yaml::GetBool(config["uacAic"], "mcs");
+    }
+
+    yaml::AssertHasField(config, "uacAcc");
+    {
+        result->uacAcc.normalCls = yaml::GetInt32(config["uacAcc"], "normalClass", 0, 9);
+        result->uacAcc.cls11 = yaml::GetBool(config["uacAcc"], "class11");
+        result->uacAcc.cls12 = yaml::GetBool(config["uacAcc"], "class12");
+        result->uacAcc.cls13 = yaml::GetBool(config["uacAcc"], "class13");
+        result->uacAcc.cls14 = yaml::GetBool(config["uacAcc"], "class14");
+        result->uacAcc.cls15 = yaml::GetBool(config["uacAcc"], "class15");
+    }
+    //zy from ue
     return result;
 }
 
@@ -91,25 +229,70 @@ static void ReadOptions(int argc, char **argv)
 {
     opt::OptionsDescription desc{cons::Project,
                                  cons::Tag,
-                                 "5G-SA nr-DU implementation",
+                                 "5G-SA nr-W-AGF implementation",
                                  cons::Owner,
-                                 "nr-DU",
+                                 "nr-W-AGF",
                                  {"-c <config-file> [option...]"},
                                  {},
                                  true,
                                  false};
 
-    opt::OptionItem itemConfigFile = {'c', "config", "Use specified configuration file for nr-DU", "config-file"};
+    opt::OptionItem itemConfigFile = {'c', "config", "Use specified configuration file for nr-W-AGF", "config-file"};
+    opt::OptionItem itemImsi = {'i', "imsi", "Use specified IMSI number instead of provided one", "imsi"};
+    opt::OptionItem itemCount = {'n', "num-of-UE", "Generate specified number of UEs starting from the given IMSI",
+                                 "num"};
+    opt::OptionItem itemTempo = {'t', "tempo", "Starting delay in milliseconds for each of the UEs", "tempo"};
     opt::OptionItem itemDisableCmd = {'l', "disable-cmd", "Disable command line functionality for this instance",
                                       std::nullopt};
+    opt::OptionItem itemDisableRouting = {'r', "no-routing-config",
+                                          "Do not auto configure routing for UE TUN interface", std::nullopt};                                  
 
     desc.items.push_back(itemConfigFile);
+    desc.items.push_back(itemImsi);
+    desc.items.push_back(itemCount);
+    desc.items.push_back(itemTempo);
     desc.items.push_back(itemDisableCmd);
+    desc.items.push_back(itemDisableRouting);
 
     opt::OptionsResult opt{argc, argv, desc, false, nullptr};
+    //zy start
+    g_options.configFile = opt.getOption(itemConfigFile);
+    g_options.noRoutingConfigs = opt.hasFlag(itemDisableRouting);
+    if (opt.hasFlag(itemCount))
+    {
+        g_options.count = utils::ParseInt(opt.getOption(itemCount));
+        if (g_options.count <= 0)
+            throw std::runtime_error("Invalid number of UEs");
+        if (g_options.count > 512)
+            throw std::runtime_error("Number of UEs is too big");
+    }
+    else
+    {
+        g_options.count = 1;
+    }
 
+    if (opt.hasFlag(itemTempo))
+        g_options.tempo = utils::ParseInt(opt.getOption(itemTempo));
+    else
+        g_options.tempo = 0;
+
+    g_options.imsi = {};
+    if (opt.hasFlag(itemImsi))
+    {
+        g_options.imsi = opt.getOption(itemImsi);
+        if (g_options.imsi.length() > 5 && g_options.imsi[0] == 'i' && g_options.imsi[1] == 'm' &&
+            g_options.imsi[2] == 's' && g_options.imsi[3] == 'i' && g_options.imsi[4] == '-')
+        {
+            g_options.imsi = g_options.imsi.substr(5);
+        }
+
+        Supi::Parse("imsi-" + g_options.imsi); // validate the string by parsing
+    }
+
+    g_options.disableCmd = opt.hasFlag(itemDisableCmd);
+    // zy end
     if (opt.hasFlag(itemDisableCmd))
-        g_options.disableCmd = true;
+    g_options.disableCmd = true;
     g_options.configFile = opt.getOption(itemConfigFile);
 
     try
@@ -122,7 +305,7 @@ static void ReadOptions(int argc, char **argv)
         exit(1);
     }
 }
-
+//zy start
 static void ReceiveCommand(app::CliMessage &msg)
 {
     if (msg.value.empty())
@@ -170,6 +353,14 @@ static void ReceiveCommand(app::CliMessage &msg)
         return;
     }
 
+    auto *ue = g_ueMap.getOrDefault(msg.nodeName);
+    if (ue == nullptr)
+    {
+        g_cliServer->sendMessage(app::CliMessage::Error(msg.clientAddr, "Node not found: " + msg.nodeName));
+        return;
+    }
+
+    ue->pushCommand(std::move(cmd), msg.clientAddr);
     //auto *DU = g_w_agfMap[msg.nodeName];
     //DU->pushCommand(std::move(cmd), msg.clientAddr);
 }
@@ -207,12 +398,39 @@ static void Loop()
     ReceiveCommand(msg);
 }
 
+static class UeController : public app::IUeController
+{
+  public:
+    void performSwitchOff(nr::w_agf::UserEquipment *ue) override
+    {
+        auto w = std::make_unique<NwUeControllerCmd>(NwUeControllerCmd::PERFORM_SWITCH_OFF);
+        w->ue = ue;
+        g_controllerTask->push(std::move(w));
+    }
+} g_ueController;
+
 int main(int argc, char **argv)
 {
     app::Initialize();
     ReadOptions(argc, argv);
 
+    try
+    {
+        g_refConfig = ReadConfigYaml();
+        
+        if (g_options.imsi.length() > 0)
+            g_refConfig->supi = Supi::Parse("imsi-" + g_options.imsi);
+    }
+    catch (const std::runtime_error &e)
+    {
+        std::cerr << "ERROR: " << e.what() << std::endl;
+        return 1;
+    }
+
     std::cout << cons::Name << std::endl;
+
+    g_controllerTask = new UeControllerTask();
+    g_controllerTask->start();
 
     if (!g_options.disableCmd)
     {
@@ -220,13 +438,33 @@ int main(int argc, char **argv)
         g_cliRespTask = new app::CliResponseTask(g_cliServer);
     }
 
+    for (int i = 0; i < g_options.count; i++)
+    {
+        auto *config = GetConfigByUe(i);
+        auto *ue = new nr::w_agf::UserEquipment(config, &g_ueController, nullptr, g_cliRespTask);
+        g_ueMap.put(config->getNodeName(), ue);
+    }
+
     auto *DU = new nr::w_agf::AccessGatewayFunction(g_refConfig, nullptr, g_cliRespTask);
     g_w_agfMap[g_refConfig->name] = DU;
 
     if (!g_options.disableCmd)
     {
+        app::CreateProcTable(g_ueMap, g_cliServer->assignedAddress().getPort());
         app::CreateProcTable(g_w_agfMap, g_cliServer->assignedAddress().getPort());
         g_cliRespTask->start();
+    }
+
+    if (g_options.tempo != 0)
+    {
+        g_ueMap.invokeForeach([](const auto &ue) {
+            ue.second->start();
+            std::this_thread::sleep_for(std::chrono::milliseconds(g_options.tempo));
+        });
+    }
+    else
+    {
+        g_ueMap.invokeForeach([](const auto &ue) { ue.second->start(); });
     }
 
     DU->start();
@@ -234,3 +472,4 @@ int main(int argc, char **argv)
     while (true)
         Loop();
 }
+//zy end
