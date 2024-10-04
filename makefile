@@ -13,7 +13,7 @@ build: FORCE
 	
 
 	cp cmake-build-release/nr-CU build/
-	cp cmake-build-release/nr-W-AGF build/
+	cp cmake-build-release/nr-w-agf build/
 	cp cmake-build-release/nr-ue build/
 	cp cmake-build-release/nr-cli build/
 	cp cmake-build-release/libdevbnd.so build/

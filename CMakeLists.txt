@@ -36,25 +36,25 @@ target_link_libraries(nr-CU CU)
 
 #################### DU EXECUTABLE ####################
 
-add_executable(nr-w_agf src/w_agf.cpp)
+add_executable(nr-w-agf src/w-agf.cpp)
 
-target_link_libraries(nr-w_agf pthread)
+target_link_libraries(nr-w-agf pthread)
 
-target_compile_options(nr-w_agf PRIVATE -Wall -Wextra -pedantic)
+target_compile_options(nr-w-agf PRIVATE -Wall -Wextra -pedantic)
 
-target_link_libraries(nr-w_agf asn-rrc)
-target_link_libraries(nr-w_agf asn-f1ap)
-target_link_libraries(nr-w_agf common-lib)
-target_link_libraries(nr-w_agf w_agf)
+target_link_libraries(nr-w-agf asn-rrc)
+target_link_libraries(nr-w-agf asn-f1ap)
+target_link_libraries(nr-w-agf common-lib)
+target_link_libraries(nr-w-agf w-agf)
 
 #################### FN-RG EXECUTABLE ####################
 
-add_executable(nr-fnrg src/fnrg.cpp)
-target_link_libraries(nr-fnrg pthread)
-target_compile_options(nr-fnrg PRIVATE -Wall -Wextra -pedantic)
+add_executable(nr-ue src/ue.cpp)
+target_link_libraries(nr-ue pthread)
+target_compile_options(nr-ue PRIVATE -Wall -Wextra -pedantic)
 
-target_link_libraries(nr-fnrg common-lib)
-target_link_libraries(nr-fnrg fnrg)
+target_link_libraries(nr-ue common-lib)
+target_link_libraries(nr-ue ue)
 
 ###################### IF BINDER ######################
 add_library(devbnd SHARED src/binder.cpp)
