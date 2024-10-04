@@ -17,8 +17,8 @@ add_subdirectory(src/asn/ngap)
 add_subdirectory(src/asn/f1ap)
 add_subdirectory(src/lib)
 add_subdirectory(src/CU)
-add_subdirectory(src/w_agf)
-add_subdirectory(src/fnrg)
+add_subdirectory(src/w-agf)
+add_subdirectory(src/ue)
 
 #################### CU EXECUTABLE ####################
 
