@@ -125,7 +125,7 @@ SctpServerTask::SctpServerTask(TaskBase* base): m_base(base), server{}, m_logger
 
     accepterThread = new ScopedThread([](void *arg) { AccepterThread(reinterpret_cast<SctpServerTask *>(arg)); }, this);
 
-    m_logger = m_base->logBase->makeUniqueLogger("sctp-server");
+    m_logger = m_base->logBase->makeUniqueLogger("sctp-f1ap");
 }
 
 void SctpServerTask::onStart()
