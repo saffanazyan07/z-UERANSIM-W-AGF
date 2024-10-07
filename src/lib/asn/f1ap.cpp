@@ -26,7 +26,7 @@
 #include <asn/f1ap/UEContextSetupRequest.h> //ASN_NGAP_InitialContextSetupRequest.h
 #include <asn/f1ap/UEContextSetupResponse.h> //ASN_NGAP_InitialContextSetupResponse.h
 #include <asn/f1ap/InitialULRRCMessageTransfer.h> //ASN_NGAP_InitialUEMessage.h
-#include <asn/f1ap/InitiatingMessage.h> //ASN_NGAP_InitiatingMessage.h
+#include <asn/f1ap/InitiatingMessage.h> //InitiatingMessage.h
 #include <asn/f1ap/F1AP-PDU.h> //ASN_NGAP_NGAP-PDU.h
 #include <asn/f1ap/Reset.h> //ASN_NGAP_NGReset.h
 #include <asn/f1ap/ResetAcknowledge.h> //ASN_NGAP_NGResetAcknowledge.h
@@ -59,29 +59,30 @@
 #include <asn/f1ap/ULRRCMessageTransfer.h> //ASN_NGAP_UplinkNASTransport.h
 
 
+
 namespace asn::f1ap
 {
 
-ASN_NGAP_NGAP_PDU *NgapPduFromPduDescription(ASN_NGAP_InitiatingMessage *desc)
+F1AP_PDU *F1apPduFromPduDescription(InitiatingMessage *desc)
 {
-    auto pdu = asn::New<ASN_NGAP_NGAP_PDU>();
-    pdu->present = ASN_NGAP_NGAP_PDU_PR_initiatingMessage;
+    auto pdu = asn::New<F1AP_PDU>();
+    pdu->present = F1AP_PDU_PR_initiatingMessage;
     pdu->choice.initiatingMessage = desc;
     return pdu;
 }
 
-ASN_NGAP_NGAP_PDU *NgapPduFromPduDescription(ASN_NGAP_SuccessfulOutcome *desc)
+F1AP_PDU *F1apPduFromPduDescription(ASN_NGAP_SuccessfulOutcome *desc)
 {
-    auto pdu = asn::New<ASN_NGAP_NGAP_PDU>();
-    pdu->present = ASN_NGAP_NGAP_PDU_PR_successfulOutcome;
+    auto pdu = asn::New<F1AP_PDU>();
+    pdu->present = F1AP_PDU_PR_successfulOutcome;
     pdu->choice.successfulOutcome = desc;
     return pdu;
 }
 
-ASN_NGAP_NGAP_PDU *NgapPduFromPduDescription(ASN_NGAP_UnsuccessfulOutcome *desc)
+F1AP_PDU *F1apPduFromPduDescription(ASN_NGAP_UnsuccessfulOutcome *desc)
 {
-    auto pdu = asn::New<ASN_NGAP_NGAP_PDU>();
-    pdu->present = ASN_NGAP_NGAP_PDU_PR_unsuccessfulOutcome;
+    auto pdu = asn::New<F1AP_PDU>();
+    pdu->present = F1AP_PDU_PR_unsuccessfulOutcome;
     pdu->choice.unsuccessfulOutcome = desc;
     return pdu;
 }
@@ -93,10 +94,10 @@ void *NewDescFromMessageType(NgapMessageType type, void *&pOutDescription)
 
     if (pduDescription == 0)
     {
-        auto *desc = asn::New<ASN_NGAP_InitiatingMessage>();
+        auto *desc = asn::New<InitiatingMessage>();
         desc->procedureCode = GetProcedureCode(type);
         desc->criticality = GetProcedureCriticality(type);
-        desc->value.present = static_cast<ASN_NGAP_InitiatingMessage__value_PR>(GetProcedurePresent(type));
+        desc->value.present = static_cast<InitiatingMessage__value_PR>(GetProcedurePresent(type));
         pOutDescription = desc;
 
         switch (type)
@@ -537,111 +538,111 @@ int GetProcedurePresent(NgapMessageType messageType)
     switch (messageType)
     {
     case NgapMessageType::AMFConfigurationUpdate:
-        return ASN_NGAP_InitiatingMessage__value_PR_AMFConfigurationUpdate;
+        return InitiatingMessage__value_PR_AMFConfigurationUpdate;
     case NgapMessageType::HandoverCancel:
-        return ASN_NGAP_InitiatingMessage__value_PR_HandoverCancel;
+        return InitiatingMessage__value_PR_HandoverCancel;
     case NgapMessageType::HandoverRequired:
-        return ASN_NGAP_InitiatingMessage__value_PR_HandoverRequired;
+        return InitiatingMessage__value_PR_HandoverRequired;
     case NgapMessageType::HandoverRequest:
-        return ASN_NGAP_InitiatingMessage__value_PR_HandoverRequest;
+        return InitiatingMessage__value_PR_HandoverRequest;
     case NgapMessageType::InitialContextSetupRequest:
-        return ASN_NGAP_InitiatingMessage__value_PR_InitialContextSetupRequest;
+        return InitiatingMessage__value_PR_InitialContextSetupRequest;
     case NgapMessageType::NGReset:
-        return ASN_NGAP_InitiatingMessage__value_PR_NGReset;
+        return InitiatingMessage__value_PR_NGReset;
     case NgapMessageType::NGSetupRequest:
-        return ASN_NGAP_InitiatingMessage__value_PR_NGSetupRequest;
+        return InitiatingMessage__value_PR_NGSetupRequest;
     case NgapMessageType::PathSwitchRequest:
-        return ASN_NGAP_InitiatingMessage__value_PR_PathSwitchRequest;
+        return InitiatingMessage__value_PR_PathSwitchRequest;
     case NgapMessageType::PDUSessionResourceModifyRequest:
-        return ASN_NGAP_InitiatingMessage__value_PR_PDUSessionResourceModifyRequest;
+        return InitiatingMessage__value_PR_PDUSessionResourceModifyRequest;
     case NgapMessageType::PDUSessionResourceModifyIndication:
-        return ASN_NGAP_InitiatingMessage__value_PR_PDUSessionResourceModifyIndication;
+        return InitiatingMessage__value_PR_PDUSessionResourceModifyIndication;
     case NgapMessageType::PDUSessionResourceReleaseCommand:
-        return ASN_NGAP_InitiatingMessage__value_PR_PDUSessionResourceReleaseCommand;
+        return InitiatingMessage__value_PR_PDUSessionResourceReleaseCommand;
     case NgapMessageType::PDUSessionResourceSetupRequest:
-        return ASN_NGAP_InitiatingMessage__value_PR_PDUSessionResourceSetupRequest;
+        return InitiatingMessage__value_PR_PDUSessionResourceSetupRequest;
     case NgapMessageType::PWSCancelRequest:
-        return ASN_NGAP_InitiatingMessage__value_PR_PWSCancelRequest;
+        return InitiatingMessage__value_PR_PWSCancelRequest;
     case NgapMessageType::RANConfigurationUpdate:
-        return ASN_NGAP_InitiatingMessage__value_PR_RANConfigurationUpdate;
+        return InitiatingMessage__value_PR_RANConfigurationUpdate;
     case NgapMessageType::UEContextModificationRequest:
-        return ASN_NGAP_InitiatingMessage__value_PR_UEContextModificationRequest;
+        return InitiatingMessage__value_PR_UEContextModificationRequest;
     case NgapMessageType::UEContextReleaseCommand:
-        return ASN_NGAP_InitiatingMessage__value_PR_UEContextReleaseCommand;
+        return InitiatingMessage__value_PR_UEContextReleaseCommand;
     case NgapMessageType::UERadioCapabilityCheckRequest:
-        return ASN_NGAP_InitiatingMessage__value_PR_UERadioCapabilityCheckRequest;
+        return InitiatingMessage__value_PR_UERadioCapabilityCheckRequest;
     case NgapMessageType::WriteReplaceWarningRequest:
-        return ASN_NGAP_InitiatingMessage__value_PR_WriteReplaceWarningRequest;
+        return InitiatingMessage__value_PR_WriteReplaceWarningRequest;
     case NgapMessageType::AMFStatusIndication:
-        return ASN_NGAP_InitiatingMessage__value_PR_AMFStatusIndication;
+        return InitiatingMessage__value_PR_AMFStatusIndication;
     case NgapMessageType::CellTrafficTrace:
-        return ASN_NGAP_InitiatingMessage__value_PR_CellTrafficTrace;
+        return InitiatingMessage__value_PR_CellTrafficTrace;
     case NgapMessageType::DeactivateTrace:
-        return ASN_NGAP_InitiatingMessage__value_PR_DeactivateTrace;
+        return InitiatingMessage__value_PR_DeactivateTrace;
     case NgapMessageType::DownlinkNASTransport:
-        return ASN_NGAP_InitiatingMessage__value_PR_DownlinkNASTransport;
+        return InitiatingMessage__value_PR_DownlinkNASTransport;
     case NgapMessageType::DownlinkNonUEAssociatedNRPPaTransport:
-        return ASN_NGAP_InitiatingMessage__value_PR_DownlinkNonUEAssociatedNRPPaTransport;
+        return InitiatingMessage__value_PR_DownlinkNonUEAssociatedNRPPaTransport;
     case NgapMessageType::DownlinkRANConfigurationTransfer:
-        return ASN_NGAP_InitiatingMessage__value_PR_DownlinkRANConfigurationTransfer;
+        return InitiatingMessage__value_PR_DownlinkRANConfigurationTransfer;
     case NgapMessageType::DownlinkRANStatusTransfer:
-        return ASN_NGAP_InitiatingMessage__value_PR_DownlinkRANStatusTransfer;
+        return InitiatingMessage__value_PR_DownlinkRANStatusTransfer;
     case NgapMessageType::DownlinkUEAssociatedNRPPaTransport:
-        return ASN_NGAP_InitiatingMessage__value_PR_DownlinkUEAssociatedNRPPaTransport;
+        return InitiatingMessage__value_PR_DownlinkUEAssociatedNRPPaTransport;
     case NgapMessageType::ErrorIndication:
-        return ASN_NGAP_InitiatingMessage__value_PR_ErrorIndication;
+        return InitiatingMessage__value_PR_ErrorIndication;
     case NgapMessageType::HandoverNotify:
-        return ASN_NGAP_InitiatingMessage__value_PR_HandoverNotify;
+        return InitiatingMessage__value_PR_HandoverNotify;
     case NgapMessageType::InitialUEMessage:
-        return ASN_NGAP_InitiatingMessage__value_PR_InitialUEMessage;
+        return InitiatingMessage__value_PR_InitialUEMessage;
     case NgapMessageType::LocationReport:
-        return ASN_NGAP_InitiatingMessage__value_PR_LocationReport;
+        return InitiatingMessage__value_PR_LocationReport;
     case NgapMessageType::LocationReportingControl:
-        return ASN_NGAP_InitiatingMessage__value_PR_LocationReportingControl;
+        return InitiatingMessage__value_PR_LocationReportingControl;
     case NgapMessageType::LocationReportingFailureIndication:
-        return ASN_NGAP_InitiatingMessage__value_PR_LocationReportingFailureIndication;
+        return InitiatingMessage__value_PR_LocationReportingFailureIndication;
     case NgapMessageType::NASNonDeliveryIndication:
-        return ASN_NGAP_InitiatingMessage__value_PR_NASNonDeliveryIndication;
+        return InitiatingMessage__value_PR_NASNonDeliveryIndication;
     case NgapMessageType::OverloadStart:
-        return ASN_NGAP_InitiatingMessage__value_PR_OverloadStart;
+        return InitiatingMessage__value_PR_OverloadStart;
     case NgapMessageType::OverloadStop:
-        return ASN_NGAP_InitiatingMessage__value_PR_OverloadStop;
+        return InitiatingMessage__value_PR_OverloadStop;
     case NgapMessageType::Paging:
-        return ASN_NGAP_InitiatingMessage__value_PR_Paging;
+        return InitiatingMessage__value_PR_Paging;
     case NgapMessageType::PDUSessionResourceNotify:
-        return ASN_NGAP_InitiatingMessage__value_PR_PDUSessionResourceNotify;
+        return InitiatingMessage__value_PR_PDUSessionResourceNotify;
     case NgapMessageType::PrivateMessage:
-        return ASN_NGAP_InitiatingMessage__value_PR_PrivateMessage;
+        return InitiatingMessage__value_PR_PrivateMessage;
     case NgapMessageType::PWSFailureIndication:
-        return ASN_NGAP_InitiatingMessage__value_PR_PWSFailureIndication;
+        return InitiatingMessage__value_PR_PWSFailureIndication;
     case NgapMessageType::PWSRestartIndication:
-        return ASN_NGAP_InitiatingMessage__value_PR_PWSRestartIndication;
+        return InitiatingMessage__value_PR_PWSRestartIndication;
     case NgapMessageType::RerouteNASRequest:
-        return ASN_NGAP_InitiatingMessage__value_PR_RerouteNASRequest;
+        return InitiatingMessage__value_PR_RerouteNASRequest;
     case NgapMessageType::RRCInactiveTransitionReport:
-        return ASN_NGAP_InitiatingMessage__value_PR_RRCInactiveTransitionReport;
+        return InitiatingMessage__value_PR_RRCInactiveTransitionReport;
     case NgapMessageType::SecondaryRATDataUsageReport:
-        return ASN_NGAP_InitiatingMessage__value_PR_SecondaryRATDataUsageReport;
+        return InitiatingMessage__value_PR_SecondaryRATDataUsageReport;
     case NgapMessageType::TraceFailureIndication:
-        return ASN_NGAP_InitiatingMessage__value_PR_TraceFailureIndication;
+        return InitiatingMessage__value_PR_TraceFailureIndication;
     case NgapMessageType::TraceStart:
-        return ASN_NGAP_InitiatingMessage__value_PR_TraceStart;
+        return InitiatingMessage__value_PR_TraceStart;
     case NgapMessageType::UEContextReleaseRequest:
-        return ASN_NGAP_InitiatingMessage__value_PR_UEContextReleaseRequest;
+        return InitiatingMessage__value_PR_UEContextReleaseRequest;
     case NgapMessageType::UERadioCapabilityInfoIndication:
-        return ASN_NGAP_InitiatingMessage__value_PR_UERadioCapabilityInfoIndication;
+        return InitiatingMessage__value_PR_UERadioCapabilityInfoIndication;
     case NgapMessageType::UETNLABindingReleaseRequest:
-        return ASN_NGAP_InitiatingMessage__value_PR_UETNLABindingReleaseRequest;
+        return InitiatingMessage__value_PR_UETNLABindingReleaseRequest;
     case NgapMessageType::UplinkNASTransport:
-        return ASN_NGAP_InitiatingMessage__value_PR_UplinkNASTransport;
+        return InitiatingMessage__value_PR_UplinkNASTransport;
     case NgapMessageType::UplinkNonUEAssociatedNRPPaTransport:
-        return ASN_NGAP_InitiatingMessage__value_PR_UplinkNonUEAssociatedNRPPaTransport;
+        return InitiatingMessage__value_PR_UplinkNonUEAssociatedNRPPaTransport;
     case NgapMessageType::UplinkRANConfigurationTransfer:
-        return ASN_NGAP_InitiatingMessage__value_PR_UplinkRANConfigurationTransfer;
+        return InitiatingMessage__value_PR_UplinkRANConfigurationTransfer;
     case NgapMessageType::UplinkRANStatusTransfer:
-        return ASN_NGAP_InitiatingMessage__value_PR_UplinkRANStatusTransfer;
+        return InitiatingMessage__value_PR_UplinkRANStatusTransfer;
     case NgapMessageType::UplinkUEAssociatedNRPPaTransport:
-        return ASN_NGAP_InitiatingMessage__value_PR_UplinkUEAssociatedNRPPaTransport;
+        return InitiatingMessage__value_PR_UplinkUEAssociatedNRPPaTransport;
 
     case NgapMessageType::AMFConfigurationUpdateAcknowledge:
         return ASN_NGAP_SuccessfulOutcome__value_PR_AMFConfigurationUpdateAcknowledge;
@@ -814,7 +815,7 @@ struct IeFieldInfo
     asn_anonymous_set_ *list;
 };
 
-static bool GetProtocolIeInfo(const ASN_NGAP_NGAP_PDU &pdu, const asn_TYPE_descriptor_t &ieType, IeFieldInfo &info)
+static bool GetProtocolIeInfo(const F1AP_PDU &pdu, const asn_TYPE_descriptor_t &ieType, IeFieldInfo &info)
 {
     // This function assumes all ASN structs are "C++ standard layout".
     // Therefore no problem is expected since the structs are already standard layout.
@@ -826,17 +827,17 @@ static bool GetProtocolIeInfo(const ASN_NGAP_NGAP_PDU &pdu, const asn_TYPE_descr
     asn_TYPE_descriptor_t *desc;
     void *ptr;
 
-    if (pdu.present == ASN_NGAP_NGAP_PDU_PR_initiatingMessage)
+    if (pdu.present == F1AP_PDU_PR_initiatingMessage)
     {
-        desc = &asn_DEF_ASN_NGAP_InitiatingMessage;
+        desc = &asn_DEF_InitiatingMessage;
         ptr = pdu.choice.initiatingMessage;
     }
-    else if (pdu.present == ASN_NGAP_NGAP_PDU_PR_successfulOutcome)
+    else if (pdu.present == F1AP_PDU_PR_successfulOutcome)
     {
         desc = &asn_DEF_ASN_NGAP_SuccessfulOutcome;
         ptr = pdu.choice.successfulOutcome;
     }
-    else if (pdu.present == ASN_NGAP_NGAP_PDU_PR_unsuccessfulOutcome)
+    else if (pdu.present == F1AP_PDU_PR_unsuccessfulOutcome)
     {
         desc = &asn_DEF_ASN_NGAP_UnsuccessfulOutcome;
         ptr = pdu.choice.unsuccessfulOutcome;
@@ -928,13 +929,13 @@ static bool GetProtocolIeInfo(const ASN_NGAP_NGAP_PDU &pdu, const asn_TYPE_descr
     return true;
 }
 
-bool IsProtocolIeUsable(const ASN_NGAP_NGAP_PDU &pdu, const asn_TYPE_descriptor_t &ieType)
+bool IsProtocolIeUsable(const F1AP_PDU &pdu, const asn_TYPE_descriptor_t &ieType)
 {
     IeFieldInfo inf{};
     return GetProtocolIeInfo(pdu, ieType, inf);
 }
 
-void *FindProtocolIeInPdu(const ASN_NGAP_NGAP_PDU &pdu, const asn_TYPE_descriptor_t &ieType, int protocolIeId)
+void *FindProtocolIeInPdu(const F1AP_PDU &pdu, const asn_TYPE_descriptor_t &ieType, int protocolIeId)
 {
     IeFieldInfo inf{};
     if (!GetProtocolIeInfo(pdu, ieType, inf))
@@ -954,7 +955,7 @@ void *FindProtocolIeInPdu(const ASN_NGAP_NGAP_PDU &pdu, const asn_TYPE_descripto
     return nullptr;
 }
 
-bool AddProtocolIeIfUsable(const ASN_NGAP_NGAP_PDU &pdu, const asn_TYPE_descriptor_t &ieType, int protocolIeId,
+bool AddProtocolIeIfUsable(const F1AP_PDU &pdu, const asn_TYPE_descriptor_t &ieType, int protocolIeId,
                            int criticality, const std::function<void(void *)> &ieCreator)
 {
     IeFieldInfo inf{};

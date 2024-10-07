@@ -8,7 +8,7 @@
 
 #pragma once
 
-#include "ngap_msg.hpp"
+#include "f1ap_msg.hpp"
 
 #include <algorithm>
 #include <exception>
@@ -21,9 +21,9 @@
 namespace asn::f1ap
 {
 
-ASN_NGAP_NGAP_PDU *NgapPduFromPduDescription(ASN_NGAP_InitiatingMessage *desc);
-ASN_NGAP_NGAP_PDU *NgapPduFromPduDescription(ASN_NGAP_SuccessfulOutcome *desc);
-ASN_NGAP_NGAP_PDU *NgapPduFromPduDescription(ASN_NGAP_UnsuccessfulOutcome *desc);
+F1AP_PDU *F1apPduFromPduDescription(InitiatingMessage *desc);
+F1AP_PDU *F1apPduFromPduDescription(ASN_NGAP_SuccessfulOutcome *desc);
+F1AP_PDU *F1apPduFromPduDescription(ASN_NGAP_UnsuccessfulOutcome *desc);
 
 int GetPduDescription(NgapMessageType messageType);
 int GetProcedureCode(NgapMessageType messageType);
@@ -48,7 +48,7 @@ inline void AddProtocolIe(TMessage &msg, typename NgapMessageToIeType<TMessage>:
 }
 
 template <typename T>
-inline ASN_NGAP_NGAP_PDU *NewMessagePdu(std::vector<typename NgapMessageToIeType<T>::value *> ies)
+inline F1AP_PDU *NewMessagePdu(std::vector<typename NgapMessageToIeType<T>::value *> ies)
 {
     auto msgType = static_cast<NgapMessageType>(NgapMessageTypeToEnum<T>::V);
 
@@ -62,11 +62,11 @@ inline ASN_NGAP_NGAP_PDU *NewMessagePdu(std::vector<typename NgapMessageToIeType
     switch (desc)
     {
     case 0:
-        return NgapPduFromPduDescription(reinterpret_cast<ASN_NGAP_InitiatingMessage *>(pDescription));
+        return F1apPduFromPduDescription(reinterpret_cast<InitiatingMessage *>(pDescription));
     case 1:
-        return NgapPduFromPduDescription(reinterpret_cast<ASN_NGAP_SuccessfulOutcome *>(pDescription));
+        return F1apPduFromPduDescription(reinterpret_cast<ASN_NGAP_SuccessfulOutcome *>(pDescription));
     case 2:
-        return NgapPduFromPduDescription(reinterpret_cast<ASN_NGAP_UnsuccessfulOutcome *>(pDescription));
+        return F1apPduFromPduDescription(reinterpret_cast<ASN_NGAP_UnsuccessfulOutcome *>(pDescription));
     default:
         std::terminate();
     }
@@ -91,11 +91,11 @@ inline typename asn::ngap::NgapMessageToIeUnionType<T>::value *GetProtocolIe(T *
     return nullptr;
 }
 
-bool IsProtocolIeUsable(const ASN_NGAP_NGAP_PDU &pdu, const asn_TYPE_descriptor_t &ieType);
+bool IsProtocolIeUsable(const F1AP_PDU &pdu, const asn_TYPE_descriptor_t &ieType);
 
-void *FindProtocolIeInPdu(const ASN_NGAP_NGAP_PDU &pdu, const asn_TYPE_descriptor_t &ieType, int protocolIeId);
+void *FindProtocolIeInPdu(const F1AP_PDU &pdu, const asn_TYPE_descriptor_t &ieType, int protocolIeId);
 
-bool AddProtocolIeIfUsable(const ASN_NGAP_NGAP_PDU &pdu, const asn_TYPE_descriptor_t &ieType, int protocolIeId,
+bool AddProtocolIeIfUsable(const F1AP_PDU &pdu, const asn_TYPE_descriptor_t &ieType, int protocolIeId,
                            int criticality, const std::function<void(void *)> &ieCreator);
 
 } // namespace asn::ngap
