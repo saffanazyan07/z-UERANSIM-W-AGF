@@ -18,7 +18,7 @@
 #include <asn_SEQUENCE_OF.h>
 #include <asn_application.h>
 
-namespace asn::ngap
+namespace asn::f1ap
 {
 
 ASN_NGAP_NGAP_PDU *NgapPduFromPduDescription(ASN_NGAP_InitiatingMessage *desc);

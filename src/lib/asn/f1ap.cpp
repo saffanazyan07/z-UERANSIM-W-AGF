@@ -7,7 +7,7 @@
 //
 
 
-#include "ngap.hpp"
+#include "f1ap.hpp"
 #include "utils.hpp"
 #include "utils/common.hpp"
 
@@ -16,92 +16,50 @@
 #include <exception>
 #include <stdexcept>
 
-#include <asn/f1ap/ASN_NGAP_AMFConfigurationUpdate.h>
-#include <asn/f1ap/ASN_NGAP_AMFConfigurationUpdateAcknowledge.h>
-#include <asn/f1ap/ASN_NGAP_AMFConfigurationUpdateFailure.h>
-#include <asn/f1ap/ASN_NGAP_AMFStatusIndication.h>
-#include <asn/f1ap/ASN_NGAP_CellTrafficTrace.h>
-#include <asn/f1ap/ASN_NGAP_DeactivateTrace.h>
-#include <asn/f1ap/ASN_NGAP_DownlinkNASTransport.h>
-#include <asn/f1ap/ASN_NGAP_DownlinkNonUEAssociatedNRPPaTransport.h>
-#include <asn/f1ap/ASN_NGAP_DownlinkRANConfigurationTransfer.h>
-#include <asn/f1ap/ASN_NGAP_DownlinkRANStatusTransfer.h>
-#include <asn/f1ap/ASN_NGAP_DownlinkUEAssociatedNRPPaTransport.h>
-#include <asn/f1ap/ASN_NGAP_ErrorIndication.h>
-#include <asn/f1ap/ASN_NGAP_HandoverCancel.h>
-#include <asn/f1ap/ASN_NGAP_HandoverCancelAcknowledge.h>
-#include <asn/f1ap/ASN_NGAP_HandoverCommand.h>
-#include <asn/f1ap/ASN_NGAP_HandoverFailure.h>
-#include <asn/f1ap/ASN_NGAP_HandoverNotify.h>
-#include <asn/f1ap/ASN_NGAP_HandoverPreparationFailure.h>
-#include <asn/f1ap/ASN_NGAP_HandoverRequest.h>
-#include <asn/f1ap/ASN_NGAP_HandoverRequestAcknowledge.h>
-#include <asn/f1ap/ASN_NGAP_HandoverRequired.h>
-#include <asn/f1ap/ASN_NGAP_InitialContextSetupFailure.h>
-#include <asn/f1ap/ASN_NGAP_InitialContextSetupRequest.h>
-#include <asn/f1ap/ASN_NGAP_InitialContextSetupResponse.h>
-#include <asn/f1ap/ASN_NGAP_InitialUEMessage.h>
-#include <asn/f1ap/ASN_NGAP_InitiatingMessage.h>
-#include <asn/f1ap/ASN_NGAP_LocationReport.h>
-#include <asn/f1ap/ASN_NGAP_LocationReportingControl.h>
-#include <asn/f1ap/ASN_NGAP_LocationReportingFailureIndication.h>
-#include <asn/f1ap/ASN_NGAP_NASNonDeliveryIndication.h>
-#include <asn/f1ap/ASN_NGAP_NGAP-PDU.h>
-#include <asn/f1ap/ASN_NGAP_NGReset.h>
-#include <asn/f1ap/ASN_NGAP_NGResetAcknowledge.h>
-#include <asn/f1ap/ASN_NGAP_NGSetupFailure.h>
-#include <asn/f1ap/ASN_NGAP_NGSetupRequest.h>
-#include <asn/f1ap/ASN_NGAP_NGSetupResponse.h>
-#include <asn/f1ap/ASN_NGAP_OverloadStart.h>
-#include <asn/f1ap/ASN_NGAP_OverloadStop.h>
-#include <asn/f1ap/ASN_NGAP_PDUSessionResourceModifyConfirm.h>
-#include <asn/f1ap/ASN_NGAP_PDUSessionResourceModifyIndication.h>
-#include <asn/f1ap/ASN_NGAP_PDUSessionResourceModifyRequest.h>
-#include <asn/f1ap/ASN_NGAP_PDUSessionResourceModifyResponse.h>
-#include <asn/f1ap/ASN_NGAP_PDUSessionResourceNotify.h>
-#include <asn/f1ap/ASN_NGAP_PDUSessionResourceReleaseCommand.h>
-#include <asn/f1ap/ASN_NGAP_PDUSessionResourceReleaseResponse.h>
-#include <asn/f1ap/ASN_NGAP_PDUSessionResourceSetupRequest.h>
-#include <asn/f1ap/ASN_NGAP_PDUSessionResourceSetupResponse.h>
-#include <asn/f1ap/ASN_NGAP_PWSCancelRequest.h>
-#include <asn/f1ap/ASN_NGAP_PWSCancelResponse.h>
-#include <asn/f1ap/ASN_NGAP_PWSFailureIndication.h>
-#include <asn/f1ap/ASN_NGAP_PWSRestartIndication.h>
-#include <asn/f1ap/ASN_NGAP_Paging.h>
-#include <asn/f1ap/ASN_NGAP_PathSwitchRequest.h>
-#include <asn/f1ap/ASN_NGAP_PathSwitchRequestAcknowledge.h>
-#include <asn/f1ap/ASN_NGAP_PathSwitchRequestFailure.h>
-#include <asn/f1ap/ASN_NGAP_PrivateMessage.h>
-#include <asn/f1ap/ASN_NGAP_ProtocolIE-Field.h>
-#include <asn/f1ap/ASN_NGAP_RANConfigurationUpdate.h>
-#include <asn/f1ap/ASN_NGAP_RANConfigurationUpdateAcknowledge.h>
-#include <asn/f1ap/ASN_NGAP_RANConfigurationUpdateFailure.h>
-#include <asn/f1ap/ASN_NGAP_RRCInactiveTransitionReport.h>
-#include <asn/f1ap/ASN_NGAP_RerouteNASRequest.h>
-#include <asn/f1ap/ASN_NGAP_SecondaryRATDataUsageReport.h>
-#include <asn/f1ap/ASN_NGAP_SuccessfulOutcome.h>
-#include <asn/f1ap/ASN_NGAP_TraceFailureIndication.h>
-#include <asn/f1ap/ASN_NGAP_TraceStart.h>
-#include <asn/f1ap/ASN_NGAP_UEContextModificationFailure.h>
-#include <asn/f1ap/ASN_NGAP_UEContextModificationRequest.h>
-#include <asn/f1ap/ASN_NGAP_UEContextModificationResponse.h>
-#include <asn/f1ap/ASN_NGAP_UEContextReleaseCommand.h>
-#include <asn/f1ap/ASN_NGAP_UEContextReleaseComplete.h>
-#include <asn/f1ap/ASN_NGAP_UEContextReleaseRequest.h>
-#include <asn/f1ap/ASN_NGAP_UERadioCapabilityCheckRequest.h>
-#include <asn/f1ap/ASN_NGAP_UERadioCapabilityCheckResponse.h>
-#include <asn/f1ap/ASN_NGAP_UERadioCapabilityInfoIndication.h>
-#include <asn/f1ap/ASN_NGAP_UETNLABindingReleaseRequest.h>
-#include <asn/f1ap/ASN_NGAP_UnsuccessfulOutcome.h>
-#include <asn/f1ap/ASN_NGAP_UplinkNASTransport.h>
-#include <asn/f1ap/ASN_NGAP_UplinkNonUEAssociatedNRPPaTransport.h>
-#include <asn/f1ap/ASN_NGAP_UplinkRANConfigurationTransfer.h>
-#include <asn/f1ap/ASN_NGAP_UplinkRANStatusTransfer.h>
-#include <asn/f1ap/ASN_NGAP_UplinkUEAssociatedNRPPaTransport.h>
-#include <asn/f1ap/ASN_NGAP_WriteReplaceWarningRequest.h>
-#include <asn/f1ap/ASN_NGAP_WriteReplaceWarningResponse.h>
+#include <asn/f1ap/GNBCUConfigurationUpdate.h> //ASN_NGAP_AMFConfigurationUpdate.h
+#include <asn/f1ap/GNBCUConfigurationUpdateAcknowledge.h> //ASN_NGAP_AMFConfigurationUpdateAcknowledge.h
+#include <asn/f1ap/GNBCUConfigurationUpdateFailure.h> //ASN_NGAP_AMFConfigurationUpdateFailure.h
+#include <asn/f1ap/DLRRCMessageTransfer.h> //ASN_NGAP_DownlinkNASTransport.h
+#include <asn/f1ap/ErrorIndication.h> //ASN_NGAP_ErrorIndication.h
+#include <asn/f1ap/HandoverPreparationInformation.h> //ASN_NGAP_HandoverCancel.h & ...
+#include <asn/f1ap/UEContextSetupFailure.h> //ASN_NGAP_InitialContextSetupFailure.h
+#include <asn/f1ap/UEContextSetupRequest.h> //ASN_NGAP_InitialContextSetupRequest.h
+#include <asn/f1ap/UEContextSetupResponse.h> //ASN_NGAP_InitialContextSetupResponse.h
+#include <asn/f1ap/InitialULRRCMessageTransfer.h> //ASN_NGAP_InitialUEMessage.h
+#include <asn/f1ap/InitiatingMessage.h> //ASN_NGAP_InitiatingMessage.h
+#include <asn/f1ap/F1AP-PDU.h> //ASN_NGAP_NGAP-PDU.h
+#include <asn/f1ap/Reset.h> //ASN_NGAP_NGReset.h
+#include <asn/f1ap/ResetAcknowledge.h> //ASN_NGAP_NGResetAcknowledge.h
+#include <asn/f1ap/F1SetupFailure.h> //ASN_NGAP_NGSetupFailure.h
+#include <asn/f1ap/F1SetupRequest.h> //ASN_NGAP_NGSetupRequest.h
+#include <asn/f1ap/F1SetupResponse.h> //ASN_NGAP_NGSetupResponse.h
+#include <asn/f1ap/PWSCancelRequest.h> //ASN_NGAP_PWSCancelRequest.h
+#include <asn/f1ap/PWSCancelResponse.h> //ASN_NGAP_PWSCancelResponse.h
+#include <asn/f1ap/PWSFailureIndication.h> //ASN_NGAP_PWSFailureIndication.h
+#include <asn/f1ap/PWSRestartIndication.h> //ASN_NGAP_PWSRestartIndication.h
+#include <asn/f1ap/Paging.h> //ASN_NGAP_Paging.h
+#include <asn/f1ap/PrivateMessage.h> //ASN_NGAP_PrivateMessage.h
+#include <asn/f1ap/ProtocolIE-Field.h> //ASN_NGAP_ProtocolIE-Field.h
+#include <asn/f1ap/GNBCUConfigurationUpdate.h> //ASN_NGAP_RANConfigurationUpdate.h
+#include <asn/f1ap/GNBDUConfigurationUpdate.h> //ASN_NGAP_RANConfigurationUpdate.h
+#include <asn/f1ap/GNBCUConfigurationUpdateAcknowledge.h> //ASN_NGAP_RANConfigurationUpdateAcknowledge.h
+#include <asn/f1ap/GNBDUConfigurationUpdateAcknowledge.h> //ASN_NGAP_RANConfigurationUpdateAcknowledge.h
+#include <asn/f1ap/GNBCUConfigurationUpdateFailure.h> //ASN_NGAP_RANConfigurationUpdateFailure.h
+#include <asn/f1ap/GNBDUConfigurationUpdateFailure.h> //ASN_NGAP_RANConfigurationUpdateFailure.h
+#include <asn/f1ap/CUtoDURRCInformation.h> //ASN_NGAP_RRCInactiveTransitionReport.h
+#include <asn/f1ap/SuccessfulOutcome.h> //ASN_NGAP_SuccessfulOutcome.h
+#include <asn/f1ap/UEContextModificationFailure.h> //ASN_NGAP_UEContextModificationFailure.h
+#include <asn/f1ap/UEContextModificationRequest.h> //ASN_NGAP_UEContextModificationRequest.h
+#include <asn/f1ap/UEContextModificationResponse.h> //ASN_NGAP_UEContextModificationResponse.h
+#include <asn/f1ap/UEContextReleaseCommand.h> //ASN_NGAP_UEContextReleaseCommand.h
+#include <asn/f1ap/UEContextReleaseComplete.h> //ASN_NGAP_UEContextReleaseComplete.h
+#include <asn/f1ap/UEContextReleaseRequest.h> //ASN_NGAP_UEContextReleaseRequest.h
+#include <asn/f1ap/CauseRadioNetwork.h> //ASN_NGAP_UERadioCapabilityCheckRequest.h
+#include <asn/f1ap/UnsuccessfulOutcome.h> //ASN_NGAP_UnsuccessfulOutcome.h
+#include <asn/f1ap/ULRRCMessageTransfer.h> //ASN_NGAP_UplinkNASTransport.h
 
-namespace asn::ngap
+
+namespace asn::f1ap
 {
 
 ASN_NGAP_NGAP_PDU *NgapPduFromPduDescription(ASN_NGAP_InitiatingMessage *desc)
