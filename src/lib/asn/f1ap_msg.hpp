@@ -14,8 +14,8 @@ extern "C"
 {
     struct F1AP_PDU;
     struct InitiatingMessage;
-    struct ASN_NGAP_SuccessfulOutcome;
-    struct ASN_NGAP_UnsuccessfulOutcome;
+    struct SuccessfulOutcome;
+    struct UnsuccessfulOutcome;
 
     struct ASN_NGAP_AMFConfigurationUpdate;
     struct ASN_NGAP_AMFConfigurationUpdateAcknowledge;
@@ -101,7 +101,7 @@ extern "C"
 namespace asn::ngap
 {
 
-enum class NgapMessageType
+enum class F1apMessageType
 {
     AMFConfigurationUpdate,
     AMFConfigurationUpdateAcknowledge,
@@ -184,1040 +184,1040 @@ enum class NgapMessageType
     WriteReplaceWarningResponse
 };
 
-template <NgapMessageType T>
+template <F1apMessageType T>
 struct NgapMessageEnumToType
 {
 };
 
 template <>
-struct NgapMessageEnumToType<NgapMessageType::AMFConfigurationUpdate>
+struct NgapMessageEnumToType<F1apMessageType::AMFConfigurationUpdate>
 {
     typedef ASN_NGAP_AMFConfigurationUpdate T;
 };
 template <>
-struct NgapMessageEnumToType<NgapMessageType::AMFConfigurationUpdateAcknowledge>
+struct NgapMessageEnumToType<F1apMessageType::AMFConfigurationUpdateAcknowledge>
 {
     typedef ASN_NGAP_AMFConfigurationUpdateAcknowledge T;
 };
 template <>
-struct NgapMessageEnumToType<NgapMessageType::AMFConfigurationUpdateFailure>
+struct NgapMessageEnumToType<F1apMessageType::AMFConfigurationUpdateFailure>
 {
     typedef ASN_NGAP_AMFConfigurationUpdateFailure T;
 };
 template <>
-struct NgapMessageEnumToType<NgapMessageType::AMFStatusIndication>
+struct NgapMessageEnumToType<F1apMessageType::AMFStatusIndication>
 {
     typedef ASN_NGAP_AMFStatusIndication T;
 };
 template <>
-struct NgapMessageEnumToType<NgapMessageType::CellTrafficTrace>
+struct NgapMessageEnumToType<F1apMessageType::CellTrafficTrace>
 {
     typedef ASN_NGAP_CellTrafficTrace T;
 };
 template <>
-struct NgapMessageEnumToType<NgapMessageType::DeactivateTrace>
+struct NgapMessageEnumToType<F1apMessageType::DeactivateTrace>
 {
     typedef ASN_NGAP_DeactivateTrace T;
 };
 template <>
-struct NgapMessageEnumToType<NgapMessageType::DownlinkNASTransport>
+struct NgapMessageEnumToType<F1apMessageType::DownlinkNASTransport>
 {
     typedef ASN_NGAP_DownlinkNASTransport T;
 };
 template <>
-struct NgapMessageEnumToType<NgapMessageType::DownlinkNonUEAssociatedNRPPaTransport>
+struct NgapMessageEnumToType<F1apMessageType::DownlinkNonUEAssociatedNRPPaTransport>
 {
     typedef ASN_NGAP_DownlinkNonUEAssociatedNRPPaTransport T;
 };
 template <>
-struct NgapMessageEnumToType<NgapMessageType::DownlinkRANConfigurationTransfer>
+struct NgapMessageEnumToType<F1apMessageType::DownlinkRANConfigurationTransfer>
 {
     typedef ASN_NGAP_DownlinkRANConfigurationTransfer T;
 };
 template <>
-struct NgapMessageEnumToType<NgapMessageType::DownlinkRANStatusTransfer>
+struct NgapMessageEnumToType<F1apMessageType::DownlinkRANStatusTransfer>
 {
     typedef ASN_NGAP_DownlinkRANStatusTransfer T;
 };
 template <>
-struct NgapMessageEnumToType<NgapMessageType::DownlinkUEAssociatedNRPPaTransport>
+struct NgapMessageEnumToType<F1apMessageType::DownlinkUEAssociatedNRPPaTransport>
 {
     typedef ASN_NGAP_DownlinkUEAssociatedNRPPaTransport T;
 };
 template <>
-struct NgapMessageEnumToType<NgapMessageType::ErrorIndication>
+struct NgapMessageEnumToType<F1apMessageType::ErrorIndication>
 {
     typedef ASN_NGAP_ErrorIndication T;
 };
 template <>
-struct NgapMessageEnumToType<NgapMessageType::HandoverCancel>
+struct NgapMessageEnumToType<F1apMessageType::HandoverCancel>
 {
     typedef ASN_NGAP_HandoverCancel T;
 };
 template <>
-struct NgapMessageEnumToType<NgapMessageType::HandoverCancelAcknowledge>
+struct NgapMessageEnumToType<F1apMessageType::HandoverCancelAcknowledge>
 {
     typedef ASN_NGAP_HandoverCancelAcknowledge T;
 };
 template <>
-struct NgapMessageEnumToType<NgapMessageType::HandoverCommand>
+struct NgapMessageEnumToType<F1apMessageType::HandoverCommand>
 {
     typedef ASN_NGAP_HandoverCommand T;
 };
 template <>
-struct NgapMessageEnumToType<NgapMessageType::HandoverFailure>
+struct NgapMessageEnumToType<F1apMessageType::HandoverFailure>
 {
     typedef ASN_NGAP_HandoverFailure T;
 };
 template <>
-struct NgapMessageEnumToType<NgapMessageType::HandoverNotify>
+struct NgapMessageEnumToType<F1apMessageType::HandoverNotify>
 {
     typedef ASN_NGAP_HandoverNotify T;
 };
 template <>
-struct NgapMessageEnumToType<NgapMessageType::HandoverPreparationFailure>
+struct NgapMessageEnumToType<F1apMessageType::HandoverPreparationFailure>
 {
     typedef ASN_NGAP_HandoverPreparationFailure T;
 };
 template <>
-struct NgapMessageEnumToType<NgapMessageType::HandoverRequest>
+struct NgapMessageEnumToType<F1apMessageType::HandoverRequest>
 {
     typedef ASN_NGAP_HandoverRequest T;
 };
 template <>
-struct NgapMessageEnumToType<NgapMessageType::HandoverRequestAcknowledge>
+struct NgapMessageEnumToType<F1apMessageType::HandoverRequestAcknowledge>
 {
     typedef ASN_NGAP_HandoverRequestAcknowledge T;
 };
 template <>
-struct NgapMessageEnumToType<NgapMessageType::HandoverRequired>
+struct NgapMessageEnumToType<F1apMessageType::HandoverRequired>
 {
     typedef ASN_NGAP_HandoverRequired T;
 };
 template <>
-struct NgapMessageEnumToType<NgapMessageType::InitialContextSetupFailure>
+struct NgapMessageEnumToType<F1apMessageType::InitialContextSetupFailure>
 {
     typedef ASN_NGAP_InitialContextSetupFailure T;
 };
 template <>
-struct NgapMessageEnumToType<NgapMessageType::InitialContextSetupRequest>
+struct NgapMessageEnumToType<F1apMessageType::InitialContextSetupRequest>
 {
     typedef ASN_NGAP_InitialContextSetupRequest T;
 };
 template <>
-struct NgapMessageEnumToType<NgapMessageType::InitialContextSetupResponse>
+struct NgapMessageEnumToType<F1apMessageType::InitialContextSetupResponse>
 {
     typedef ASN_NGAP_InitialContextSetupResponse T;
 };
 template <>
-struct NgapMessageEnumToType<NgapMessageType::InitialUEMessage>
+struct NgapMessageEnumToType<F1apMessageType::InitialUEMessage>
 {
     typedef ASN_NGAP_InitialUEMessage T;
 };
 template <>
-struct NgapMessageEnumToType<NgapMessageType::LocationReport>
+struct NgapMessageEnumToType<F1apMessageType::LocationReport>
 {
     typedef ASN_NGAP_LocationReport T;
 };
 template <>
-struct NgapMessageEnumToType<NgapMessageType::LocationReportingControl>
+struct NgapMessageEnumToType<F1apMessageType::LocationReportingControl>
 {
     typedef ASN_NGAP_LocationReportingControl T;
 };
 template <>
-struct NgapMessageEnumToType<NgapMessageType::LocationReportingFailureIndication>
+struct NgapMessageEnumToType<F1apMessageType::LocationReportingFailureIndication>
 {
     typedef ASN_NGAP_LocationReportingFailureIndication T;
 };
 template <>
-struct NgapMessageEnumToType<NgapMessageType::NASNonDeliveryIndication>
+struct NgapMessageEnumToType<F1apMessageType::NASNonDeliveryIndication>
 {
     typedef ASN_NGAP_NASNonDeliveryIndication T;
 };
 template <>
-struct NgapMessageEnumToType<NgapMessageType::NGReset>
+struct NgapMessageEnumToType<F1apMessageType::NGReset>
 {
     typedef ASN_NGAP_NGReset T;
 };
 template <>
-struct NgapMessageEnumToType<NgapMessageType::NGResetAcknowledge>
+struct NgapMessageEnumToType<F1apMessageType::NGResetAcknowledge>
 {
     typedef ASN_NGAP_NGResetAcknowledge T;
 };
 template <>
-struct NgapMessageEnumToType<NgapMessageType::NGSetupFailure>
+struct NgapMessageEnumToType<F1apMessageType::NGSetupFailure>
 {
     typedef ASN_NGAP_NGSetupFailure T;
 };
 template <>
-struct NgapMessageEnumToType<NgapMessageType::NGSetupRequest>
+struct NgapMessageEnumToType<F1apMessageType::NGSetupRequest>
 {
     typedef ASN_NGAP_NGSetupRequest T;
 };
 template <>
-struct NgapMessageEnumToType<NgapMessageType::NGSetupResponse>
+struct NgapMessageEnumToType<F1apMessageType::NGSetupResponse>
 {
     typedef ASN_NGAP_NGSetupResponse T;
 };
 template <>
-struct NgapMessageEnumToType<NgapMessageType::OverloadStart>
+struct NgapMessageEnumToType<F1apMessageType::OverloadStart>
 {
     typedef ASN_NGAP_OverloadStart T;
 };
 template <>
-struct NgapMessageEnumToType<NgapMessageType::OverloadStop>
+struct NgapMessageEnumToType<F1apMessageType::OverloadStop>
 {
     typedef ASN_NGAP_OverloadStop T;
 };
 template <>
-struct NgapMessageEnumToType<NgapMessageType::Paging>
+struct NgapMessageEnumToType<F1apMessageType::Paging>
 {
     typedef ASN_NGAP_Paging T;
 };
 template <>
-struct NgapMessageEnumToType<NgapMessageType::PathSwitchRequest>
+struct NgapMessageEnumToType<F1apMessageType::PathSwitchRequest>
 {
     typedef ASN_NGAP_PathSwitchRequest T;
 };
 template <>
-struct NgapMessageEnumToType<NgapMessageType::PathSwitchRequestAcknowledge>
+struct NgapMessageEnumToType<F1apMessageType::PathSwitchRequestAcknowledge>
 {
     typedef ASN_NGAP_PathSwitchRequestAcknowledge T;
 };
 template <>
-struct NgapMessageEnumToType<NgapMessageType::PathSwitchRequestFailure>
+struct NgapMessageEnumToType<F1apMessageType::PathSwitchRequestFailure>
 {
     typedef ASN_NGAP_PathSwitchRequestFailure T;
 };
 template <>
-struct NgapMessageEnumToType<NgapMessageType::PDUSessionResourceModifyConfirm>
+struct NgapMessageEnumToType<F1apMessageType::PDUSessionResourceModifyConfirm>
 {
     typedef ASN_NGAP_PDUSessionResourceModifyConfirm T;
 };
 template <>
-struct NgapMessageEnumToType<NgapMessageType::PDUSessionResourceModifyIndication>
+struct NgapMessageEnumToType<F1apMessageType::PDUSessionResourceModifyIndication>
 {
     typedef ASN_NGAP_PDUSessionResourceModifyIndication T;
 };
 template <>
-struct NgapMessageEnumToType<NgapMessageType::PDUSessionResourceModifyRequest>
+struct NgapMessageEnumToType<F1apMessageType::PDUSessionResourceModifyRequest>
 {
     typedef ASN_NGAP_PDUSessionResourceModifyRequest T;
 };
 template <>
-struct NgapMessageEnumToType<NgapMessageType::PDUSessionResourceModifyResponse>
+struct NgapMessageEnumToType<F1apMessageType::PDUSessionResourceModifyResponse>
 {
     typedef ASN_NGAP_PDUSessionResourceModifyResponse T;
 };
 template <>
-struct NgapMessageEnumToType<NgapMessageType::PDUSessionResourceNotify>
+struct NgapMessageEnumToType<F1apMessageType::PDUSessionResourceNotify>
 {
     typedef ASN_NGAP_PDUSessionResourceNotify T;
 };
 template <>
-struct NgapMessageEnumToType<NgapMessageType::PDUSessionResourceReleaseCommand>
+struct NgapMessageEnumToType<F1apMessageType::PDUSessionResourceReleaseCommand>
 {
     typedef ASN_NGAP_PDUSessionResourceReleaseCommand T;
 };
 template <>
-struct NgapMessageEnumToType<NgapMessageType::PDUSessionResourceReleaseResponse>
+struct NgapMessageEnumToType<F1apMessageType::PDUSessionResourceReleaseResponse>
 {
     typedef ASN_NGAP_PDUSessionResourceReleaseResponse T;
 };
 template <>
-struct NgapMessageEnumToType<NgapMessageType::PDUSessionResourceSetupRequest>
+struct NgapMessageEnumToType<F1apMessageType::PDUSessionResourceSetupRequest>
 {
     typedef ASN_NGAP_PDUSessionResourceSetupRequest T;
 };
 template <>
-struct NgapMessageEnumToType<NgapMessageType::PDUSessionResourceSetupResponse>
+struct NgapMessageEnumToType<F1apMessageType::PDUSessionResourceSetupResponse>
 {
     typedef ASN_NGAP_PDUSessionResourceSetupResponse T;
 };
 template <>
-struct NgapMessageEnumToType<NgapMessageType::PrivateMessage>
+struct NgapMessageEnumToType<F1apMessageType::PrivateMessage>
 {
     typedef ASN_NGAP_PrivateMessage T;
 };
 template <>
-struct NgapMessageEnumToType<NgapMessageType::PWSCancelRequest>
+struct NgapMessageEnumToType<F1apMessageType::PWSCancelRequest>
 {
     typedef ASN_NGAP_PWSCancelRequest T;
 };
 template <>
-struct NgapMessageEnumToType<NgapMessageType::PWSCancelResponse>
+struct NgapMessageEnumToType<F1apMessageType::PWSCancelResponse>
 {
     typedef ASN_NGAP_PWSCancelResponse T;
 };
 template <>
-struct NgapMessageEnumToType<NgapMessageType::PWSFailureIndication>
+struct NgapMessageEnumToType<F1apMessageType::PWSFailureIndication>
 {
     typedef ASN_NGAP_PWSFailureIndication T;
 };
 template <>
-struct NgapMessageEnumToType<NgapMessageType::PWSRestartIndication>
+struct NgapMessageEnumToType<F1apMessageType::PWSRestartIndication>
 {
     typedef ASN_NGAP_PWSRestartIndication T;
 };
 template <>
-struct NgapMessageEnumToType<NgapMessageType::RANConfigurationUpdate>
+struct NgapMessageEnumToType<F1apMessageType::RANConfigurationUpdate>
 {
     typedef ASN_NGAP_RANConfigurationUpdate T;
 };
 template <>
-struct NgapMessageEnumToType<NgapMessageType::RANConfigurationUpdateAcknowledge>
+struct NgapMessageEnumToType<F1apMessageType::RANConfigurationUpdateAcknowledge>
 {
     typedef ASN_NGAP_RANConfigurationUpdateAcknowledge T;
 };
 template <>
-struct NgapMessageEnumToType<NgapMessageType::RANConfigurationUpdateFailure>
+struct NgapMessageEnumToType<F1apMessageType::RANConfigurationUpdateFailure>
 {
     typedef ASN_NGAP_RANConfigurationUpdateFailure T;
 };
 template <>
-struct NgapMessageEnumToType<NgapMessageType::RerouteNASRequest>
+struct NgapMessageEnumToType<F1apMessageType::RerouteNASRequest>
 {
     typedef ASN_NGAP_RerouteNASRequest T;
 };
 template <>
-struct NgapMessageEnumToType<NgapMessageType::RRCInactiveTransitionReport>
+struct NgapMessageEnumToType<F1apMessageType::RRCInactiveTransitionReport>
 {
     typedef ASN_NGAP_RRCInactiveTransitionReport T;
 };
 template <>
-struct NgapMessageEnumToType<NgapMessageType::SecondaryRATDataUsageReport>
+struct NgapMessageEnumToType<F1apMessageType::SecondaryRATDataUsageReport>
 {
     typedef ASN_NGAP_SecondaryRATDataUsageReport T;
 };
 template <>
-struct NgapMessageEnumToType<NgapMessageType::TraceFailureIndication>
+struct NgapMessageEnumToType<F1apMessageType::TraceFailureIndication>
 {
     typedef ASN_NGAP_TraceFailureIndication T;
 };
 template <>
-struct NgapMessageEnumToType<NgapMessageType::TraceStart>
+struct NgapMessageEnumToType<F1apMessageType::TraceStart>
 {
     typedef ASN_NGAP_TraceStart T;
 };
 template <>
-struct NgapMessageEnumToType<NgapMessageType::UEContextModificationFailure>
+struct NgapMessageEnumToType<F1apMessageType::UEContextModificationFailure>
 {
     typedef ASN_NGAP_UEContextModificationFailure T;
 };
 template <>
-struct NgapMessageEnumToType<NgapMessageType::UEContextModificationRequest>
+struct NgapMessageEnumToType<F1apMessageType::UEContextModificationRequest>
 {
     typedef ASN_NGAP_UEContextModificationRequest T;
 };
 template <>
-struct NgapMessageEnumToType<NgapMessageType::UEContextModificationResponse>
+struct NgapMessageEnumToType<F1apMessageType::UEContextModificationResponse>
 {
     typedef ASN_NGAP_UEContextModificationResponse T;
 };
 template <>
-struct NgapMessageEnumToType<NgapMessageType::UEContextReleaseCommand>
+struct NgapMessageEnumToType<F1apMessageType::UEContextReleaseCommand>
 {
     typedef ASN_NGAP_UEContextReleaseCommand T;
 };
 template <>
-struct NgapMessageEnumToType<NgapMessageType::UEContextReleaseComplete>
+struct NgapMessageEnumToType<F1apMessageType::UEContextReleaseComplete>
 {
     typedef ASN_NGAP_UEContextReleaseComplete T;
 };
 template <>
-struct NgapMessageEnumToType<NgapMessageType::UEContextReleaseRequest>
+struct NgapMessageEnumToType<F1apMessageType::UEContextReleaseRequest>
 {
     typedef ASN_NGAP_UEContextReleaseRequest T;
 };
 template <>
-struct NgapMessageEnumToType<NgapMessageType::UERadioCapabilityCheckRequest>
+struct NgapMessageEnumToType<F1apMessageType::UERadioCapabilityCheckRequest>
 {
     typedef ASN_NGAP_UERadioCapabilityCheckRequest T;
 };
 template <>
-struct NgapMessageEnumToType<NgapMessageType::UERadioCapabilityCheckResponse>
+struct NgapMessageEnumToType<F1apMessageType::UERadioCapabilityCheckResponse>
 {
     typedef ASN_NGAP_UERadioCapabilityCheckResponse T;
 };
 template <>
-struct NgapMessageEnumToType<NgapMessageType::UERadioCapabilityInfoIndication>
+struct NgapMessageEnumToType<F1apMessageType::UERadioCapabilityInfoIndication>
 {
     typedef ASN_NGAP_UERadioCapabilityInfoIndication T;
 };
 template <>
-struct NgapMessageEnumToType<NgapMessageType::UETNLABindingReleaseRequest>
+struct NgapMessageEnumToType<F1apMessageType::UETNLABindingReleaseRequest>
 {
     typedef ASN_NGAP_UETNLABindingReleaseRequest T;
 };
 template <>
-struct NgapMessageEnumToType<NgapMessageType::UplinkNASTransport>
+struct NgapMessageEnumToType<F1apMessageType::UplinkNASTransport>
 {
     typedef ASN_NGAP_UplinkNASTransport T;
 };
 template <>
-struct NgapMessageEnumToType<NgapMessageType::UplinkNonUEAssociatedNRPPaTransport>
+struct NgapMessageEnumToType<F1apMessageType::UplinkNonUEAssociatedNRPPaTransport>
 {
     typedef ASN_NGAP_UplinkNonUEAssociatedNRPPaTransport T;
 };
 template <>
-struct NgapMessageEnumToType<NgapMessageType::UplinkRANConfigurationTransfer>
+struct NgapMessageEnumToType<F1apMessageType::UplinkRANConfigurationTransfer>
 {
     typedef ASN_NGAP_UplinkRANConfigurationTransfer T;
 };
 template <>
-struct NgapMessageEnumToType<NgapMessageType::UplinkRANStatusTransfer>
+struct NgapMessageEnumToType<F1apMessageType::UplinkRANStatusTransfer>
 {
     typedef ASN_NGAP_UplinkRANStatusTransfer T;
 };
 template <>
-struct NgapMessageEnumToType<NgapMessageType::UplinkUEAssociatedNRPPaTransport>
+struct NgapMessageEnumToType<F1apMessageType::UplinkUEAssociatedNRPPaTransport>
 {
     typedef ASN_NGAP_UplinkUEAssociatedNRPPaTransport T;
 };
 template <>
-struct NgapMessageEnumToType<NgapMessageType::WriteReplaceWarningRequest>
+struct NgapMessageEnumToType<F1apMessageType::WriteReplaceWarningRequest>
 {
     typedef ASN_NGAP_WriteReplaceWarningRequest T;
 };
 template <>
-struct NgapMessageEnumToType<NgapMessageType::WriteReplaceWarningResponse>
+struct NgapMessageEnumToType<F1apMessageType::WriteReplaceWarningResponse>
 {
     typedef ASN_NGAP_WriteReplaceWarningResponse T;
 };
 
 template <typename T>
-struct NgapMessageTypeToEnum;
+struct F1apMessageTypeToEnum;
 
 template <>
-struct NgapMessageTypeToEnum<ASN_NGAP_AMFConfigurationUpdate>
+struct F1apMessageTypeToEnum<ASN_NGAP_AMFConfigurationUpdate>
 {
     enum
     {
-        V = (int)NgapMessageType::AMFConfigurationUpdate
+        V = (int)F1apMessageType::AMFConfigurationUpdate
     };
 };
 template <>
-struct NgapMessageTypeToEnum<ASN_NGAP_AMFConfigurationUpdateAcknowledge>
+struct F1apMessageTypeToEnum<ASN_NGAP_AMFConfigurationUpdateAcknowledge>
 {
     enum
     {
-        V = (int)NgapMessageType::AMFConfigurationUpdateAcknowledge
+        V = (int)F1apMessageType::AMFConfigurationUpdateAcknowledge
     };
 };
 template <>
-struct NgapMessageTypeToEnum<ASN_NGAP_AMFConfigurationUpdateFailure>
+struct F1apMessageTypeToEnum<ASN_NGAP_AMFConfigurationUpdateFailure>
 {
     enum
     {
-        V = (int)NgapMessageType::AMFConfigurationUpdateFailure
+        V = (int)F1apMessageType::AMFConfigurationUpdateFailure
     };
 };
 template <>
-struct NgapMessageTypeToEnum<ASN_NGAP_AMFStatusIndication>
+struct F1apMessageTypeToEnum<ASN_NGAP_AMFStatusIndication>
 {
     enum
     {
-        V = (int)NgapMessageType::AMFStatusIndication
+        V = (int)F1apMessageType::AMFStatusIndication
     };
 };
 template <>
-struct NgapMessageTypeToEnum<ASN_NGAP_CellTrafficTrace>
+struct F1apMessageTypeToEnum<ASN_NGAP_CellTrafficTrace>
 {
     enum
     {
-        V = (int)NgapMessageType::CellTrafficTrace
+        V = (int)F1apMessageType::CellTrafficTrace
     };
 };
 template <>
-struct NgapMessageTypeToEnum<ASN_NGAP_DeactivateTrace>
+struct F1apMessageTypeToEnum<ASN_NGAP_DeactivateTrace>
 {
     enum
     {
-        V = (int)NgapMessageType::DeactivateTrace
+        V = (int)F1apMessageType::DeactivateTrace
     };
 };
 template <>
-struct NgapMessageTypeToEnum<ASN_NGAP_DownlinkNASTransport>
+struct F1apMessageTypeToEnum<ASN_NGAP_DownlinkNASTransport>
 {
     enum
     {
-        V = (int)NgapMessageType::DownlinkNASTransport
+        V = (int)F1apMessageType::DownlinkNASTransport
     };
 };
 template <>
-struct NgapMessageTypeToEnum<ASN_NGAP_DownlinkNonUEAssociatedNRPPaTransport>
+struct F1apMessageTypeToEnum<ASN_NGAP_DownlinkNonUEAssociatedNRPPaTransport>
 {
     enum
     {
-        V = (int)NgapMessageType::DownlinkNonUEAssociatedNRPPaTransport
+        V = (int)F1apMessageType::DownlinkNonUEAssociatedNRPPaTransport
     };
 };
 template <>
-struct NgapMessageTypeToEnum<ASN_NGAP_DownlinkRANConfigurationTransfer>
+struct F1apMessageTypeToEnum<ASN_NGAP_DownlinkRANConfigurationTransfer>
 {
     enum
     {
-        V = (int)NgapMessageType::DownlinkRANConfigurationTransfer
+        V = (int)F1apMessageType::DownlinkRANConfigurationTransfer
     };
 };
 template <>
-struct NgapMessageTypeToEnum<ASN_NGAP_DownlinkRANStatusTransfer>
+struct F1apMessageTypeToEnum<ASN_NGAP_DownlinkRANStatusTransfer>
 {
     enum
     {
-        V = (int)NgapMessageType::DownlinkRANStatusTransfer
+        V = (int)F1apMessageType::DownlinkRANStatusTransfer
     };
 };
 template <>
-struct NgapMessageTypeToEnum<ASN_NGAP_DownlinkUEAssociatedNRPPaTransport>
+struct F1apMessageTypeToEnum<ASN_NGAP_DownlinkUEAssociatedNRPPaTransport>
 {
     enum
     {
-        V = (int)NgapMessageType::DownlinkUEAssociatedNRPPaTransport
+        V = (int)F1apMessageType::DownlinkUEAssociatedNRPPaTransport
     };
 };
 template <>
-struct NgapMessageTypeToEnum<ASN_NGAP_ErrorIndication>
+struct F1apMessageTypeToEnum<ASN_NGAP_ErrorIndication>
 {
     enum
     {
-        V = (int)NgapMessageType::ErrorIndication
+        V = (int)F1apMessageType::ErrorIndication
     };
 };
 template <>
-struct NgapMessageTypeToEnum<ASN_NGAP_HandoverCancel>
+struct F1apMessageTypeToEnum<ASN_NGAP_HandoverCancel>
 {
     enum
     {
-        V = (int)NgapMessageType::HandoverCancel
+        V = (int)F1apMessageType::HandoverCancel
     };
 };
 template <>
-struct NgapMessageTypeToEnum<ASN_NGAP_HandoverCancelAcknowledge>
+struct F1apMessageTypeToEnum<ASN_NGAP_HandoverCancelAcknowledge>
 {
     enum
     {
-        V = (int)NgapMessageType::HandoverCancelAcknowledge
+        V = (int)F1apMessageType::HandoverCancelAcknowledge
     };
 };
 template <>
-struct NgapMessageTypeToEnum<ASN_NGAP_HandoverCommand>
+struct F1apMessageTypeToEnum<ASN_NGAP_HandoverCommand>
 {
     enum
     {
-        V = (int)NgapMessageType::HandoverCommand
+        V = (int)F1apMessageType::HandoverCommand
     };
 };
 template <>
-struct NgapMessageTypeToEnum<ASN_NGAP_HandoverFailure>
+struct F1apMessageTypeToEnum<ASN_NGAP_HandoverFailure>
 {
     enum
     {
-        V = (int)NgapMessageType::HandoverFailure
+        V = (int)F1apMessageType::HandoverFailure
     };
 };
 template <>
-struct NgapMessageTypeToEnum<ASN_NGAP_HandoverNotify>
+struct F1apMessageTypeToEnum<ASN_NGAP_HandoverNotify>
 {
     enum
     {
-        V = (int)NgapMessageType::HandoverNotify
+        V = (int)F1apMessageType::HandoverNotify
     };
 };
 template <>
-struct NgapMessageTypeToEnum<ASN_NGAP_HandoverPreparationFailure>
+struct F1apMessageTypeToEnum<ASN_NGAP_HandoverPreparationFailure>
 {
     enum
     {
-        V = (int)NgapMessageType::HandoverPreparationFailure
+        V = (int)F1apMessageType::HandoverPreparationFailure
     };
 };
 template <>
-struct NgapMessageTypeToEnum<ASN_NGAP_HandoverRequest>
+struct F1apMessageTypeToEnum<ASN_NGAP_HandoverRequest>
 {
     enum
     {
-        V = (int)NgapMessageType::HandoverRequest
+        V = (int)F1apMessageType::HandoverRequest
     };
 };
 template <>
-struct NgapMessageTypeToEnum<ASN_NGAP_HandoverRequestAcknowledge>
+struct F1apMessageTypeToEnum<ASN_NGAP_HandoverRequestAcknowledge>
 {
     enum
     {
-        V = (int)NgapMessageType::HandoverRequestAcknowledge
+        V = (int)F1apMessageType::HandoverRequestAcknowledge
     };
 };
 template <>
-struct NgapMessageTypeToEnum<ASN_NGAP_HandoverRequired>
+struct F1apMessageTypeToEnum<ASN_NGAP_HandoverRequired>
 {
     enum
     {
-        V = (int)NgapMessageType::HandoverRequired
+        V = (int)F1apMessageType::HandoverRequired
     };
 };
 template <>
-struct NgapMessageTypeToEnum<ASN_NGAP_InitialContextSetupFailure>
+struct F1apMessageTypeToEnum<ASN_NGAP_InitialContextSetupFailure>
 {
     enum
     {
-        V = (int)NgapMessageType::InitialContextSetupFailure
+        V = (int)F1apMessageType::InitialContextSetupFailure
     };
 };
 template <>
-struct NgapMessageTypeToEnum<ASN_NGAP_InitialContextSetupRequest>
+struct F1apMessageTypeToEnum<ASN_NGAP_InitialContextSetupRequest>
 {
     enum
     {
-        V = (int)NgapMessageType::InitialContextSetupRequest
+        V = (int)F1apMessageType::InitialContextSetupRequest
     };
 };
 template <>
-struct NgapMessageTypeToEnum<ASN_NGAP_InitialContextSetupResponse>
+struct F1apMessageTypeToEnum<ASN_NGAP_InitialContextSetupResponse>
 {
     enum
     {
-        V = (int)NgapMessageType::InitialContextSetupResponse
+        V = (int)F1apMessageType::InitialContextSetupResponse
     };
 };
 template <>
-struct NgapMessageTypeToEnum<ASN_NGAP_InitialUEMessage>
+struct F1apMessageTypeToEnum<ASN_NGAP_InitialUEMessage>
 {
     enum
     {
-        V = (int)NgapMessageType::InitialUEMessage
+        V = (int)F1apMessageType::InitialUEMessage
     };
 };
 template <>
-struct NgapMessageTypeToEnum<ASN_NGAP_LocationReport>
+struct F1apMessageTypeToEnum<ASN_NGAP_LocationReport>
 {
     enum
     {
-        V = (int)NgapMessageType::LocationReport
+        V = (int)F1apMessageType::LocationReport
     };
 };
 template <>
-struct NgapMessageTypeToEnum<ASN_NGAP_LocationReportingControl>
+struct F1apMessageTypeToEnum<ASN_NGAP_LocationReportingControl>
 {
     enum
     {
-        V = (int)NgapMessageType::LocationReportingControl
+        V = (int)F1apMessageType::LocationReportingControl
     };
 };
 template <>
-struct NgapMessageTypeToEnum<ASN_NGAP_LocationReportingFailureIndication>
+struct F1apMessageTypeToEnum<ASN_NGAP_LocationReportingFailureIndication>
 {
     enum
     {
-        V = (int)NgapMessageType::LocationReportingFailureIndication
+        V = (int)F1apMessageType::LocationReportingFailureIndication
     };
 };
 template <>
-struct NgapMessageTypeToEnum<ASN_NGAP_NASNonDeliveryIndication>
+struct F1apMessageTypeToEnum<ASN_NGAP_NASNonDeliveryIndication>
 {
     enum
     {
-        V = (int)NgapMessageType::NASNonDeliveryIndication
+        V = (int)F1apMessageType::NASNonDeliveryIndication
     };
 };
 template <>
-struct NgapMessageTypeToEnum<ASN_NGAP_NGReset>
+struct F1apMessageTypeToEnum<ASN_NGAP_NGReset>
 {
     enum
     {
-        V = (int)NgapMessageType::NGReset
+        V = (int)F1apMessageType::NGReset
     };
 };
 template <>
-struct NgapMessageTypeToEnum<ASN_NGAP_NGResetAcknowledge>
+struct F1apMessageTypeToEnum<ASN_NGAP_NGResetAcknowledge>
 {
     enum
     {
-        V = (int)NgapMessageType::NGResetAcknowledge
+        V = (int)F1apMessageType::NGResetAcknowledge
     };
 };
 template <>
-struct NgapMessageTypeToEnum<ASN_NGAP_NGSetupFailure>
+struct F1apMessageTypeToEnum<ASN_NGAP_NGSetupFailure>
 {
     enum
     {
-        V = (int)NgapMessageType::NGSetupFailure
+        V = (int)F1apMessageType::NGSetupFailure
     };
 };
 template <>
-struct NgapMessageTypeToEnum<ASN_NGAP_NGSetupRequest>
+struct F1apMessageTypeToEnum<ASN_NGAP_NGSetupRequest>
 {
     enum
     {
-        V = (int)NgapMessageType::NGSetupRequest
+        V = (int)F1apMessageType::NGSetupRequest
     };
 };
 template <>
-struct NgapMessageTypeToEnum<ASN_NGAP_NGSetupResponse>
+struct F1apMessageTypeToEnum<ASN_NGAP_NGSetupResponse>
 {
     enum
     {
-        V = (int)NgapMessageType::NGSetupResponse
+        V = (int)F1apMessageType::NGSetupResponse
     };
 };
 template <>
-struct NgapMessageTypeToEnum<ASN_NGAP_OverloadStart>
+struct F1apMessageTypeToEnum<ASN_NGAP_OverloadStart>
 {
     enum
     {
-        V = (int)NgapMessageType::OverloadStart
+        V = (int)F1apMessageType::OverloadStart
     };
 };
 template <>
-struct NgapMessageTypeToEnum<ASN_NGAP_OverloadStop>
+struct F1apMessageTypeToEnum<ASN_NGAP_OverloadStop>
 {
     enum
     {
-        V = (int)NgapMessageType::OverloadStop
+        V = (int)F1apMessageType::OverloadStop
     };
 };
 template <>
-struct NgapMessageTypeToEnum<ASN_NGAP_Paging>
+struct F1apMessageTypeToEnum<ASN_NGAP_Paging>
 {
     enum
     {
-        V = (int)NgapMessageType::Paging
+        V = (int)F1apMessageType::Paging
     };
 };
 template <>
-struct NgapMessageTypeToEnum<ASN_NGAP_PathSwitchRequest>
+struct F1apMessageTypeToEnum<ASN_NGAP_PathSwitchRequest>
 {
     enum
     {
-        V = (int)NgapMessageType::PathSwitchRequest
+        V = (int)F1apMessageType::PathSwitchRequest
     };
 };
 template <>
-struct NgapMessageTypeToEnum<ASN_NGAP_PathSwitchRequestAcknowledge>
+struct F1apMessageTypeToEnum<ASN_NGAP_PathSwitchRequestAcknowledge>
 {
     enum
     {
-        V = (int)NgapMessageType::PathSwitchRequestAcknowledge
+        V = (int)F1apMessageType::PathSwitchRequestAcknowledge
     };
 };
 template <>
-struct NgapMessageTypeToEnum<ASN_NGAP_PathSwitchRequestFailure>
+struct F1apMessageTypeToEnum<ASN_NGAP_PathSwitchRequestFailure>
 {
     enum
     {
-        V = (int)NgapMessageType::PathSwitchRequestFailure
+        V = (int)F1apMessageType::PathSwitchRequestFailure
     };
 };
 template <>
-struct NgapMessageTypeToEnum<ASN_NGAP_PDUSessionResourceModifyConfirm>
+struct F1apMessageTypeToEnum<ASN_NGAP_PDUSessionResourceModifyConfirm>
 {
     enum
     {
-        V = (int)NgapMessageType::PDUSessionResourceModifyConfirm
+        V = (int)F1apMessageType::PDUSessionResourceModifyConfirm
     };
 };
 template <>
-struct NgapMessageTypeToEnum<ASN_NGAP_PDUSessionResourceModifyIndication>
+struct F1apMessageTypeToEnum<ASN_NGAP_PDUSessionResourceModifyIndication>
 {
     enum
     {
-        V = (int)NgapMessageType::PDUSessionResourceModifyIndication
+        V = (int)F1apMessageType::PDUSessionResourceModifyIndication
     };
 };
 template <>
-struct NgapMessageTypeToEnum<ASN_NGAP_PDUSessionResourceModifyRequest>
+struct F1apMessageTypeToEnum<ASN_NGAP_PDUSessionResourceModifyRequest>
 {
     enum
     {
-        V = (int)NgapMessageType::PDUSessionResourceModifyRequest
+        V = (int)F1apMessageType::PDUSessionResourceModifyRequest
     };
 };
 template <>
-struct NgapMessageTypeToEnum<ASN_NGAP_PDUSessionResourceModifyResponse>
+struct F1apMessageTypeToEnum<ASN_NGAP_PDUSessionResourceModifyResponse>
 {
     enum
     {
-        V = (int)NgapMessageType::PDUSessionResourceModifyResponse
+        V = (int)F1apMessageType::PDUSessionResourceModifyResponse
     };
 };
 template <>
-struct NgapMessageTypeToEnum<ASN_NGAP_PDUSessionResourceNotify>
+struct F1apMessageTypeToEnum<ASN_NGAP_PDUSessionResourceNotify>
 {
     enum
     {
-        V = (int)NgapMessageType::PDUSessionResourceNotify
+        V = (int)F1apMessageType::PDUSessionResourceNotify
     };
 };
 template <>
-struct NgapMessageTypeToEnum<ASN_NGAP_PDUSessionResourceReleaseCommand>
+struct F1apMessageTypeToEnum<ASN_NGAP_PDUSessionResourceReleaseCommand>
 {
     enum
     {
-        V = (int)NgapMessageType::PDUSessionResourceReleaseCommand
+        V = (int)F1apMessageType::PDUSessionResourceReleaseCommand
     };
 };
 template <>
-struct NgapMessageTypeToEnum<ASN_NGAP_PDUSessionResourceReleaseResponse>
+struct F1apMessageTypeToEnum<ASN_NGAP_PDUSessionResourceReleaseResponse>
 {
     enum
     {
-        V = (int)NgapMessageType::PDUSessionResourceReleaseResponse
+        V = (int)F1apMessageType::PDUSessionResourceReleaseResponse
     };
 };
 template <>
-struct NgapMessageTypeToEnum<ASN_NGAP_PDUSessionResourceSetupRequest>
+struct F1apMessageTypeToEnum<ASN_NGAP_PDUSessionResourceSetupRequest>
 {
     enum
     {
-        V = (int)NgapMessageType::PDUSessionResourceSetupRequest
+        V = (int)F1apMessageType::PDUSessionResourceSetupRequest
     };
 };
 template <>
-struct NgapMessageTypeToEnum<ASN_NGAP_PDUSessionResourceSetupResponse>
+struct F1apMessageTypeToEnum<ASN_NGAP_PDUSessionResourceSetupResponse>
 {
     enum
     {
-        V = (int)NgapMessageType::PDUSessionResourceSetupResponse
+        V = (int)F1apMessageType::PDUSessionResourceSetupResponse
     };
 };
 template <>
-struct NgapMessageTypeToEnum<ASN_NGAP_PrivateMessage>
+struct F1apMessageTypeToEnum<ASN_NGAP_PrivateMessage>
 {
     enum
     {
-        V = (int)NgapMessageType::PrivateMessage
+        V = (int)F1apMessageType::PrivateMessage
     };
 };
 template <>
-struct NgapMessageTypeToEnum<ASN_NGAP_PWSCancelRequest>
+struct F1apMessageTypeToEnum<ASN_NGAP_PWSCancelRequest>
 {
     enum
     {
-        V = (int)NgapMessageType::PWSCancelRequest
+        V = (int)F1apMessageType::PWSCancelRequest
     };
 };
 template <>
-struct NgapMessageTypeToEnum<ASN_NGAP_PWSCancelResponse>
+struct F1apMessageTypeToEnum<ASN_NGAP_PWSCancelResponse>
 {
     enum
     {
-        V = (int)NgapMessageType::PWSCancelResponse
+        V = (int)F1apMessageType::PWSCancelResponse
     };
 };
 template <>
-struct NgapMessageTypeToEnum<ASN_NGAP_PWSFailureIndication>
+struct F1apMessageTypeToEnum<ASN_NGAP_PWSFailureIndication>
 {
     enum
     {
-        V = (int)NgapMessageType::PWSFailureIndication
+        V = (int)F1apMessageType::PWSFailureIndication
     };
 };
 template <>
-struct NgapMessageTypeToEnum<ASN_NGAP_PWSRestartIndication>
+struct F1apMessageTypeToEnum<ASN_NGAP_PWSRestartIndication>
 {
     enum
     {
-        V = (int)NgapMessageType::PWSRestartIndication
+        V = (int)F1apMessageType::PWSRestartIndication
     };
 };
 template <>
-struct NgapMessageTypeToEnum<ASN_NGAP_RANConfigurationUpdate>
+struct F1apMessageTypeToEnum<ASN_NGAP_RANConfigurationUpdate>
 {
     enum
     {
-        V = (int)NgapMessageType::RANConfigurationUpdate
+        V = (int)F1apMessageType::RANConfigurationUpdate
     };
 };
 template <>
-struct NgapMessageTypeToEnum<ASN_NGAP_RANConfigurationUpdateAcknowledge>
+struct F1apMessageTypeToEnum<ASN_NGAP_RANConfigurationUpdateAcknowledge>
 {
     enum
     {
-        V = (int)NgapMessageType::RANConfigurationUpdateAcknowledge
+        V = (int)F1apMessageType::RANConfigurationUpdateAcknowledge
     };
 };
 template <>
-struct NgapMessageTypeToEnum<ASN_NGAP_RANConfigurationUpdateFailure>
+struct F1apMessageTypeToEnum<ASN_NGAP_RANConfigurationUpdateFailure>
 {
     enum
     {
-        V = (int)NgapMessageType::RANConfigurationUpdateFailure
+        V = (int)F1apMessageType::RANConfigurationUpdateFailure
     };
 };
 template <>
-struct NgapMessageTypeToEnum<ASN_NGAP_RerouteNASRequest>
+struct F1apMessageTypeToEnum<ASN_NGAP_RerouteNASRequest>
 {
     enum
     {
-        V = (int)NgapMessageType::RerouteNASRequest
+        V = (int)F1apMessageType::RerouteNASRequest
     };
 };
 template <>
-struct NgapMessageTypeToEnum<ASN_NGAP_RRCInactiveTransitionReport>
+struct F1apMessageTypeToEnum<ASN_NGAP_RRCInactiveTransitionReport>
 {
     enum
     {
-        V = (int)NgapMessageType::RRCInactiveTransitionReport
+        V = (int)F1apMessageType::RRCInactiveTransitionReport
     };
 };
 template <>
-struct NgapMessageTypeToEnum<ASN_NGAP_SecondaryRATDataUsageReport>
+struct F1apMessageTypeToEnum<ASN_NGAP_SecondaryRATDataUsageReport>
 {
     enum
     {
-        V = (int)NgapMessageType::SecondaryRATDataUsageReport
+        V = (int)F1apMessageType::SecondaryRATDataUsageReport
     };
 };
 template <>
-struct NgapMessageTypeToEnum<ASN_NGAP_TraceFailureIndication>
+struct F1apMessageTypeToEnum<ASN_NGAP_TraceFailureIndication>
 {
     enum
     {
-        V = (int)NgapMessageType::TraceFailureIndication
+        V = (int)F1apMessageType::TraceFailureIndication
     };
 };
 template <>
-struct NgapMessageTypeToEnum<ASN_NGAP_TraceStart>
+struct F1apMessageTypeToEnum<ASN_NGAP_TraceStart>
 {
     enum
     {
-        V = (int)NgapMessageType::TraceStart
+        V = (int)F1apMessageType::TraceStart
     };
 };
 template <>
-struct NgapMessageTypeToEnum<ASN_NGAP_UEContextModificationFailure>
+struct F1apMessageTypeToEnum<ASN_NGAP_UEContextModificationFailure>
 {
     enum
     {
-        V = (int)NgapMessageType::UEContextModificationFailure
+        V = (int)F1apMessageType::UEContextModificationFailure
     };
 };
 template <>
-struct NgapMessageTypeToEnum<ASN_NGAP_UEContextModificationRequest>
+struct F1apMessageTypeToEnum<ASN_NGAP_UEContextModificationRequest>
 {
     enum
     {
-        V = (int)NgapMessageType::UEContextModificationRequest
+        V = (int)F1apMessageType::UEContextModificationRequest
     };
 };
 template <>
-struct NgapMessageTypeToEnum<ASN_NGAP_UEContextModificationResponse>
+struct F1apMessageTypeToEnum<ASN_NGAP_UEContextModificationResponse>
 {
     enum
     {
-        V = (int)NgapMessageType::UEContextModificationResponse
+        V = (int)F1apMessageType::UEContextModificationResponse
     };
 };
 template <>
-struct NgapMessageTypeToEnum<ASN_NGAP_UEContextReleaseCommand>
+struct F1apMessageTypeToEnum<ASN_NGAP_UEContextReleaseCommand>
 {
     enum
     {
-        V = (int)NgapMessageType::UEContextReleaseCommand
+        V = (int)F1apMessageType::UEContextReleaseCommand
     };
 };
 template <>
-struct NgapMessageTypeToEnum<ASN_NGAP_UEContextReleaseComplete>
+struct F1apMessageTypeToEnum<ASN_NGAP_UEContextReleaseComplete>
 {
     enum
     {
-        V = (int)NgapMessageType::UEContextReleaseComplete
+        V = (int)F1apMessageType::UEContextReleaseComplete
     };
 };
 template <>
-struct NgapMessageTypeToEnum<ASN_NGAP_UEContextReleaseRequest>
+struct F1apMessageTypeToEnum<ASN_NGAP_UEContextReleaseRequest>
 {
     enum
     {
-        V = (int)NgapMessageType::UEContextReleaseRequest
+        V = (int)F1apMessageType::UEContextReleaseRequest
     };
 };
 template <>
-struct NgapMessageTypeToEnum<ASN_NGAP_UERadioCapabilityCheckRequest>
+struct F1apMessageTypeToEnum<ASN_NGAP_UERadioCapabilityCheckRequest>
 {
     enum
     {
-        V = (int)NgapMessageType::UERadioCapabilityCheckRequest
+        V = (int)F1apMessageType::UERadioCapabilityCheckRequest
     };
 };
 template <>
-struct NgapMessageTypeToEnum<ASN_NGAP_UERadioCapabilityCheckResponse>
+struct F1apMessageTypeToEnum<ASN_NGAP_UERadioCapabilityCheckResponse>
 {
     enum
     {
-        V = (int)NgapMessageType::UERadioCapabilityCheckResponse
+        V = (int)F1apMessageType::UERadioCapabilityCheckResponse
     };
 };
 template <>
-struct NgapMessageTypeToEnum<ASN_NGAP_UERadioCapabilityInfoIndication>
+struct F1apMessageTypeToEnum<ASN_NGAP_UERadioCapabilityInfoIndication>
 {
     enum
     {
-        V = (int)NgapMessageType::UERadioCapabilityInfoIndication
+        V = (int)F1apMessageType::UERadioCapabilityInfoIndication
     };
 };
 template <>
-struct NgapMessageTypeToEnum<ASN_NGAP_UETNLABindingReleaseRequest>
+struct F1apMessageTypeToEnum<ASN_NGAP_UETNLABindingReleaseRequest>
 {
     enum
     {
-        V = (int)NgapMessageType::UETNLABindingReleaseRequest
+        V = (int)F1apMessageType::UETNLABindingReleaseRequest
     };
 };
 template <>
-struct NgapMessageTypeToEnum<ASN_NGAP_UplinkNASTransport>
+struct F1apMessageTypeToEnum<ASN_NGAP_UplinkNASTransport>
 {
     enum
     {
-        V = (int)NgapMessageType::UplinkNASTransport
+        V = (int)F1apMessageType::UplinkNASTransport
     };
 };
 template <>
-struct NgapMessageTypeToEnum<ASN_NGAP_UplinkNonUEAssociatedNRPPaTransport>
+struct F1apMessageTypeToEnum<ASN_NGAP_UplinkNonUEAssociatedNRPPaTransport>
 {
     enum
     {
-        V = (int)NgapMessageType::UplinkNonUEAssociatedNRPPaTransport
+        V = (int)F1apMessageType::UplinkNonUEAssociatedNRPPaTransport
     };
 };
 template <>
-struct NgapMessageTypeToEnum<ASN_NGAP_UplinkRANConfigurationTransfer>
+struct F1apMessageTypeToEnum<ASN_NGAP_UplinkRANConfigurationTransfer>
 {
     enum
     {
-        V = (int)NgapMessageType::UplinkRANConfigurationTransfer
+        V = (int)F1apMessageType::UplinkRANConfigurationTransfer
     };
 };
 template <>
-struct NgapMessageTypeToEnum<ASN_NGAP_UplinkRANStatusTransfer>
+struct F1apMessageTypeToEnum<ASN_NGAP_UplinkRANStatusTransfer>
 {
     enum
     {
-        V = (int)NgapMessageType::UplinkRANStatusTransfer
+        V = (int)F1apMessageType::UplinkRANStatusTransfer
     };
 };
 template <>
-struct NgapMessageTypeToEnum<ASN_NGAP_UplinkUEAssociatedNRPPaTransport>
+struct F1apMessageTypeToEnum<ASN_NGAP_UplinkUEAssociatedNRPPaTransport>
 {
     enum
     {
-        V = (int)NgapMessageType::UplinkUEAssociatedNRPPaTransport
+        V = (int)F1apMessageType::UplinkUEAssociatedNRPPaTransport
     };
 };
 template <>
-struct NgapMessageTypeToEnum<ASN_NGAP_WriteReplaceWarningRequest>
+struct F1apMessageTypeToEnum<ASN_NGAP_WriteReplaceWarningRequest>
 {
     enum
     {
-        V = (int)NgapMessageType::WriteReplaceWarningRequest
+        V = (int)F1apMessageType::WriteReplaceWarningRequest
     };
 };
 template <>
-struct NgapMessageTypeToEnum<ASN_NGAP_WriteReplaceWarningResponse>
+struct F1apMessageTypeToEnum<ASN_NGAP_WriteReplaceWarningResponse>
 {
     enum
     {
-        V = (int)NgapMessageType::WriteReplaceWarningResponse
+        V = (int)F1apMessageType::WriteReplaceWarningResponse
     };
 };
 
@@ -1228,12 +1228,12 @@ struct NgapMessageToDescription_InitiatingMessage
 
 struct NgapMessageToDescription_SuccessfulOutcome
 {
-    typedef ASN_NGAP_SuccessfulOutcome T;
+    typedef SuccessfulOutcome T;
 };
 
 struct NgapMessageToDescription_UnsuccessfulOutcome
 {
-    typedef ASN_NGAP_UnsuccessfulOutcome T;
+    typedef UnsuccessfulOutcome T;
 };
 
 template <typename T>

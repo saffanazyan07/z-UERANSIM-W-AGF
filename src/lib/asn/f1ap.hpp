@@ -22,15 +22,15 @@ namespace asn::f1ap
 {
 
 F1AP_PDU *F1apPduFromPduDescription(InitiatingMessage *desc);
-F1AP_PDU *F1apPduFromPduDescription(ASN_NGAP_SuccessfulOutcome *desc);
-F1AP_PDU *F1apPduFromPduDescription(ASN_NGAP_UnsuccessfulOutcome *desc);
+F1AP_PDU *F1apPduFromPduDescription(SuccessfulOutcome *desc);
+F1AP_PDU *F1apPduFromPduDescription(UnsuccessfulOutcome *desc);
 
-int GetPduDescription(NgapMessageType messageType);
-int GetProcedureCode(NgapMessageType messageType);
-int GetProcedureCriticality(NgapMessageType messageType);
-int GetProcedurePresent(NgapMessageType messageType);
+int GetPduDescription(F1apMessageType messageType);
+int GetProcedureCode(F1apMessageType messageType);
+int GetProcedureCriticality(F1apMessageType messageType);
+int GetProcedurePresent(F1apMessageType messageType);
 
-void *NewDescFromMessageType(NgapMessageType type, void *&pOutDescription);
+void *NewDescFromMessageType(F1apMessageType type, void *&pOutDescription);
 
 template <typename TMessage>
 inline void AddProtocolIe(TMessage &msg, typename NgapMessageToIeType<TMessage>::value *element)
@@ -50,7 +50,7 @@ inline void AddProtocolIe(TMessage &msg, typename NgapMessageToIeType<TMessage>:
 template <typename T>
 inline F1AP_PDU *NewMessagePdu(std::vector<typename NgapMessageToIeType<T>::value *> ies)
 {
-    auto msgType = static_cast<NgapMessageType>(NgapMessageTypeToEnum<T>::V);
+    auto msgType = static_cast<F1apMessageType>(F1apMessageTypeToEnum<T>::V);
 
     void *pDescription = nullptr;
     void *pMessage = NewDescFromMessageType(msgType, pDescription);
@@ -64,9 +64,9 @@ inline F1AP_PDU *NewMessagePdu(std::vector<typename NgapMessageToIeType<T>::valu
     case 0:
         return F1apPduFromPduDescription(reinterpret_cast<InitiatingMessage *>(pDescription));
     case 1:
-        return F1apPduFromPduDescription(reinterpret_cast<ASN_NGAP_SuccessfulOutcome *>(pDescription));
+        return F1apPduFromPduDescription(reinterpret_cast<SuccessfulOutcome *>(pDescription));
     case 2:
-        return F1apPduFromPduDescription(reinterpret_cast<ASN_NGAP_UnsuccessfulOutcome *>(pDescription));
+        return F1apPduFromPduDescription(reinterpret_cast<UnsuccessfulOutcome *>(pDescription));
     default:
         std::terminate();
     }

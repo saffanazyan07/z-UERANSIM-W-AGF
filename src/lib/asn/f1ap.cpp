@@ -47,7 +47,7 @@
 #include <asn/f1ap/GNBCUConfigurationUpdateFailure.h> //ASN_NGAP_RANConfigurationUpdateFailure.h
 #include <asn/f1ap/GNBDUConfigurationUpdateFailure.h> //ASN_NGAP_RANConfigurationUpdateFailure.h
 #include <asn/f1ap/CUtoDURRCInformation.h> //ASN_NGAP_RRCInactiveTransitionReport.h
-#include <asn/f1ap/SuccessfulOutcome.h> //ASN_NGAP_SuccessfulOutcome.h
+#include <asn/f1ap/SuccessfulOutcome.h> //SuccessfulOutcome.h
 #include <asn/f1ap/UEContextModificationFailure.h> //ASN_NGAP_UEContextModificationFailure.h
 #include <asn/f1ap/UEContextModificationRequest.h> //ASN_NGAP_UEContextModificationRequest.h
 #include <asn/f1ap/UEContextModificationResponse.h> //ASN_NGAP_UEContextModificationResponse.h
@@ -55,7 +55,7 @@
 #include <asn/f1ap/UEContextReleaseComplete.h> //ASN_NGAP_UEContextReleaseComplete.h
 #include <asn/f1ap/UEContextReleaseRequest.h> //ASN_NGAP_UEContextReleaseRequest.h
 #include <asn/f1ap/CauseRadioNetwork.h> //ASN_NGAP_UERadioCapabilityCheckRequest.h
-#include <asn/f1ap/UnsuccessfulOutcome.h> //ASN_NGAP_UnsuccessfulOutcome.h
+#include <asn/f1ap/UnsuccessfulOutcome.h> //UnsuccessfulOutcome.h
 #include <asn/f1ap/ULRRCMessageTransfer.h> //ASN_NGAP_UplinkNASTransport.h
 
 
@@ -71,7 +71,7 @@ F1AP_PDU *F1apPduFromPduDescription(InitiatingMessage *desc)
     return pdu;
 }
 
-F1AP_PDU *F1apPduFromPduDescription(ASN_NGAP_SuccessfulOutcome *desc)
+F1AP_PDU *F1apPduFromPduDescription(SuccessfulOutcome *desc)
 {
     auto pdu = asn::New<F1AP_PDU>();
     pdu->present = F1AP_PDU_PR_successfulOutcome;
@@ -79,7 +79,7 @@ F1AP_PDU *F1apPduFromPduDescription(ASN_NGAP_SuccessfulOutcome *desc)
     return pdu;
 }
 
-F1AP_PDU *F1apPduFromPduDescription(ASN_NGAP_UnsuccessfulOutcome *desc)
+F1AP_PDU *F1apPduFromPduDescription(UnsuccessfulOutcome *desc)
 {
     auto pdu = asn::New<F1AP_PDU>();
     pdu->present = F1AP_PDU_PR_unsuccessfulOutcome;
@@ -87,7 +87,7 @@ F1AP_PDU *F1apPduFromPduDescription(ASN_NGAP_UnsuccessfulOutcome *desc)
     return pdu;
 }
 
-void *NewDescFromMessageType(NgapMessageType type, void *&pOutDescription)
+void *NewDescFromMessageType(F1apMessageType type, void *&pOutDescription)
 {
     int pduDescription = GetPduDescription(type);
     assert(pduDescription >= 0 && pduDescription <= 2);
@@ -102,111 +102,111 @@ void *NewDescFromMessageType(NgapMessageType type, void *&pOutDescription)
 
         switch (type)
         {
-        case NgapMessageType::AMFConfigurationUpdate:
+        case F1apMessageType::AMFConfigurationUpdate:
             return &desc->value.choice.AMFConfigurationUpdate;
-        case NgapMessageType::HandoverCancel:
+        case F1apMessageType::HandoverCancel:
             return &desc->value.choice.HandoverCancel;
-        case NgapMessageType::HandoverRequired:
+        case F1apMessageType::HandoverRequired:
             return &desc->value.choice.HandoverRequired;
-        case NgapMessageType::HandoverRequest:
+        case F1apMessageType::HandoverRequest:
             return &desc->value.choice.HandoverRequest;
-        case NgapMessageType::InitialContextSetupRequest:
+        case F1apMessageType::InitialContextSetupRequest:
             return &desc->value.choice.InitialContextSetupRequest;
-        case NgapMessageType::NGReset:
+        case F1apMessageType::NGReset:
             return &desc->value.choice.NGReset;
-        case NgapMessageType::NGSetupRequest:
+        case F1apMessageType::NGSetupRequest:
             return &desc->value.choice.NGSetupRequest;
-        case NgapMessageType::PathSwitchRequest:
+        case F1apMessageType::PathSwitchRequest:
             return &desc->value.choice.PathSwitchRequest;
-        case NgapMessageType::PDUSessionResourceModifyRequest:
+        case F1apMessageType::PDUSessionResourceModifyRequest:
             return &desc->value.choice.PDUSessionResourceModifyRequest;
-        case NgapMessageType::PDUSessionResourceModifyIndication:
+        case F1apMessageType::PDUSessionResourceModifyIndication:
             return &desc->value.choice.PDUSessionResourceModifyIndication;
-        case NgapMessageType::PDUSessionResourceReleaseCommand:
+        case F1apMessageType::PDUSessionResourceReleaseCommand:
             return &desc->value.choice.PDUSessionResourceReleaseCommand;
-        case NgapMessageType::PDUSessionResourceSetupRequest:
+        case F1apMessageType::PDUSessionResourceSetupRequest:
             return &desc->value.choice.PDUSessionResourceSetupRequest;
-        case NgapMessageType::PWSCancelRequest:
+        case F1apMessageType::PWSCancelRequest:
             return &desc->value.choice.PWSCancelRequest;
-        case NgapMessageType::RANConfigurationUpdate:
+        case F1apMessageType::RANConfigurationUpdate:
             return &desc->value.choice.RANConfigurationUpdate;
-        case NgapMessageType::UEContextModificationRequest:
+        case F1apMessageType::UEContextModificationRequest:
             return &desc->value.choice.UEContextModificationRequest;
-        case NgapMessageType::UEContextReleaseCommand:
+        case F1apMessageType::UEContextReleaseCommand:
             return &desc->value.choice.UEContextReleaseCommand;
-        case NgapMessageType::UERadioCapabilityCheckRequest:
+        case F1apMessageType::UERadioCapabilityCheckRequest:
             return &desc->value.choice.UERadioCapabilityCheckRequest;
-        case NgapMessageType::WriteReplaceWarningRequest:
+        case F1apMessageType::WriteReplaceWarningRequest:
             return &desc->value.choice.WriteReplaceWarningRequest;
-        case NgapMessageType::AMFStatusIndication:
+        case F1apMessageType::AMFStatusIndication:
             return &desc->value.choice.AMFStatusIndication;
-        case NgapMessageType::CellTrafficTrace:
+        case F1apMessageType::CellTrafficTrace:
             return &desc->value.choice.CellTrafficTrace;
-        case NgapMessageType::DeactivateTrace:
+        case F1apMessageType::DeactivateTrace:
             return &desc->value.choice.DeactivateTrace;
-        case NgapMessageType::DownlinkNASTransport:
+        case F1apMessageType::DownlinkNASTransport:
             return &desc->value.choice.DownlinkNASTransport;
-        case NgapMessageType::DownlinkNonUEAssociatedNRPPaTransport:
+        case F1apMessageType::DownlinkNonUEAssociatedNRPPaTransport:
             return &desc->value.choice.DownlinkNonUEAssociatedNRPPaTransport;
-        case NgapMessageType::DownlinkRANConfigurationTransfer:
+        case F1apMessageType::DownlinkRANConfigurationTransfer:
             return &desc->value.choice.DownlinkRANConfigurationTransfer;
-        case NgapMessageType::DownlinkRANStatusTransfer:
+        case F1apMessageType::DownlinkRANStatusTransfer:
             return &desc->value.choice.DownlinkRANStatusTransfer;
-        case NgapMessageType::DownlinkUEAssociatedNRPPaTransport:
+        case F1apMessageType::DownlinkUEAssociatedNRPPaTransport:
             return &desc->value.choice.DownlinkUEAssociatedNRPPaTransport;
-        case NgapMessageType::ErrorIndication:
+        case F1apMessageType::ErrorIndication:
             return &desc->value.choice.ErrorIndication;
-        case NgapMessageType::HandoverNotify:
+        case F1apMessageType::HandoverNotify:
             return &desc->value.choice.HandoverNotify;
-        case NgapMessageType::InitialUEMessage:
+        case F1apMessageType::InitialUEMessage:
             return &desc->value.choice.InitialUEMessage;
-        case NgapMessageType::LocationReport:
+        case F1apMessageType::LocationReport:
             return &desc->value.choice.LocationReport;
-        case NgapMessageType::LocationReportingControl:
+        case F1apMessageType::LocationReportingControl:
             return &desc->value.choice.LocationReportingControl;
-        case NgapMessageType::LocationReportingFailureIndication:
+        case F1apMessageType::LocationReportingFailureIndication:
             return &desc->value.choice.LocationReportingFailureIndication;
-        case NgapMessageType::NASNonDeliveryIndication:
+        case F1apMessageType::NASNonDeliveryIndication:
             return &desc->value.choice.NASNonDeliveryIndication;
-        case NgapMessageType::OverloadStart:
+        case F1apMessageType::OverloadStart:
             return &desc->value.choice.OverloadStart;
-        case NgapMessageType::OverloadStop:
+        case F1apMessageType::OverloadStop:
             return &desc->value.choice.OverloadStop;
-        case NgapMessageType::Paging:
+        case F1apMessageType::Paging:
             return &desc->value.choice.Paging;
-        case NgapMessageType::PDUSessionResourceNotify:
+        case F1apMessageType::PDUSessionResourceNotify:
             return &desc->value.choice.PDUSessionResourceNotify;
-        case NgapMessageType::PrivateMessage:
+        case F1apMessageType::PrivateMessage:
             return &desc->value.choice.PrivateMessage;
-        case NgapMessageType::PWSFailureIndication:
+        case F1apMessageType::PWSFailureIndication:
             return &desc->value.choice.PWSFailureIndication;
-        case NgapMessageType::PWSRestartIndication:
+        case F1apMessageType::PWSRestartIndication:
             return &desc->value.choice.PWSRestartIndication;
-        case NgapMessageType::RerouteNASRequest:
+        case F1apMessageType::RerouteNASRequest:
             return &desc->value.choice.RerouteNASRequest;
-        case NgapMessageType::RRCInactiveTransitionReport:
+        case F1apMessageType::RRCInactiveTransitionReport:
             return &desc->value.choice.RRCInactiveTransitionReport;
-        case NgapMessageType::SecondaryRATDataUsageReport:
+        case F1apMessageType::SecondaryRATDataUsageReport:
             return &desc->value.choice.SecondaryRATDataUsageReport;
-        case NgapMessageType::TraceFailureIndication:
+        case F1apMessageType::TraceFailureIndication:
             return &desc->value.choice.TraceFailureIndication;
-        case NgapMessageType::TraceStart:
+        case F1apMessageType::TraceStart:
             return &desc->value.choice.TraceStart;
-        case NgapMessageType::UEContextReleaseRequest:
+        case F1apMessageType::UEContextReleaseRequest:
             return &desc->value.choice.UEContextReleaseRequest;
-        case NgapMessageType::UERadioCapabilityInfoIndication:
+        case F1apMessageType::UERadioCapabilityInfoIndication:
             return &desc->value.choice.UERadioCapabilityInfoIndication;
-        case NgapMessageType::UETNLABindingReleaseRequest:
+        case F1apMessageType::UETNLABindingReleaseRequest:
             return &desc->value.choice.UETNLABindingReleaseRequest;
-        case NgapMessageType::UplinkNASTransport:
+        case F1apMessageType::UplinkNASTransport:
             return &desc->value.choice.UplinkNASTransport;
-        case NgapMessageType::UplinkNonUEAssociatedNRPPaTransport:
+        case F1apMessageType::UplinkNonUEAssociatedNRPPaTransport:
             return &desc->value.choice.UplinkNonUEAssociatedNRPPaTransport;
-        case NgapMessageType::UplinkRANConfigurationTransfer:
+        case F1apMessageType::UplinkRANConfigurationTransfer:
             return &desc->value.choice.UplinkRANConfigurationTransfer;
-        case NgapMessageType::UplinkRANStatusTransfer:
+        case F1apMessageType::UplinkRANStatusTransfer:
             return &desc->value.choice.UplinkRANStatusTransfer;
-        case NgapMessageType::UplinkUEAssociatedNRPPaTransport:
+        case F1apMessageType::UplinkUEAssociatedNRPPaTransport:
             return &desc->value.choice.UplinkUEAssociatedNRPPaTransport;
         default:
             assert(false);
@@ -215,49 +215,49 @@ void *NewDescFromMessageType(NgapMessageType type, void *&pOutDescription)
 
     if (pduDescription == 1)
     {
-        auto *desc = asn::New<ASN_NGAP_SuccessfulOutcome>();
+        auto *desc = asn::New<SuccessfulOutcome>();
         desc->procedureCode = GetProcedureCode(type);
         desc->criticality = GetProcedureCriticality(type);
-        desc->value.present = static_cast<ASN_NGAP_SuccessfulOutcome__value_PR>(GetProcedurePresent(type));
+        desc->value.present = static_cast<SuccessfulOutcome__value_PR>(GetProcedurePresent(type));
         pOutDescription = desc;
 
         switch (type)
         {
-        case NgapMessageType::AMFConfigurationUpdateAcknowledge:
+        case F1apMessageType::AMFConfigurationUpdateAcknowledge:
             return &desc->value.choice.AMFConfigurationUpdateAcknowledge;
-        case NgapMessageType::HandoverCancelAcknowledge:
+        case F1apMessageType::HandoverCancelAcknowledge:
             return &desc->value.choice.HandoverCancelAcknowledge;
-        case NgapMessageType::HandoverCommand:
+        case F1apMessageType::HandoverCommand:
             return &desc->value.choice.HandoverCommand;
-        case NgapMessageType::HandoverRequestAcknowledge:
+        case F1apMessageType::HandoverRequestAcknowledge:
             return &desc->value.choice.HandoverRequestAcknowledge;
-        case NgapMessageType::InitialContextSetupResponse:
+        case F1apMessageType::InitialContextSetupResponse:
             return &desc->value.choice.InitialContextSetupResponse;
-        case NgapMessageType::NGResetAcknowledge:
+        case F1apMessageType::NGResetAcknowledge:
             return &desc->value.choice.NGResetAcknowledge;
-        case NgapMessageType::NGSetupResponse:
+        case F1apMessageType::NGSetupResponse:
             return &desc->value.choice.NGSetupResponse;
-        case NgapMessageType::PathSwitchRequestAcknowledge:
+        case F1apMessageType::PathSwitchRequestAcknowledge:
             return &desc->value.choice.PathSwitchRequestAcknowledge;
-        case NgapMessageType::PDUSessionResourceModifyResponse:
+        case F1apMessageType::PDUSessionResourceModifyResponse:
             return &desc->value.choice.PDUSessionResourceModifyResponse;
-        case NgapMessageType::PDUSessionResourceModifyConfirm:
+        case F1apMessageType::PDUSessionResourceModifyConfirm:
             return &desc->value.choice.PDUSessionResourceModifyConfirm;
-        case NgapMessageType::PDUSessionResourceReleaseResponse:
+        case F1apMessageType::PDUSessionResourceReleaseResponse:
             return &desc->value.choice.PDUSessionResourceReleaseResponse;
-        case NgapMessageType::PDUSessionResourceSetupResponse:
+        case F1apMessageType::PDUSessionResourceSetupResponse:
             return &desc->value.choice.PDUSessionResourceSetupResponse;
-        case NgapMessageType::PWSCancelResponse:
+        case F1apMessageType::PWSCancelResponse:
             return &desc->value.choice.PWSCancelResponse;
-        case NgapMessageType::RANConfigurationUpdateAcknowledge:
+        case F1apMessageType::RANConfigurationUpdateAcknowledge:
             return &desc->value.choice.RANConfigurationUpdateAcknowledge;
-        case NgapMessageType::UEContextModificationResponse:
+        case F1apMessageType::UEContextModificationResponse:
             return &desc->value.choice.UEContextModificationResponse;
-        case NgapMessageType::UEContextReleaseComplete:
+        case F1apMessageType::UEContextReleaseComplete:
             return &desc->value.choice.UEContextReleaseComplete;
-        case NgapMessageType::UERadioCapabilityCheckResponse:
+        case F1apMessageType::UERadioCapabilityCheckResponse:
             return &desc->value.choice.UERadioCapabilityCheckResponse;
-        case NgapMessageType::WriteReplaceWarningResponse:
+        case F1apMessageType::WriteReplaceWarningResponse:
             return &desc->value.choice.WriteReplaceWarningResponse;
         default:
             assert(false);
@@ -266,29 +266,29 @@ void *NewDescFromMessageType(NgapMessageType type, void *&pOutDescription)
 
     if (pduDescription == 2)
     {
-        auto *desc = asn::New<ASN_NGAP_UnsuccessfulOutcome>();
+        auto *desc = asn::New<UnsuccessfulOutcome>();
         desc->procedureCode = GetProcedureCode(type);
         desc->criticality = GetProcedureCriticality(type);
-        desc->value.present = static_cast<ASN_NGAP_UnsuccessfulOutcome__value_PR>(GetProcedurePresent(type));
+        desc->value.present = static_cast<UnsuccessfulOutcome__value_PR>(GetProcedurePresent(type));
         pOutDescription = desc;
 
         switch (type)
         {
-        case NgapMessageType::AMFConfigurationUpdateFailure:
+        case F1apMessageType::AMFConfigurationUpdateFailure:
             return &desc->value.choice.AMFConfigurationUpdateFailure;
-        case NgapMessageType::HandoverPreparationFailure:
+        case F1apMessageType::HandoverPreparationFailure:
             return &desc->value.choice.HandoverPreparationFailure;
-        case NgapMessageType::HandoverFailure:
+        case F1apMessageType::HandoverFailure:
             return &desc->value.choice.HandoverFailure;
-        case NgapMessageType::InitialContextSetupFailure:
+        case F1apMessageType::InitialContextSetupFailure:
             return &desc->value.choice.InitialContextSetupFailure;
-        case NgapMessageType::NGSetupFailure:
+        case F1apMessageType::NGSetupFailure:
             return &desc->value.choice.NGSetupFailure;
-        case NgapMessageType::PathSwitchRequestFailure:
+        case F1apMessageType::PathSwitchRequestFailure:
             return &desc->value.choice.PathSwitchRequestFailure;
-        case NgapMessageType::RANConfigurationUpdateFailure:
+        case F1apMessageType::RANConfigurationUpdateFailure:
             return &desc->value.choice.RANConfigurationUpdateFailure;
-        case NgapMessageType::UEContextModificationFailure:
+        case F1apMessageType::UEContextModificationFailure:
             return &desc->value.choice.UEContextModificationFailure;
         default:
             assert(false);
@@ -300,140 +300,140 @@ void *NewDescFromMessageType(NgapMessageType type, void *&pOutDescription)
     return nullptr;
 }
 
-int GetProcedureCode(NgapMessageType messageType)
+int GetProcedureCode(F1apMessageType messageType)
 {
     switch (messageType)
     {
-    case NgapMessageType::AMFConfigurationUpdate:
-    case NgapMessageType::AMFConfigurationUpdateAcknowledge:
-    case NgapMessageType::AMFConfigurationUpdateFailure:
+    case F1apMessageType::AMFConfigurationUpdate:
+    case F1apMessageType::AMFConfigurationUpdateAcknowledge:
+    case F1apMessageType::AMFConfigurationUpdateFailure:
         return 0;
-    case NgapMessageType::AMFStatusIndication:
+    case F1apMessageType::AMFStatusIndication:
         return 1;
-    case NgapMessageType::CellTrafficTrace:
+    case F1apMessageType::CellTrafficTrace:
         return 2;
-    case NgapMessageType::DeactivateTrace:
+    case F1apMessageType::DeactivateTrace:
         return 3;
-    case NgapMessageType::DownlinkNASTransport:
+    case F1apMessageType::DownlinkNASTransport:
         return 4;
-    case NgapMessageType::DownlinkNonUEAssociatedNRPPaTransport:
+    case F1apMessageType::DownlinkNonUEAssociatedNRPPaTransport:
         return 5;
-    case NgapMessageType::DownlinkRANConfigurationTransfer:
+    case F1apMessageType::DownlinkRANConfigurationTransfer:
         return 6;
-    case NgapMessageType::DownlinkRANStatusTransfer:
+    case F1apMessageType::DownlinkRANStatusTransfer:
         return 7;
-    case NgapMessageType::DownlinkUEAssociatedNRPPaTransport:
+    case F1apMessageType::DownlinkUEAssociatedNRPPaTransport:
         return 8;
-    case NgapMessageType::ErrorIndication:
+    case F1apMessageType::ErrorIndication:
         return 9;
-    case NgapMessageType::HandoverCancel:
-    case NgapMessageType::HandoverCancelAcknowledge:
+    case F1apMessageType::HandoverCancel:
+    case F1apMessageType::HandoverCancelAcknowledge:
         return 10;
-    case NgapMessageType::HandoverNotify:
+    case F1apMessageType::HandoverNotify:
         return 11;
-    case NgapMessageType::HandoverPreparationFailure:
-    case NgapMessageType::HandoverRequired:
-    case NgapMessageType::HandoverCommand:
+    case F1apMessageType::HandoverPreparationFailure:
+    case F1apMessageType::HandoverRequired:
+    case F1apMessageType::HandoverCommand:
         return 12;
-    case NgapMessageType::HandoverRequest:
-    case NgapMessageType::HandoverRequestAcknowledge:
-    case NgapMessageType::HandoverFailure:
+    case F1apMessageType::HandoverRequest:
+    case F1apMessageType::HandoverRequestAcknowledge:
+    case F1apMessageType::HandoverFailure:
         return 13;
-    case NgapMessageType::InitialContextSetupFailure:
-    case NgapMessageType::InitialContextSetupRequest:
-    case NgapMessageType::InitialContextSetupResponse:
+    case F1apMessageType::InitialContextSetupFailure:
+    case F1apMessageType::InitialContextSetupRequest:
+    case F1apMessageType::InitialContextSetupResponse:
         return 14;
-    case NgapMessageType::InitialUEMessage:
+    case F1apMessageType::InitialUEMessage:
         return 15;
-    case NgapMessageType::LocationReportingControl:
+    case F1apMessageType::LocationReportingControl:
         return 16;
-    case NgapMessageType::LocationReportingFailureIndication:
+    case F1apMessageType::LocationReportingFailureIndication:
         return 17;
-    case NgapMessageType::LocationReport:
+    case F1apMessageType::LocationReport:
         return 18;
-    case NgapMessageType::NASNonDeliveryIndication:
+    case F1apMessageType::NASNonDeliveryIndication:
         return 19;
-    case NgapMessageType::NGReset:
-    case NgapMessageType::NGResetAcknowledge:
+    case F1apMessageType::NGReset:
+    case F1apMessageType::NGResetAcknowledge:
         return 20;
-    case NgapMessageType::NGSetupFailure:
-    case NgapMessageType::NGSetupRequest:
-    case NgapMessageType::NGSetupResponse:
+    case F1apMessageType::NGSetupFailure:
+    case F1apMessageType::NGSetupRequest:
+    case F1apMessageType::NGSetupResponse:
         return 21;
-    case NgapMessageType::OverloadStart:
+    case F1apMessageType::OverloadStart:
         return 22;
-    case NgapMessageType::OverloadStop:
+    case F1apMessageType::OverloadStop:
         return 23;
-    case NgapMessageType::Paging:
+    case F1apMessageType::Paging:
         return 24;
-    case NgapMessageType::PathSwitchRequest:
-    case NgapMessageType::PathSwitchRequestAcknowledge:
-    case NgapMessageType::PathSwitchRequestFailure:
+    case F1apMessageType::PathSwitchRequest:
+    case F1apMessageType::PathSwitchRequestAcknowledge:
+    case F1apMessageType::PathSwitchRequestFailure:
         return 25;
-    case NgapMessageType::PDUSessionResourceModifyRequest:
-    case NgapMessageType::PDUSessionResourceModifyResponse:
+    case F1apMessageType::PDUSessionResourceModifyRequest:
+    case F1apMessageType::PDUSessionResourceModifyResponse:
         return 26;
-    case NgapMessageType::PDUSessionResourceModifyConfirm:
-    case NgapMessageType::PDUSessionResourceModifyIndication:
+    case F1apMessageType::PDUSessionResourceModifyConfirm:
+    case F1apMessageType::PDUSessionResourceModifyIndication:
         return 27;
-    case NgapMessageType::PDUSessionResourceReleaseCommand:
-    case NgapMessageType::PDUSessionResourceReleaseResponse:
+    case F1apMessageType::PDUSessionResourceReleaseCommand:
+    case F1apMessageType::PDUSessionResourceReleaseResponse:
         return 28;
-    case NgapMessageType::PDUSessionResourceSetupRequest:
-    case NgapMessageType::PDUSessionResourceSetupResponse:
+    case F1apMessageType::PDUSessionResourceSetupRequest:
+    case F1apMessageType::PDUSessionResourceSetupResponse:
         return 29;
-    case NgapMessageType::PDUSessionResourceNotify:
+    case F1apMessageType::PDUSessionResourceNotify:
         return 30;
-    case NgapMessageType::PrivateMessage:
+    case F1apMessageType::PrivateMessage:
         return 31;
-    case NgapMessageType::PWSCancelRequest:
-    case NgapMessageType::PWSCancelResponse:
+    case F1apMessageType::PWSCancelRequest:
+    case F1apMessageType::PWSCancelResponse:
         return 32;
-    case NgapMessageType::PWSFailureIndication:
+    case F1apMessageType::PWSFailureIndication:
         return 33;
-    case NgapMessageType::PWSRestartIndication:
+    case F1apMessageType::PWSRestartIndication:
         return 34;
-    case NgapMessageType::RANConfigurationUpdate:
-    case NgapMessageType::RANConfigurationUpdateAcknowledge:
-    case NgapMessageType::RANConfigurationUpdateFailure:
+    case F1apMessageType::RANConfigurationUpdate:
+    case F1apMessageType::RANConfigurationUpdateAcknowledge:
+    case F1apMessageType::RANConfigurationUpdateFailure:
         return 35;
-    case NgapMessageType::RerouteNASRequest:
+    case F1apMessageType::RerouteNASRequest:
         return 36;
-    case NgapMessageType::RRCInactiveTransitionReport:
+    case F1apMessageType::RRCInactiveTransitionReport:
         return 37;
-    case NgapMessageType::TraceFailureIndication:
+    case F1apMessageType::TraceFailureIndication:
         return 38;
-    case NgapMessageType::TraceStart:
+    case F1apMessageType::TraceStart:
         return 39;
-    case NgapMessageType::UEContextModificationFailure:
-    case NgapMessageType::UEContextModificationRequest:
-    case NgapMessageType::UEContextModificationResponse:
+    case F1apMessageType::UEContextModificationFailure:
+    case F1apMessageType::UEContextModificationRequest:
+    case F1apMessageType::UEContextModificationResponse:
         return 40;
-    case NgapMessageType::UEContextReleaseCommand:
-    case NgapMessageType::UEContextReleaseComplete:
+    case F1apMessageType::UEContextReleaseCommand:
+    case F1apMessageType::UEContextReleaseComplete:
         return 41;
-    case NgapMessageType::UEContextReleaseRequest:
+    case F1apMessageType::UEContextReleaseRequest:
         return 42;
-    case NgapMessageType::UERadioCapabilityCheckRequest:
-    case NgapMessageType::UERadioCapabilityCheckResponse:
-    case NgapMessageType::UERadioCapabilityInfoIndication:
+    case F1apMessageType::UERadioCapabilityCheckRequest:
+    case F1apMessageType::UERadioCapabilityCheckResponse:
+    case F1apMessageType::UERadioCapabilityInfoIndication:
         return 44;
-    case NgapMessageType::UETNLABindingReleaseRequest:
+    case F1apMessageType::UETNLABindingReleaseRequest:
         return 45;
-    case NgapMessageType::UplinkNASTransport:
+    case F1apMessageType::UplinkNASTransport:
         return 46;
-    case NgapMessageType::UplinkNonUEAssociatedNRPPaTransport:
+    case F1apMessageType::UplinkNonUEAssociatedNRPPaTransport:
         return 47;
-    case NgapMessageType::UplinkRANConfigurationTransfer:
+    case F1apMessageType::UplinkRANConfigurationTransfer:
         return 48;
-    case NgapMessageType::UplinkRANStatusTransfer:
+    case F1apMessageType::UplinkRANStatusTransfer:
         return 49;
-    case NgapMessageType::UplinkUEAssociatedNRPPaTransport:
+    case F1apMessageType::UplinkUEAssociatedNRPPaTransport:
         return 50;
-    case NgapMessageType::WriteReplaceWarningRequest:
-    case NgapMessageType::WriteReplaceWarningResponse:
+    case F1apMessageType::WriteReplaceWarningRequest:
+    case F1apMessageType::WriteReplaceWarningResponse:
         return 51;
-    case NgapMessageType::SecondaryRATDataUsageReport:
+    case F1apMessageType::SecondaryRATDataUsageReport:
         return 52;
     default:
         assert(false);
@@ -443,260 +443,260 @@ int GetProcedureCode(NgapMessageType messageType)
     return 0;
 }
 
-int GetProcedureCriticality(NgapMessageType messageType)
+int GetProcedureCriticality(F1apMessageType messageType)
 {
     switch (messageType)
     {
-    case NgapMessageType::AMFConfigurationUpdate:
-    case NgapMessageType::AMFConfigurationUpdateAcknowledge:
-    case NgapMessageType::AMFConfigurationUpdateFailure:
-    case NgapMessageType::HandoverCancel:
-    case NgapMessageType::HandoverCancelAcknowledge:
-    case NgapMessageType::HandoverCommand:
-    case NgapMessageType::HandoverFailure:
-    case NgapMessageType::HandoverPreparationFailure:
-    case NgapMessageType::HandoverRequest:
-    case NgapMessageType::HandoverRequestAcknowledge:
-    case NgapMessageType::HandoverRequired:
-    case NgapMessageType::InitialContextSetupFailure:
-    case NgapMessageType::InitialContextSetupRequest:
-    case NgapMessageType::InitialContextSetupResponse:
-    case NgapMessageType::NGReset:
-    case NgapMessageType::NGResetAcknowledge:
-    case NgapMessageType::NGSetupFailure:
-    case NgapMessageType::NGSetupRequest:
-    case NgapMessageType::NGSetupResponse:
-    case NgapMessageType::OverloadStop:
-    case NgapMessageType::PathSwitchRequest:
-    case NgapMessageType::PathSwitchRequestAcknowledge:
-    case NgapMessageType::PathSwitchRequestFailure:
-    case NgapMessageType::PDUSessionResourceModifyConfirm:
-    case NgapMessageType::PDUSessionResourceModifyIndication:
-    case NgapMessageType::PDUSessionResourceModifyRequest:
-    case NgapMessageType::PDUSessionResourceModifyResponse:
-    case NgapMessageType::PDUSessionResourceReleaseCommand:
-    case NgapMessageType::PDUSessionResourceReleaseResponse:
-    case NgapMessageType::PDUSessionResourceSetupRequest:
-    case NgapMessageType::PDUSessionResourceSetupResponse:
-    case NgapMessageType::PWSCancelRequest:
-    case NgapMessageType::PWSCancelResponse:
-    case NgapMessageType::RANConfigurationUpdate:
-    case NgapMessageType::RANConfigurationUpdateAcknowledge:
-    case NgapMessageType::RANConfigurationUpdateFailure:
-    case NgapMessageType::RerouteNASRequest:
-    case NgapMessageType::UEContextModificationFailure:
-    case NgapMessageType::UEContextModificationRequest:
-    case NgapMessageType::UEContextModificationResponse:
-    case NgapMessageType::UEContextReleaseCommand:
-    case NgapMessageType::UEContextReleaseComplete:
-    case NgapMessageType::UERadioCapabilityCheckRequest:
-    case NgapMessageType::UERadioCapabilityCheckResponse:
-    case NgapMessageType::WriteReplaceWarningRequest:
-    case NgapMessageType::WriteReplaceWarningResponse:
+    case F1apMessageType::AMFConfigurationUpdate:
+    case F1apMessageType::AMFConfigurationUpdateAcknowledge:
+    case F1apMessageType::AMFConfigurationUpdateFailure:
+    case F1apMessageType::HandoverCancel:
+    case F1apMessageType::HandoverCancelAcknowledge:
+    case F1apMessageType::HandoverCommand:
+    case F1apMessageType::HandoverFailure:
+    case F1apMessageType::HandoverPreparationFailure:
+    case F1apMessageType::HandoverRequest:
+    case F1apMessageType::HandoverRequestAcknowledge:
+    case F1apMessageType::HandoverRequired:
+    case F1apMessageType::InitialContextSetupFailure:
+    case F1apMessageType::InitialContextSetupRequest:
+    case F1apMessageType::InitialContextSetupResponse:
+    case F1apMessageType::NGReset:
+    case F1apMessageType::NGResetAcknowledge:
+    case F1apMessageType::NGSetupFailure:
+    case F1apMessageType::NGSetupRequest:
+    case F1apMessageType::NGSetupResponse:
+    case F1apMessageType::OverloadStop:
+    case F1apMessageType::PathSwitchRequest:
+    case F1apMessageType::PathSwitchRequestAcknowledge:
+    case F1apMessageType::PathSwitchRequestFailure:
+    case F1apMessageType::PDUSessionResourceModifyConfirm:
+    case F1apMessageType::PDUSessionResourceModifyIndication:
+    case F1apMessageType::PDUSessionResourceModifyRequest:
+    case F1apMessageType::PDUSessionResourceModifyResponse:
+    case F1apMessageType::PDUSessionResourceReleaseCommand:
+    case F1apMessageType::PDUSessionResourceReleaseResponse:
+    case F1apMessageType::PDUSessionResourceSetupRequest:
+    case F1apMessageType::PDUSessionResourceSetupResponse:
+    case F1apMessageType::PWSCancelRequest:
+    case F1apMessageType::PWSCancelResponse:
+    case F1apMessageType::RANConfigurationUpdate:
+    case F1apMessageType::RANConfigurationUpdateAcknowledge:
+    case F1apMessageType::RANConfigurationUpdateFailure:
+    case F1apMessageType::RerouteNASRequest:
+    case F1apMessageType::UEContextModificationFailure:
+    case F1apMessageType::UEContextModificationRequest:
+    case F1apMessageType::UEContextModificationResponse:
+    case F1apMessageType::UEContextReleaseCommand:
+    case F1apMessageType::UEContextReleaseComplete:
+    case F1apMessageType::UERadioCapabilityCheckRequest:
+    case F1apMessageType::UERadioCapabilityCheckResponse:
+    case F1apMessageType::WriteReplaceWarningRequest:
+    case F1apMessageType::WriteReplaceWarningResponse:
         return 0;
-    case NgapMessageType::AMFStatusIndication:
-    case NgapMessageType::CellTrafficTrace:
-    case NgapMessageType::DeactivateTrace:
-    case NgapMessageType::DownlinkNASTransport:
-    case NgapMessageType::DownlinkNonUEAssociatedNRPPaTransport:
-    case NgapMessageType::DownlinkRANConfigurationTransfer:
-    case NgapMessageType::DownlinkRANStatusTransfer:
-    case NgapMessageType::DownlinkUEAssociatedNRPPaTransport:
-    case NgapMessageType::ErrorIndication:
-    case NgapMessageType::HandoverNotify:
-    case NgapMessageType::InitialUEMessage:
-    case NgapMessageType::LocationReport:
-    case NgapMessageType::LocationReportingControl:
-    case NgapMessageType::LocationReportingFailureIndication:
-    case NgapMessageType::NASNonDeliveryIndication:
-    case NgapMessageType::OverloadStart:
-    case NgapMessageType::Paging:
-    case NgapMessageType::PDUSessionResourceNotify:
-    case NgapMessageType::PrivateMessage:
-    case NgapMessageType::PWSFailureIndication:
-    case NgapMessageType::PWSRestartIndication:
-    case NgapMessageType::RRCInactiveTransitionReport:
-    case NgapMessageType::SecondaryRATDataUsageReport:
-    case NgapMessageType::TraceFailureIndication:
-    case NgapMessageType::TraceStart:
-    case NgapMessageType::UEContextReleaseRequest:
-    case NgapMessageType::UERadioCapabilityInfoIndication:
-    case NgapMessageType::UETNLABindingReleaseRequest:
-    case NgapMessageType::UplinkNASTransport:
-    case NgapMessageType::UplinkNonUEAssociatedNRPPaTransport:
-    case NgapMessageType::UplinkRANConfigurationTransfer:
-    case NgapMessageType::UplinkRANStatusTransfer:
-    case NgapMessageType::UplinkUEAssociatedNRPPaTransport:
+    case F1apMessageType::AMFStatusIndication:
+    case F1apMessageType::CellTrafficTrace:
+    case F1apMessageType::DeactivateTrace:
+    case F1apMessageType::DownlinkNASTransport:
+    case F1apMessageType::DownlinkNonUEAssociatedNRPPaTransport:
+    case F1apMessageType::DownlinkRANConfigurationTransfer:
+    case F1apMessageType::DownlinkRANStatusTransfer:
+    case F1apMessageType::DownlinkUEAssociatedNRPPaTransport:
+    case F1apMessageType::ErrorIndication:
+    case F1apMessageType::HandoverNotify:
+    case F1apMessageType::InitialUEMessage:
+    case F1apMessageType::LocationReport:
+    case F1apMessageType::LocationReportingControl:
+    case F1apMessageType::LocationReportingFailureIndication:
+    case F1apMessageType::NASNonDeliveryIndication:
+    case F1apMessageType::OverloadStart:
+    case F1apMessageType::Paging:
+    case F1apMessageType::PDUSessionResourceNotify:
+    case F1apMessageType::PrivateMessage:
+    case F1apMessageType::PWSFailureIndication:
+    case F1apMessageType::PWSRestartIndication:
+    case F1apMessageType::RRCInactiveTransitionReport:
+    case F1apMessageType::SecondaryRATDataUsageReport:
+    case F1apMessageType::TraceFailureIndication:
+    case F1apMessageType::TraceStart:
+    case F1apMessageType::UEContextReleaseRequest:
+    case F1apMessageType::UERadioCapabilityInfoIndication:
+    case F1apMessageType::UETNLABindingReleaseRequest:
+    case F1apMessageType::UplinkNASTransport:
+    case F1apMessageType::UplinkNonUEAssociatedNRPPaTransport:
+    case F1apMessageType::UplinkRANConfigurationTransfer:
+    case F1apMessageType::UplinkRANStatusTransfer:
+    case F1apMessageType::UplinkUEAssociatedNRPPaTransport:
         return 1;
     default:
         return 2;
     }
 }
 
-int GetProcedurePresent(NgapMessageType messageType)
+int GetProcedurePresent(F1apMessageType messageType)
 {
     switch (messageType)
     {
-    case NgapMessageType::AMFConfigurationUpdate:
+    case F1apMessageType::AMFConfigurationUpdate:
         return InitiatingMessage__value_PR_AMFConfigurationUpdate;
-    case NgapMessageType::HandoverCancel:
+    case F1apMessageType::HandoverCancel:
         return InitiatingMessage__value_PR_HandoverCancel;
-    case NgapMessageType::HandoverRequired:
+    case F1apMessageType::HandoverRequired:
         return InitiatingMessage__value_PR_HandoverRequired;
-    case NgapMessageType::HandoverRequest:
+    case F1apMessageType::HandoverRequest:
         return InitiatingMessage__value_PR_HandoverRequest;
-    case NgapMessageType::InitialContextSetupRequest:
+    case F1apMessageType::InitialContextSetupRequest:
         return InitiatingMessage__value_PR_InitialContextSetupRequest;
-    case NgapMessageType::NGReset:
+    case F1apMessageType::NGReset:
         return InitiatingMessage__value_PR_NGReset;
-    case NgapMessageType::NGSetupRequest:
+    case F1apMessageType::NGSetupRequest:
         return InitiatingMessage__value_PR_NGSetupRequest;
-    case NgapMessageType::PathSwitchRequest:
+    case F1apMessageType::PathSwitchRequest:
         return InitiatingMessage__value_PR_PathSwitchRequest;
-    case NgapMessageType::PDUSessionResourceModifyRequest:
+    case F1apMessageType::PDUSessionResourceModifyRequest:
         return InitiatingMessage__value_PR_PDUSessionResourceModifyRequest;
-    case NgapMessageType::PDUSessionResourceModifyIndication:
+    case F1apMessageType::PDUSessionResourceModifyIndication:
         return InitiatingMessage__value_PR_PDUSessionResourceModifyIndication;
-    case NgapMessageType::PDUSessionResourceReleaseCommand:
+    case F1apMessageType::PDUSessionResourceReleaseCommand:
         return InitiatingMessage__value_PR_PDUSessionResourceReleaseCommand;
-    case NgapMessageType::PDUSessionResourceSetupRequest:
+    case F1apMessageType::PDUSessionResourceSetupRequest:
         return InitiatingMessage__value_PR_PDUSessionResourceSetupRequest;
-    case NgapMessageType::PWSCancelRequest:
+    case F1apMessageType::PWSCancelRequest:
         return InitiatingMessage__value_PR_PWSCancelRequest;
-    case NgapMessageType::RANConfigurationUpdate:
+    case F1apMessageType::RANConfigurationUpdate:
         return InitiatingMessage__value_PR_RANConfigurationUpdate;
-    case NgapMessageType::UEContextModificationRequest:
+    case F1apMessageType::UEContextModificationRequest:
         return InitiatingMessage__value_PR_UEContextModificationRequest;
-    case NgapMessageType::UEContextReleaseCommand:
+    case F1apMessageType::UEContextReleaseCommand:
         return InitiatingMessage__value_PR_UEContextReleaseCommand;
-    case NgapMessageType::UERadioCapabilityCheckRequest:
+    case F1apMessageType::UERadioCapabilityCheckRequest:
         return InitiatingMessage__value_PR_UERadioCapabilityCheckRequest;
-    case NgapMessageType::WriteReplaceWarningRequest:
+    case F1apMessageType::WriteReplaceWarningRequest:
         return InitiatingMessage__value_PR_WriteReplaceWarningRequest;
-    case NgapMessageType::AMFStatusIndication:
+    case F1apMessageType::AMFStatusIndication:
         return InitiatingMessage__value_PR_AMFStatusIndication;
-    case NgapMessageType::CellTrafficTrace:
+    case F1apMessageType::CellTrafficTrace:
         return InitiatingMessage__value_PR_CellTrafficTrace;
-    case NgapMessageType::DeactivateTrace:
+    case F1apMessageType::DeactivateTrace:
         return InitiatingMessage__value_PR_DeactivateTrace;
-    case NgapMessageType::DownlinkNASTransport:
+    case F1apMessageType::DownlinkNASTransport:
         return InitiatingMessage__value_PR_DownlinkNASTransport;
-    case NgapMessageType::DownlinkNonUEAssociatedNRPPaTransport:
+    case F1apMessageType::DownlinkNonUEAssociatedNRPPaTransport:
         return InitiatingMessage__value_PR_DownlinkNonUEAssociatedNRPPaTransport;
-    case NgapMessageType::DownlinkRANConfigurationTransfer:
+    case F1apMessageType::DownlinkRANConfigurationTransfer:
         return InitiatingMessage__value_PR_DownlinkRANConfigurationTransfer;
-    case NgapMessageType::DownlinkRANStatusTransfer:
+    case F1apMessageType::DownlinkRANStatusTransfer:
         return InitiatingMessage__value_PR_DownlinkRANStatusTransfer;
-    case NgapMessageType::DownlinkUEAssociatedNRPPaTransport:
+    case F1apMessageType::DownlinkUEAssociatedNRPPaTransport:
         return InitiatingMessage__value_PR_DownlinkUEAssociatedNRPPaTransport;
-    case NgapMessageType::ErrorIndication:
+    case F1apMessageType::ErrorIndication:
         return InitiatingMessage__value_PR_ErrorIndication;
-    case NgapMessageType::HandoverNotify:
+    case F1apMessageType::HandoverNotify:
         return InitiatingMessage__value_PR_HandoverNotify;
-    case NgapMessageType::InitialUEMessage:
+    case F1apMessageType::InitialUEMessage:
         return InitiatingMessage__value_PR_InitialUEMessage;
-    case NgapMessageType::LocationReport:
+    case F1apMessageType::LocationReport:
         return InitiatingMessage__value_PR_LocationReport;
-    case NgapMessageType::LocationReportingControl:
+    case F1apMessageType::LocationReportingControl:
         return InitiatingMessage__value_PR_LocationReportingControl;
-    case NgapMessageType::LocationReportingFailureIndication:
+    case F1apMessageType::LocationReportingFailureIndication:
         return InitiatingMessage__value_PR_LocationReportingFailureIndication;
-    case NgapMessageType::NASNonDeliveryIndication:
+    case F1apMessageType::NASNonDeliveryIndication:
         return InitiatingMessage__value_PR_NASNonDeliveryIndication;
-    case NgapMessageType::OverloadStart:
+    case F1apMessageType::OverloadStart:
         return InitiatingMessage__value_PR_OverloadStart;
-    case NgapMessageType::OverloadStop:
+    case F1apMessageType::OverloadStop:
         return InitiatingMessage__value_PR_OverloadStop;
-    case NgapMessageType::Paging:
+    case F1apMessageType::Paging:
         return InitiatingMessage__value_PR_Paging;
-    case NgapMessageType::PDUSessionResourceNotify:
+    case F1apMessageType::PDUSessionResourceNotify:
         return InitiatingMessage__value_PR_PDUSessionResourceNotify;
-    case NgapMessageType::PrivateMessage:
+    case F1apMessageType::PrivateMessage:
         return InitiatingMessage__value_PR_PrivateMessage;
-    case NgapMessageType::PWSFailureIndication:
+    case F1apMessageType::PWSFailureIndication:
         return InitiatingMessage__value_PR_PWSFailureIndication;
-    case NgapMessageType::PWSRestartIndication:
+    case F1apMessageType::PWSRestartIndication:
         return InitiatingMessage__value_PR_PWSRestartIndication;
-    case NgapMessageType::RerouteNASRequest:
+    case F1apMessageType::RerouteNASRequest:
         return InitiatingMessage__value_PR_RerouteNASRequest;
-    case NgapMessageType::RRCInactiveTransitionReport:
+    case F1apMessageType::RRCInactiveTransitionReport:
         return InitiatingMessage__value_PR_RRCInactiveTransitionReport;
-    case NgapMessageType::SecondaryRATDataUsageReport:
+    case F1apMessageType::SecondaryRATDataUsageReport:
         return InitiatingMessage__value_PR_SecondaryRATDataUsageReport;
-    case NgapMessageType::TraceFailureIndication:
+    case F1apMessageType::TraceFailureIndication:
         return InitiatingMessage__value_PR_TraceFailureIndication;
-    case NgapMessageType::TraceStart:
+    case F1apMessageType::TraceStart:
         return InitiatingMessage__value_PR_TraceStart;
-    case NgapMessageType::UEContextReleaseRequest:
+    case F1apMessageType::UEContextReleaseRequest:
         return InitiatingMessage__value_PR_UEContextReleaseRequest;
-    case NgapMessageType::UERadioCapabilityInfoIndication:
+    case F1apMessageType::UERadioCapabilityInfoIndication:
         return InitiatingMessage__value_PR_UERadioCapabilityInfoIndication;
-    case NgapMessageType::UETNLABindingReleaseRequest:
+    case F1apMessageType::UETNLABindingReleaseRequest:
         return InitiatingMessage__value_PR_UETNLABindingReleaseRequest;
-    case NgapMessageType::UplinkNASTransport:
+    case F1apMessageType::UplinkNASTransport:
         return InitiatingMessage__value_PR_UplinkNASTransport;
-    case NgapMessageType::UplinkNonUEAssociatedNRPPaTransport:
+    case F1apMessageType::UplinkNonUEAssociatedNRPPaTransport:
         return InitiatingMessage__value_PR_UplinkNonUEAssociatedNRPPaTransport;
-    case NgapMessageType::UplinkRANConfigurationTransfer:
+    case F1apMessageType::UplinkRANConfigurationTransfer:
         return InitiatingMessage__value_PR_UplinkRANConfigurationTransfer;
-    case NgapMessageType::UplinkRANStatusTransfer:
+    case F1apMessageType::UplinkRANStatusTransfer:
         return InitiatingMessage__value_PR_UplinkRANStatusTransfer;
-    case NgapMessageType::UplinkUEAssociatedNRPPaTransport:
+    case F1apMessageType::UplinkUEAssociatedNRPPaTransport:
         return InitiatingMessage__value_PR_UplinkUEAssociatedNRPPaTransport;
 
-    case NgapMessageType::AMFConfigurationUpdateAcknowledge:
-        return ASN_NGAP_SuccessfulOutcome__value_PR_AMFConfigurationUpdateAcknowledge;
-    case NgapMessageType::HandoverCancelAcknowledge:
-        return ASN_NGAP_SuccessfulOutcome__value_PR_HandoverCancelAcknowledge;
-    case NgapMessageType::HandoverCommand:
-        return ASN_NGAP_SuccessfulOutcome__value_PR_HandoverCommand;
-    case NgapMessageType::HandoverRequestAcknowledge:
-        return ASN_NGAP_SuccessfulOutcome__value_PR_HandoverRequestAcknowledge;
-    case NgapMessageType::InitialContextSetupResponse:
-        return ASN_NGAP_SuccessfulOutcome__value_PR_InitialContextSetupResponse;
-    case NgapMessageType::NGResetAcknowledge:
-        return ASN_NGAP_SuccessfulOutcome__value_PR_NGResetAcknowledge;
-    case NgapMessageType::NGSetupResponse:
-        return ASN_NGAP_SuccessfulOutcome__value_PR_NGSetupResponse;
-    case NgapMessageType::PathSwitchRequestAcknowledge:
-        return ASN_NGAP_SuccessfulOutcome__value_PR_PathSwitchRequestAcknowledge;
-    case NgapMessageType::PDUSessionResourceModifyResponse:
-        return ASN_NGAP_SuccessfulOutcome__value_PR_PDUSessionResourceModifyResponse;
-    case NgapMessageType::PDUSessionResourceModifyConfirm:
-        return ASN_NGAP_SuccessfulOutcome__value_PR_PDUSessionResourceModifyConfirm;
-    case NgapMessageType::PDUSessionResourceReleaseResponse:
-        return ASN_NGAP_SuccessfulOutcome__value_PR_PDUSessionResourceReleaseResponse;
-    case NgapMessageType::PDUSessionResourceSetupResponse:
-        return ASN_NGAP_SuccessfulOutcome__value_PR_PDUSessionResourceSetupResponse;
-    case NgapMessageType::PWSCancelResponse:
-        return ASN_NGAP_SuccessfulOutcome__value_PR_PWSCancelResponse;
-    case NgapMessageType::RANConfigurationUpdateAcknowledge:
-        return ASN_NGAP_SuccessfulOutcome__value_PR_RANConfigurationUpdateAcknowledge;
-    case NgapMessageType::UEContextModificationResponse:
-        return ASN_NGAP_SuccessfulOutcome__value_PR_UEContextModificationResponse;
-    case NgapMessageType::UEContextReleaseComplete:
-        return ASN_NGAP_SuccessfulOutcome__value_PR_UEContextReleaseComplete;
-    case NgapMessageType::UERadioCapabilityCheckResponse:
-        return ASN_NGAP_SuccessfulOutcome__value_PR_UERadioCapabilityCheckResponse;
-    case NgapMessageType::WriteReplaceWarningResponse:
-        return ASN_NGAP_SuccessfulOutcome__value_PR_WriteReplaceWarningResponse;
+    case F1apMessageType::AMFConfigurationUpdateAcknowledge:
+        return SuccessfulOutcome__value_PR_AMFConfigurationUpdateAcknowledge;
+    case F1apMessageType::HandoverCancelAcknowledge:
+        return SuccessfulOutcome__value_PR_HandoverCancelAcknowledge;
+    case F1apMessageType::HandoverCommand:
+        return SuccessfulOutcome__value_PR_HandoverCommand;
+    case F1apMessageType::HandoverRequestAcknowledge:
+        return SuccessfulOutcome__value_PR_HandoverRequestAcknowledge;
+    case F1apMessageType::InitialContextSetupResponse:
+        return SuccessfulOutcome__value_PR_InitialContextSetupResponse;
+    case F1apMessageType::NGResetAcknowledge:
+        return SuccessfulOutcome__value_PR_NGResetAcknowledge;
+    case F1apMessageType::NGSetupResponse:
+        return SuccessfulOutcome__value_PR_NGSetupResponse;
+    case F1apMessageType::PathSwitchRequestAcknowledge:
+        return SuccessfulOutcome__value_PR_PathSwitchRequestAcknowledge;
+    case F1apMessageType::PDUSessionResourceModifyResponse:
+        return SuccessfulOutcome__value_PR_PDUSessionResourceModifyResponse;
+    case F1apMessageType::PDUSessionResourceModifyConfirm:
+        return SuccessfulOutcome__value_PR_PDUSessionResourceModifyConfirm;
+    case F1apMessageType::PDUSessionResourceReleaseResponse:
+        return SuccessfulOutcome__value_PR_PDUSessionResourceReleaseResponse;
+    case F1apMessageType::PDUSessionResourceSetupResponse:
+        return SuccessfulOutcome__value_PR_PDUSessionResourceSetupResponse;
+    case F1apMessageType::PWSCancelResponse:
+        return SuccessfulOutcome__value_PR_PWSCancelResponse;
+    case F1apMessageType::RANConfigurationUpdateAcknowledge:
+        return SuccessfulOutcome__value_PR_RANConfigurationUpdateAcknowledge;
+    case F1apMessageType::UEContextModificationResponse:
+        return SuccessfulOutcome__value_PR_UEContextModificationResponse;
+    case F1apMessageType::UEContextReleaseComplete:
+        return SuccessfulOutcome__value_PR_UEContextReleaseComplete;
+    case F1apMessageType::UERadioCapabilityCheckResponse:
+        return SuccessfulOutcome__value_PR_UERadioCapabilityCheckResponse;
+    case F1apMessageType::WriteReplaceWarningResponse:
+        return SuccessfulOutcome__value_PR_WriteReplaceWarningResponse;
 
-    case NgapMessageType::AMFConfigurationUpdateFailure:
-        return ASN_NGAP_UnsuccessfulOutcome__value_PR_AMFConfigurationUpdateFailure;
-    case NgapMessageType::HandoverPreparationFailure:
-        return ASN_NGAP_UnsuccessfulOutcome__value_PR_HandoverPreparationFailure;
-    case NgapMessageType::HandoverFailure:
-        return ASN_NGAP_UnsuccessfulOutcome__value_PR_HandoverFailure;
-    case NgapMessageType::InitialContextSetupFailure:
-        return ASN_NGAP_UnsuccessfulOutcome__value_PR_InitialContextSetupFailure;
-    case NgapMessageType::NGSetupFailure:
-        return ASN_NGAP_UnsuccessfulOutcome__value_PR_NGSetupFailure;
-    case NgapMessageType::PathSwitchRequestFailure:
-        return ASN_NGAP_UnsuccessfulOutcome__value_PR_PathSwitchRequestFailure;
-    case NgapMessageType::RANConfigurationUpdateFailure:
-        return ASN_NGAP_UnsuccessfulOutcome__value_PR_RANConfigurationUpdateFailure;
-    case NgapMessageType::UEContextModificationFailure:
-        return ASN_NGAP_UnsuccessfulOutcome__value_PR_UEContextModificationFailure;
+    case F1apMessageType::AMFConfigurationUpdateFailure:
+        return UnsuccessfulOutcome__value_PR_AMFConfigurationUpdateFailure;
+    case F1apMessageType::HandoverPreparationFailure:
+        return UnsuccessfulOutcome__value_PR_HandoverPreparationFailure;
+    case F1apMessageType::HandoverFailure:
+        return UnsuccessfulOutcome__value_PR_HandoverFailure;
+    case F1apMessageType::InitialContextSetupFailure:
+        return UnsuccessfulOutcome__value_PR_InitialContextSetupFailure;
+    case F1apMessageType::NGSetupFailure:
+        return UnsuccessfulOutcome__value_PR_NGSetupFailure;
+    case F1apMessageType::PathSwitchRequestFailure:
+        return UnsuccessfulOutcome__value_PR_PathSwitchRequestFailure;
+    case F1apMessageType::RANConfigurationUpdateFailure:
+        return UnsuccessfulOutcome__value_PR_RANConfigurationUpdateFailure;
+    case F1apMessageType::UEContextModificationFailure:
+        return UnsuccessfulOutcome__value_PR_UEContextModificationFailure;
     default:
         assert(false);
         break;
@@ -705,93 +705,93 @@ int GetProcedurePresent(NgapMessageType messageType)
     return 0;
 }
 
-int GetPduDescription(NgapMessageType messageType)
+int GetPduDescription(F1apMessageType messageType)
 {
     switch (messageType)
     {
-    case NgapMessageType::AMFConfigurationUpdate:
-    case NgapMessageType::HandoverCancel:
-    case NgapMessageType::HandoverRequired:
-    case NgapMessageType::HandoverRequest:
-    case NgapMessageType::InitialContextSetupRequest:
-    case NgapMessageType::NGReset:
-    case NgapMessageType::NGSetupRequest:
-    case NgapMessageType::PathSwitchRequest:
-    case NgapMessageType::PDUSessionResourceModifyRequest:
-    case NgapMessageType::PDUSessionResourceModifyIndication:
-    case NgapMessageType::PDUSessionResourceReleaseCommand:
-    case NgapMessageType::PDUSessionResourceSetupRequest:
-    case NgapMessageType::PWSCancelRequest:
-    case NgapMessageType::RANConfigurationUpdate:
-    case NgapMessageType::UEContextModificationRequest:
-    case NgapMessageType::UEContextReleaseCommand:
-    case NgapMessageType::UERadioCapabilityCheckRequest:
-    case NgapMessageType::WriteReplaceWarningRequest:
-    case NgapMessageType::AMFStatusIndication:
-    case NgapMessageType::CellTrafficTrace:
-    case NgapMessageType::DeactivateTrace:
-    case NgapMessageType::DownlinkNASTransport:
-    case NgapMessageType::DownlinkNonUEAssociatedNRPPaTransport:
-    case NgapMessageType::DownlinkRANConfigurationTransfer:
-    case NgapMessageType::DownlinkRANStatusTransfer:
-    case NgapMessageType::DownlinkUEAssociatedNRPPaTransport:
-    case NgapMessageType::ErrorIndication:
-    case NgapMessageType::HandoverNotify:
-    case NgapMessageType::InitialUEMessage:
-    case NgapMessageType::LocationReport:
-    case NgapMessageType::LocationReportingControl:
-    case NgapMessageType::LocationReportingFailureIndication:
-    case NgapMessageType::NASNonDeliveryIndication:
-    case NgapMessageType::OverloadStart:
-    case NgapMessageType::OverloadStop:
-    case NgapMessageType::Paging:
-    case NgapMessageType::PDUSessionResourceNotify:
-    case NgapMessageType::PrivateMessage:
-    case NgapMessageType::PWSFailureIndication:
-    case NgapMessageType::PWSRestartIndication:
-    case NgapMessageType::RerouteNASRequest:
-    case NgapMessageType::RRCInactiveTransitionReport:
-    case NgapMessageType::SecondaryRATDataUsageReport:
-    case NgapMessageType::TraceFailureIndication:
-    case NgapMessageType::TraceStart:
-    case NgapMessageType::UEContextReleaseRequest:
-    case NgapMessageType::UERadioCapabilityInfoIndication:
-    case NgapMessageType::UETNLABindingReleaseRequest:
-    case NgapMessageType::UplinkNASTransport:
-    case NgapMessageType::UplinkNonUEAssociatedNRPPaTransport:
-    case NgapMessageType::UplinkRANConfigurationTransfer:
-    case NgapMessageType::UplinkRANStatusTransfer:
-    case NgapMessageType::UplinkUEAssociatedNRPPaTransport:
+    case F1apMessageType::AMFConfigurationUpdate:
+    case F1apMessageType::HandoverCancel:
+    case F1apMessageType::HandoverRequired:
+    case F1apMessageType::HandoverRequest:
+    case F1apMessageType::InitialContextSetupRequest:
+    case F1apMessageType::NGReset:
+    case F1apMessageType::NGSetupRequest:
+    case F1apMessageType::PathSwitchRequest:
+    case F1apMessageType::PDUSessionResourceModifyRequest:
+    case F1apMessageType::PDUSessionResourceModifyIndication:
+    case F1apMessageType::PDUSessionResourceReleaseCommand:
+    case F1apMessageType::PDUSessionResourceSetupRequest:
+    case F1apMessageType::PWSCancelRequest:
+    case F1apMessageType::RANConfigurationUpdate:
+    case F1apMessageType::UEContextModificationRequest:
+    case F1apMessageType::UEContextReleaseCommand:
+    case F1apMessageType::UERadioCapabilityCheckRequest:
+    case F1apMessageType::WriteReplaceWarningRequest:
+    case F1apMessageType::AMFStatusIndication:
+    case F1apMessageType::CellTrafficTrace:
+    case F1apMessageType::DeactivateTrace:
+    case F1apMessageType::DownlinkNASTransport:
+    case F1apMessageType::DownlinkNonUEAssociatedNRPPaTransport:
+    case F1apMessageType::DownlinkRANConfigurationTransfer:
+    case F1apMessageType::DownlinkRANStatusTransfer:
+    case F1apMessageType::DownlinkUEAssociatedNRPPaTransport:
+    case F1apMessageType::ErrorIndication:
+    case F1apMessageType::HandoverNotify:
+    case F1apMessageType::InitialUEMessage:
+    case F1apMessageType::LocationReport:
+    case F1apMessageType::LocationReportingControl:
+    case F1apMessageType::LocationReportingFailureIndication:
+    case F1apMessageType::NASNonDeliveryIndication:
+    case F1apMessageType::OverloadStart:
+    case F1apMessageType::OverloadStop:
+    case F1apMessageType::Paging:
+    case F1apMessageType::PDUSessionResourceNotify:
+    case F1apMessageType::PrivateMessage:
+    case F1apMessageType::PWSFailureIndication:
+    case F1apMessageType::PWSRestartIndication:
+    case F1apMessageType::RerouteNASRequest:
+    case F1apMessageType::RRCInactiveTransitionReport:
+    case F1apMessageType::SecondaryRATDataUsageReport:
+    case F1apMessageType::TraceFailureIndication:
+    case F1apMessageType::TraceStart:
+    case F1apMessageType::UEContextReleaseRequest:
+    case F1apMessageType::UERadioCapabilityInfoIndication:
+    case F1apMessageType::UETNLABindingReleaseRequest:
+    case F1apMessageType::UplinkNASTransport:
+    case F1apMessageType::UplinkNonUEAssociatedNRPPaTransport:
+    case F1apMessageType::UplinkRANConfigurationTransfer:
+    case F1apMessageType::UplinkRANStatusTransfer:
+    case F1apMessageType::UplinkUEAssociatedNRPPaTransport:
         return 0;
 
-    case NgapMessageType::AMFConfigurationUpdateAcknowledge:
-    case NgapMessageType::HandoverCancelAcknowledge:
-    case NgapMessageType::HandoverCommand:
-    case NgapMessageType::HandoverRequestAcknowledge:
-    case NgapMessageType::InitialContextSetupResponse:
-    case NgapMessageType::NGResetAcknowledge:
-    case NgapMessageType::NGSetupResponse:
-    case NgapMessageType::PathSwitchRequestAcknowledge:
-    case NgapMessageType::PDUSessionResourceModifyResponse:
-    case NgapMessageType::PDUSessionResourceModifyConfirm:
-    case NgapMessageType::PDUSessionResourceReleaseResponse:
-    case NgapMessageType::PDUSessionResourceSetupResponse:
-    case NgapMessageType::PWSCancelResponse:
-    case NgapMessageType::RANConfigurationUpdateAcknowledge:
-    case NgapMessageType::UEContextModificationResponse:
-    case NgapMessageType::UEContextReleaseComplete:
-    case NgapMessageType::UERadioCapabilityCheckResponse:
-    case NgapMessageType::WriteReplaceWarningResponse:
+    case F1apMessageType::AMFConfigurationUpdateAcknowledge:
+    case F1apMessageType::HandoverCancelAcknowledge:
+    case F1apMessageType::HandoverCommand:
+    case F1apMessageType::HandoverRequestAcknowledge:
+    case F1apMessageType::InitialContextSetupResponse:
+    case F1apMessageType::NGResetAcknowledge:
+    case F1apMessageType::NGSetupResponse:
+    case F1apMessageType::PathSwitchRequestAcknowledge:
+    case F1apMessageType::PDUSessionResourceModifyResponse:
+    case F1apMessageType::PDUSessionResourceModifyConfirm:
+    case F1apMessageType::PDUSessionResourceReleaseResponse:
+    case F1apMessageType::PDUSessionResourceSetupResponse:
+    case F1apMessageType::PWSCancelResponse:
+    case F1apMessageType::RANConfigurationUpdateAcknowledge:
+    case F1apMessageType::UEContextModificationResponse:
+    case F1apMessageType::UEContextReleaseComplete:
+    case F1apMessageType::UERadioCapabilityCheckResponse:
+    case F1apMessageType::WriteReplaceWarningResponse:
         return 1;
 
-    case NgapMessageType::AMFConfigurationUpdateFailure:
-    case NgapMessageType::HandoverPreparationFailure:
-    case NgapMessageType::HandoverFailure:
-    case NgapMessageType::InitialContextSetupFailure:
-    case NgapMessageType::NGSetupFailure:
-    case NgapMessageType::PathSwitchRequestFailure:
-    case NgapMessageType::RANConfigurationUpdateFailure:
-    case NgapMessageType::UEContextModificationFailure:
+    case F1apMessageType::AMFConfigurationUpdateFailure:
+    case F1apMessageType::HandoverPreparationFailure:
+    case F1apMessageType::HandoverFailure:
+    case F1apMessageType::InitialContextSetupFailure:
+    case F1apMessageType::NGSetupFailure:
+    case F1apMessageType::PathSwitchRequestFailure:
+    case F1apMessageType::RANConfigurationUpdateFailure:
+    case F1apMessageType::UEContextModificationFailure:
         return 2;
     default:
         assert(false);
@@ -834,12 +834,12 @@ static bool GetProtocolIeInfo(const F1AP_PDU &pdu, const asn_TYPE_descriptor_t &
     }
     else if (pdu.present == F1AP_PDU_PR_successfulOutcome)
     {
-        desc = &asn_DEF_ASN_NGAP_SuccessfulOutcome;
+        desc = &asn_DEF_SuccessfulOutcome;
         ptr = pdu.choice.successfulOutcome;
     }
     else if (pdu.present == F1AP_PDU_PR_unsuccessfulOutcome)
     {
-        desc = &asn_DEF_ASN_NGAP_UnsuccessfulOutcome;
+        desc = &asn_DEF_UnsuccessfulOutcome;
         ptr = pdu.choice.unsuccessfulOutcome;
     }
     else
