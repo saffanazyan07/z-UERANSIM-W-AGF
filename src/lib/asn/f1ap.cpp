@@ -1,10 +1,6 @@
 //
-// This file is a part of UERANSIM open source project.
-// Copyright (c) 2021 ALİ GÜNGÖR.
-//
-// The software and all associated files are licensed under GPL-3.0
-// and subject to the terms and conditions defined in LICENSE file.
-//
+// created by zyzy on 7/10/2024
+// 
 
 
 #include "f1ap.hpp"
@@ -102,8 +98,8 @@ void *NewDescFromMessageType(F1apMessageType type, void *&pOutDescription)
 
         switch (type)
         {
-        case F1apMessageType::AMFConfigurationUpdate:
-            return &desc->value.choice.AMFConfigurationUpdate;
+        case F1apMessageType::GNBCUConfigurationUpdate:
+            return &desc->value.choice.GNBCUConfigurationUpdate;
         case F1apMessageType::HandoverCancel:
             return &desc->value.choice.HandoverCancel;
         case F1apMessageType::HandoverRequired:
@@ -144,8 +140,8 @@ void *NewDescFromMessageType(F1apMessageType type, void *&pOutDescription)
             return &desc->value.choice.CellTrafficTrace;
         case F1apMessageType::DeactivateTrace:
             return &desc->value.choice.DeactivateTrace;
-        case F1apMessageType::DownlinkNASTransport:
-            return &desc->value.choice.DownlinkNASTransport;
+        case F1apMessageType::DLRRCMessageTransfert:
+            return &desc->value.choice.DLRRCMessageTransfert;
         case F1apMessageType::DownlinkNonUEAssociatedNRPPaTransport:
             return &desc->value.choice.DownlinkNonUEAssociatedNRPPaTransport;
         case F1apMessageType::DownlinkRANConfigurationTransfer:
@@ -223,8 +219,8 @@ void *NewDescFromMessageType(F1apMessageType type, void *&pOutDescription)
 
         switch (type)
         {
-        case F1apMessageType::AMFConfigurationUpdateAcknowledge:
-            return &desc->value.choice.AMFConfigurationUpdateAcknowledge;
+        case F1apMessageType::GNBCUConfigurationUpdateAcknowledge:
+            return &desc->value.choice.GNBCUConfigurationUpdateAcknowledge;
         case F1apMessageType::HandoverCancelAcknowledge:
             return &desc->value.choice.HandoverCancelAcknowledge;
         case F1apMessageType::HandoverCommand:
@@ -274,8 +270,8 @@ void *NewDescFromMessageType(F1apMessageType type, void *&pOutDescription)
 
         switch (type)
         {
-        case F1apMessageType::AMFConfigurationUpdateFailure:
-            return &desc->value.choice.AMFConfigurationUpdateFailure;
+        case F1apMessageType::GNBCUConfigurationUpdateFailure:
+            return &desc->value.choice.GNBCUConfigurationUpdateFailure;
         case F1apMessageType::HandoverPreparationFailure:
             return &desc->value.choice.HandoverPreparationFailure;
         case F1apMessageType::HandoverFailure:
@@ -304,9 +300,9 @@ int GetProcedureCode(F1apMessageType messageType)
 {
     switch (messageType)
     {
-    case F1apMessageType::AMFConfigurationUpdate:
-    case F1apMessageType::AMFConfigurationUpdateAcknowledge:
-    case F1apMessageType::AMFConfigurationUpdateFailure:
+    case F1apMessageType::GNBCUConfigurationUpdate:
+    case F1apMessageType::GNBCUConfigurationUpdateAcknowledge:
+    case F1apMessageType::GNBCUConfigurationUpdateFailure:
         return 0;
     case F1apMessageType::AMFStatusIndication:
         return 1;
@@ -314,7 +310,7 @@ int GetProcedureCode(F1apMessageType messageType)
         return 2;
     case F1apMessageType::DeactivateTrace:
         return 3;
-    case F1apMessageType::DownlinkNASTransport:
+    case F1apMessageType::DLRRCMessageTransfert:
         return 4;
     case F1apMessageType::DownlinkNonUEAssociatedNRPPaTransport:
         return 5;
@@ -447,9 +443,9 @@ int GetProcedureCriticality(F1apMessageType messageType)
 {
     switch (messageType)
     {
-    case F1apMessageType::AMFConfigurationUpdate:
-    case F1apMessageType::AMFConfigurationUpdateAcknowledge:
-    case F1apMessageType::AMFConfigurationUpdateFailure:
+    case F1apMessageType::GNBCUConfigurationUpdate:
+    case F1apMessageType::GNBCUConfigurationUpdateAcknowledge:
+    case F1apMessageType::GNBCUConfigurationUpdateFailure:
     case F1apMessageType::HandoverCancel:
     case F1apMessageType::HandoverCancelAcknowledge:
     case F1apMessageType::HandoverCommand:
@@ -497,7 +493,7 @@ int GetProcedureCriticality(F1apMessageType messageType)
     case F1apMessageType::AMFStatusIndication:
     case F1apMessageType::CellTrafficTrace:
     case F1apMessageType::DeactivateTrace:
-    case F1apMessageType::DownlinkNASTransport:
+    case F1apMessageType::DLRRCMessageTransfert:
     case F1apMessageType::DownlinkNonUEAssociatedNRPPaTransport:
     case F1apMessageType::DownlinkRANConfigurationTransfer:
     case F1apMessageType::DownlinkRANStatusTransfer:
@@ -537,8 +533,8 @@ int GetProcedurePresent(F1apMessageType messageType)
 {
     switch (messageType)
     {
-    case F1apMessageType::AMFConfigurationUpdate:
-        return InitiatingMessage__value_PR_AMFConfigurationUpdate;
+    case F1apMessageType::GNBCUConfigurationUpdate:
+        return InitiatingMessage__value_PR_GNBCUConfigurationUpdate;
     case F1apMessageType::HandoverCancel:
         return InitiatingMessage__value_PR_HandoverCancel;
     case F1apMessageType::HandoverRequired:
@@ -579,8 +575,8 @@ int GetProcedurePresent(F1apMessageType messageType)
         return InitiatingMessage__value_PR_CellTrafficTrace;
     case F1apMessageType::DeactivateTrace:
         return InitiatingMessage__value_PR_DeactivateTrace;
-    case F1apMessageType::DownlinkNASTransport:
-        return InitiatingMessage__value_PR_DownlinkNASTransport;
+    case F1apMessageType::DLRRCMessageTransfert:
+        return InitiatingMessage__value_PR_DLRRCMessageTransfert;
     case F1apMessageType::DownlinkNonUEAssociatedNRPPaTransport:
         return InitiatingMessage__value_PR_DownlinkNonUEAssociatedNRPPaTransport;
     case F1apMessageType::DownlinkRANConfigurationTransfer:
@@ -644,8 +640,8 @@ int GetProcedurePresent(F1apMessageType messageType)
     case F1apMessageType::UplinkUEAssociatedNRPPaTransport:
         return InitiatingMessage__value_PR_UplinkUEAssociatedNRPPaTransport;
 
-    case F1apMessageType::AMFConfigurationUpdateAcknowledge:
-        return SuccessfulOutcome__value_PR_AMFConfigurationUpdateAcknowledge;
+    case F1apMessageType::GNBCUConfigurationUpdateAcknowledge:
+        return SuccessfulOutcome__value_PR_GNBCUConfigurationUpdateAcknowledge;
     case F1apMessageType::HandoverCancelAcknowledge:
         return SuccessfulOutcome__value_PR_HandoverCancelAcknowledge;
     case F1apMessageType::HandoverCommand:
@@ -681,8 +677,8 @@ int GetProcedurePresent(F1apMessageType messageType)
     case F1apMessageType::WriteReplaceWarningResponse:
         return SuccessfulOutcome__value_PR_WriteReplaceWarningResponse;
 
-    case F1apMessageType::AMFConfigurationUpdateFailure:
-        return UnsuccessfulOutcome__value_PR_AMFConfigurationUpdateFailure;
+    case F1apMessageType::GNBCUConfigurationUpdateFailure:
+        return UnsuccessfulOutcome__value_PR_GNBCUConfigurationUpdateFailure;
     case F1apMessageType::HandoverPreparationFailure:
         return UnsuccessfulOutcome__value_PR_HandoverPreparationFailure;
     case F1apMessageType::HandoverFailure:
@@ -709,7 +705,7 @@ int GetPduDescription(F1apMessageType messageType)
 {
     switch (messageType)
     {
-    case F1apMessageType::AMFConfigurationUpdate:
+    case F1apMessageType::GNBCUConfigurationUpdate:
     case F1apMessageType::HandoverCancel:
     case F1apMessageType::HandoverRequired:
     case F1apMessageType::HandoverRequest:
@@ -730,7 +726,7 @@ int GetPduDescription(F1apMessageType messageType)
     case F1apMessageType::AMFStatusIndication:
     case F1apMessageType::CellTrafficTrace:
     case F1apMessageType::DeactivateTrace:
-    case F1apMessageType::DownlinkNASTransport:
+    case F1apMessageType::DLRRCMessageTransfert:
     case F1apMessageType::DownlinkNonUEAssociatedNRPPaTransport:
     case F1apMessageType::DownlinkRANConfigurationTransfer:
     case F1apMessageType::DownlinkRANStatusTransfer:
@@ -764,7 +760,7 @@ int GetPduDescription(F1apMessageType messageType)
     case F1apMessageType::UplinkUEAssociatedNRPPaTransport:
         return 0;
 
-    case F1apMessageType::AMFConfigurationUpdateAcknowledge:
+    case F1apMessageType::GNBCUConfigurationUpdateAcknowledge:
     case F1apMessageType::HandoverCancelAcknowledge:
     case F1apMessageType::HandoverCommand:
     case F1apMessageType::HandoverRequestAcknowledge:
@@ -784,7 +780,7 @@ int GetPduDescription(F1apMessageType messageType)
     case F1apMessageType::WriteReplaceWarningResponse:
         return 1;
 
-    case F1apMessageType::AMFConfigurationUpdateFailure:
+    case F1apMessageType::GNBCUConfigurationUpdateFailure:
     case F1apMessageType::HandoverPreparationFailure:
     case F1apMessageType::HandoverFailure:
     case F1apMessageType::InitialContextSetupFailure:

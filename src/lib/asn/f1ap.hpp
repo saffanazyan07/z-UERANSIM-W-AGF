@@ -1,10 +1,6 @@
 //
-// This file is a part of UERANSIM open source project.
-// Copyright (c) 2021 ALİ GÜNGÖR.
-//
-// The software and all associated files are licensed under GPL-3.0
-// and subject to the terms and conditions defined in LICENSE file.
-//
+// created by zyzy on 7/10/2024
+// 
 
 #pragma once
 
@@ -33,7 +29,7 @@ int GetProcedurePresent(F1apMessageType messageType);
 void *NewDescFromMessageType(F1apMessageType type, void *&pOutDescription);
 
 template <typename TMessage>
-inline void AddProtocolIe(TMessage &msg, typename NgapMessageToIeType<TMessage>::value *element)
+inline void AddProtocolIe(TMessage &msg, typename F1apMessageToIeType<TMessage>::value *element)
 {
     ASN_SEQUENCE_ADD(&msg.protocolIEs.list, element);
 
@@ -42,13 +38,13 @@ inline void AddProtocolIe(TMessage &msg, typename NgapMessageToIeType<TMessage>:
     // This is not a constant-time operation.
     std::stable_sort(
         msg.protocolIEs.list.array, msg.protocolIEs.list.array + msg.protocolIEs.list.count,
-        [](typename NgapMessageToIeType<TMessage>::value *a, typename NgapMessageToIeType<TMessage>::value *b) {
+        [](typename F1apMessageToIeType<TMessage>::value *a, typename F1apMessageToIeType<TMessage>::value *b) {
             return a->value.present < b->value.present;
         });
 }
 
 template <typename T>
-inline F1AP_PDU *NewMessagePdu(std::vector<typename NgapMessageToIeType<T>::value *> ies)
+inline F1AP_PDU *NewMessagePdu(std::vector<typename F1apMessageToIeType<T>::value *> ies)
 {
     auto msgType = static_cast<F1apMessageType>(F1apMessageTypeToEnum<T>::V);
 
@@ -73,7 +69,7 @@ inline F1AP_PDU *NewMessagePdu(std::vector<typename NgapMessageToIeType<T>::valu
 }
 
 template <typename T>
-inline typename asn::f1ap::NgapMessageToIeUnionType<T>::value *GetProtocolIe(T *msg, int id, int order = 0)
+inline typename asn::f1ap::F1apMessageToIeUnionType<T>::value *GetProtocolIe(T *msg, int id, int order = 0)
 {
     int found = -1;
 
@@ -84,7 +80,7 @@ inline typename asn::f1ap::NgapMessageToIeUnionType<T>::value *GetProtocolIe(T *
         {
             found++;
             if (order == found)
-                return (typename asn::f1ap::NgapMessageToIeUnionType<T>::value *)(&item->value.choice);
+                return (typename asn::f1ap::F1apMessageToIeUnionType<T>::value *)(&item->value.choice);
         }
     }
 
