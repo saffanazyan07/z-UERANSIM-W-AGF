@@ -73,7 +73,7 @@ inline F1AP_PDU *NewMessagePdu(std::vector<typename NgapMessageToIeType<T>::valu
 }
 
 template <typename T>
-inline typename asn::ngap::NgapMessageToIeUnionType<T>::value *GetProtocolIe(T *msg, int id, int order = 0)
+inline typename asn::f1ap::NgapMessageToIeUnionType<T>::value *GetProtocolIe(T *msg, int id, int order = 0)
 {
     int found = -1;
 
@@ -84,7 +84,7 @@ inline typename asn::ngap::NgapMessageToIeUnionType<T>::value *GetProtocolIe(T *
         {
             found++;
             if (order == found)
-                return (typename asn::ngap::NgapMessageToIeUnionType<T>::value *)(&item->value.choice);
+                return (typename asn::f1ap::NgapMessageToIeUnionType<T>::value *)(&item->value.choice);
         }
     }
 
