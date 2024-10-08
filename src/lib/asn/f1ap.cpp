@@ -267,9 +267,9 @@ void *NewDescFromMessageType(F1apMessageType type, void *&pOutDescription)
             return &desc->value.choice.UEContextModificationResponse;
         case F1apMessageType::UEContextReleaseComplete:
             return &desc->value.choice.UEContextReleaseComplete;
+        /*
         case F1apMessageType::UERadioCapabilityCheckResponse:
             return &desc->value.choice.UERadioCapabilityCheckResponse;
-        /*
         case F1apMessageType::WriteReplaceWarningResponse:
             return &desc->value.choice.WriteReplaceWarningResponse;
         */
@@ -536,9 +536,9 @@ int GetProcedureCriticality(F1apMessageType messageType)
     //case F1apMessageType::DeactivateTrace:
     case F1apMessageType::DLRRCMessageTransfer:
     //case F1apMessageType::DownlinkNonUEAssociatedNRPPaTransport:
-    case F1apMessageType::DownlinkRANConfigurationTransfer:
-    case F1apMessageType::DownlinkRANStatusTransfer:
-    case F1apMessageType::DownlinkUEAssociatedNRPPaTransport:
+    //case F1apMessageType::DownlinkRANConfigurationTransfer:
+    //case F1apMessageType::DownlinkRANStatusTransfer:
+    //case F1apMessageType::DownlinkUEAssociatedNRPPaTransport:
     case F1apMessageType::ErrorIndication:
     //case F1apMessageType::HandoverNotify:
     case F1apMessageType::InitialULRRCMessageTransfer:
