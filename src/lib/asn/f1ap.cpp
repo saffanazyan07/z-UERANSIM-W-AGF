@@ -143,8 +143,8 @@ void *NewDescFromMessageType(F1apMessageType type, void *&pOutDescription)
         //    return &desc->value.choice.CellTrafficTrace;
         //case F1apMessageType::DeactivateTrace:
         //    return &desc->value.choice.DeactivateTrace;
-        case F1apMessageType::DLRRCMessageTransfert:
-            return &desc->value.choice.DLRRCMessageTransfert;
+        case F1apMessageType::DLRRCMessageTransfer:
+            return &desc->value.choice.DLRRCMessageTransfer;
         //case F1apMessageType::DownlinkNonUEAssociatedNRPPaTransport:
         //    return &desc->value.choice.DownlinkNonUEAssociatedNRPPaTransport;
         /*
@@ -330,7 +330,7 @@ int GetProcedureCode(F1apMessageType messageType)
     //    return 2;
     //case F1apMessageType::DeactivateTrace:
     //    return 3;
-    case F1apMessageType::DLRRCMessageTransfert:
+    case F1apMessageType::DLRRCMessageTransfer:
         return 4;
     //case F1apMessageType::DownlinkNonUEAssociatedNRPPaTransport:
     //    return 5;
@@ -534,7 +534,7 @@ int GetProcedureCriticality(F1apMessageType messageType)
     //case F1apMessageType::AMFStatusIndication:
     //case F1apMessageType::CellTrafficTrace:
     //case F1apMessageType::DeactivateTrace:
-    case F1apMessageType::DLRRCMessageTransfert:
+    case F1apMessageType::DLRRCMessageTransfer:
     //case F1apMessageType::DownlinkNonUEAssociatedNRPPaTransport:
     case F1apMessageType::DownlinkRANConfigurationTransfer:
     case F1apMessageType::DownlinkRANStatusTransfer:
@@ -629,8 +629,8 @@ int GetProcedurePresent(F1apMessageType messageType)
     case F1apMessageType::DeactivateTrace:
         return InitiatingMessage__value_PR_DeactivateTrace;
     */
-    case F1apMessageType::DLRRCMessageTransfert:
-        return InitiatingMessage__value_PR_DLRRCMessageTransfert;
+    case F1apMessageType::DLRRCMessageTransfer:
+        return InitiatingMessage__value_PR_DLRRCMessageTransfer;
     /*case F1apMessageType::DownlinkNonUEAssociatedNRPPaTransport:
         return InitiatingMessage__value_PR_DownlinkNonUEAssociatedNRPPaTransport;
     case F1apMessageType::DownlinkRANConfigurationTransfer:
@@ -803,7 +803,7 @@ int GetPduDescription(F1apMessageType messageType)
     case F1apMessageType::CellTrafficTrace:
     case F1apMessageType::DeactivateTrace:
     */
-    case F1apMessageType::DLRRCMessageTransfert:
+    case F1apMessageType::DLRRCMessageTransfer:
     //case F1apMessageType::DownlinkNonUEAssociatedNRPPaTransport:
     //case F1apMessageType::DownlinkRANConfigurationTransfer:
     //case F1apMessageType::DownlinkRANStatusTransfer:

@@ -108,7 +108,7 @@ enum class F1apMessageType
     CellTrafficTrace,
     DeactivateTrace,
     */
-    DLRRCMessageTransfert,
+    DLRRCMessageTransfer,
     /*
     DownlinkNonUEAssociatedNRPPaTransport,
     DownlinkRANConfigurationTransfer,
@@ -221,7 +221,7 @@ struct F1apMessageEnumToType<F1apMessageType::GNBCUConfigurationUpdateFailure>
     typedef GNBCUConfigurationUpdateFailure T;
 };
 template <>
-struct F1apMessageEnumToType<F1apMessageType::DLRRCMessageTransfert>
+struct F1apMessageEnumToType<F1apMessageType::DLRRCMessageTransfer>
 {
     typedef DLRRCMessageTransfer T;
 };
@@ -669,7 +669,7 @@ struct F1apMessageTypeToEnum<DLRRCMessageTransfer>
 {
     enum
     {
-        V = (int)F1apMessageType::DLRRCMessageTransfert
+        V = (int)F1apMessageType::DLRRCMessageTransfer
     };
 };
 /*
