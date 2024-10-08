@@ -32,6 +32,7 @@ typedef enum F1AP_PDU_PR {
 	F1AP_PDU_PR_choice_extension
 } F1AP_PDU_PR;
 
+
 /* F1AP-PDU */
 typedef struct F1AP_PDU {
 	F1AP_PDU_PR present;
@@ -39,7 +40,7 @@ typedef struct F1AP_PDU {
 		InitiatingMessage_t	 initiatingMessage;
 		SuccessfulOutcome_t	 successfulOutcome;
 		UnsuccessfulOutcome_t	 unsuccessfulOutcome;
-		ProtocolIE_SingleContainer_120P0_t	 choice_extension;
+		ProtocolIE_SingleContainer_10642P0_t	 choice_extension;
 	} choice;
 	
 	/* Context for parsing across buffer boundaries */
