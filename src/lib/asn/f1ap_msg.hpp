@@ -1267,17 +1267,17 @@ struct F1apMessageTypeToEnum<ASN_NGAP_WriteReplaceWarningResponse>
 */
 struct F1apMessageToDescription_InitiatingMessage
 {
-    typedef InitiatingMessage T;
+    typedef InitiatingMessage_t T;
 };
 
 struct F1apMessageToDescription_SuccessfulOutcome
 {
-    typedef SuccessfulOutcome T;
+    typedef SuccessfulOutcome_t T;
 };
 
 struct F1apMessageToDescription_UnsuccessfulOutcome
 {
-    typedef UnsuccessfulOutcome T;
+    typedef UnsuccessfulOutcome_t T;
 };
 
 template <typename T>
