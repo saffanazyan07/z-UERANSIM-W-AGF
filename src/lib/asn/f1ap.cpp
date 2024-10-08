@@ -97,18 +97,21 @@ void *NewDescFromMessageType(F1apMessageType type, void *&pOutDescription)
         {
         case F1apMessageType::GNBCUConfigurationUpdate:
             return &desc->value.choice.GNBCUConfigurationUpdate;
+        /*
         case F1apMessageType::HandoverCancel:
             return &desc->value.choice.HandoverCancel;
         case F1apMessageType::HandoverRequired:
             return &desc->value.choice.HandoverRequired;
         case F1apMessageType::HandoverRequest:
             return &desc->value.choice.HandoverRequest;
+        */
         case F1apMessageType::UEContextSetupRequest:
             return &desc->value.choice.UEContextSetupRequest;
         case F1apMessageType::Reset:
             return &desc->value.choice.Reset;
         case F1apMessageType::F1SetupRequest:
             return &desc->value.choice.F1SetupRequest;
+        /*
         case F1apMessageType::PathSwitchRequest:
             return &desc->value.choice.PathSwitchRequest;
         case F1apMessageType::PDUSessionResourceModifyRequest:
@@ -119,6 +122,7 @@ void *NewDescFromMessageType(F1apMessageType type, void *&pOutDescription)
             return &desc->value.choice.PDUSessionResourceReleaseCommand;
         case F1apMessageType::PDUSessionResourceSetupRequest:
             return &desc->value.choice.PDUSessionResourceSetupRequest;
+        */
         case F1apMessageType::PWSCancelRequest:
             return &desc->value.choice.PWSCancelRequest;
         case F1apMessageType::GNBDUConfigurationUpdate:
@@ -127,10 +131,12 @@ void *NewDescFromMessageType(F1apMessageType type, void *&pOutDescription)
             return &desc->value.choice.UEContextModificationRequest;
         case F1apMessageType::UEContextReleaseCommand:
             return &desc->value.choice.UEContextReleaseCommand;
+        /*
         case F1apMessageType::UERadioCapabilityCheckRequest:
             return &desc->value.choice.UERadioCapabilityCheckRequest;
         case F1apMessageType::WriteReplaceWarningRequest:
             return &desc->value.choice.WriteReplaceWarningRequest;
+        */
         //case F1apMessageType::AMFStatusIndication:
         //    return &desc->value.choice.AMFStatusIndication;
         //case F1apMessageType::CellTrafficTrace:
