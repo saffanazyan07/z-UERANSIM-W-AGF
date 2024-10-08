@@ -94,4 +94,4 @@ void *FindProtocolIeInPdu(const F1AP_PDU &pdu, const asn_TYPE_descriptor_t &ieTy
 bool AddProtocolIeIfUsable(const F1AP_PDU &pdu, const asn_TYPE_descriptor_t &ieType, int protocolIeId,
                            int criticality, const std::function<void(void *)> &ieCreator);
 
-} // namespace asn::ngap
+} // namespace asn::f1ap

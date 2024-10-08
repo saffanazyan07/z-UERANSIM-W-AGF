@@ -21,78 +21,78 @@ extern "C"
     // struct ASN_NGAP_CellTrafficTrace;
     // struct ASN_NGAP_DeactivateTrace;
     struct DLRRCMessageTransfer;
-    struct ASN_NGAP_DownlinkNonUEAssociatedNRPPaTransport;
-    struct ASN_NGAP_DownlinkRANConfigurationTransfer;
-    struct ASN_NGAP_DownlinkRANStatusTransfer;
+    //struct ASN_NGAP_DownlinkNonUEAssociatedNRPPaTransport;
+    //struct ASN_NGAP_DownlinkRANConfigurationTransfer;
+    //struct ASN_NGAP_DownlinkRANStatusTransfer;
     //struct ASN_NGAP_DownlinkUEAssociatedNRPPaTransport;
     struct ErrorIndication;
-    struct ASN_NGAP_HandoverCancel;
-    struct ASN_NGAP_HandoverCancelAcknowledge;
-    struct ASN_NGAP_HandoverCommand;
-    struct ASN_NGAP_HandoverFailure;
-    struct ASN_NGAP_HandoverNotify;
-    struct ASN_NGAP_HandoverPreparationFailure;
-    struct ASN_NGAP_HandoverRequest;
-    struct ASN_NGAP_HandoverRequestAcknowledge;
-    struct ASN_NGAP_HandoverRequired;
+    //struct ASN_NGAP_HandoverCancel;
+    //struct ASN_NGAP_HandoverCancelAcknowledge;
+    //struct ASN_NGAP_HandoverCommand;
+    //struct ASN_NGAP_HandoverFailure;
+    //struct ASN_NGAP_HandoverNotify;
+    //struct ASN_NGAP_HandoverPreparationFailure;
+    //struct ASN_NGAP_HandoverRequest;
+    //struct ASN_NGAP_HandoverRequestAcknowledge;
+    //struct ASN_NGAP_HandoverRequired;
     struct UEContextSetupFailure;
-    struct ASN_NGAP_InitialContextSetupRequest;
-    struct ASN_NGAP_InitialContextSetupResponse;
-    struct ASN_NGAP_InitialUEMessage;
-    struct ASN_NGAP_LocationReport;
+    struct UEContextSetupRequest;
+    struct UEContextSetupResponse;
+    struct InitialULRRCMessageTransfer;
+    //struct ASN_NGAP_LocationReport;
     struct ASN_NGAP_LocationReportingControl;
     struct ASN_NGAP_LocationReportingFailureIndication;
     struct ASN_NGAP_NASNonDeliveryIndication;
-    struct ASN_NGAP_NGReset;
-    struct ASN_NGAP_NGResetAcknowledge;
-    struct ASN_NGAP_NGSetupFailure;
-    struct ASN_NGAP_NGSetupRequest;
-    struct ASN_NGAP_NGSetupResponse;
-    struct ASN_NGAP_OverloadStart;
-    struct ASN_NGAP_OverloadStop;
-    struct ASN_NGAP_Paging;
-    struct ASN_NGAP_PathSwitchRequest;
-    struct ASN_NGAP_PathSwitchRequestAcknowledge;
-    struct ASN_NGAP_PathSwitchRequestFailure;
-    struct ASN_NGAP_PDUSessionResourceModifyConfirm;
-    struct ASN_NGAP_PDUSessionResourceModifyIndication;
-    struct ASN_NGAP_PDUSessionResourceModifyRequest;
-    struct ASN_NGAP_PDUSessionResourceModifyResponse;
-    struct ASN_NGAP_PDUSessionResourceNotify;
-    struct ASN_NGAP_PDUSessionResourceReleaseCommand;
-    struct ASN_NGAP_PDUSessionResourceReleaseResponse;
-    struct ASN_NGAP_PDUSessionResourceSetupRequest;
-    struct ASN_NGAP_PDUSessionResourceSetupResponse;
-    struct ASN_NGAP_PrivateMessage;
-    struct ASN_NGAP_PWSCancelRequest;
-    struct ASN_NGAP_PWSCancelResponse;
-    struct ASN_NGAP_PWSFailureIndication;
-    struct ASN_NGAP_PWSRestartIndication;
-    struct ASN_NGAP_RANConfigurationUpdate;
-    struct ASN_NGAP_RANConfigurationUpdateAcknowledge;
-    struct ASN_NGAP_RANConfigurationUpdateFailure;
-    struct ASN_NGAP_RerouteNASRequest;
-    struct ASN_NGAP_RRCInactiveTransitionReport;
-    struct ASN_NGAP_SecondaryRATDataUsageReport;
-    struct ASN_NGAP_TraceFailureIndication;
-    struct ASN_NGAP_TraceStart;
-    struct ASN_NGAP_UEContextModificationFailure;
-    struct ASN_NGAP_UEContextModificationRequest;
-    struct ASN_NGAP_UEContextModificationResponse;
-    struct ASN_NGAP_UEContextReleaseCommand;
-    struct ASN_NGAP_UEContextReleaseComplete;
-    struct ASN_NGAP_UEContextReleaseRequest;
-    struct ASN_NGAP_UERadioCapabilityCheckRequest;
-    struct ASN_NGAP_UERadioCapabilityCheckResponse;
-    struct ASN_NGAP_UERadioCapabilityInfoIndication;
-    struct ASN_NGAP_UETNLABindingReleaseRequest;
-    struct ASN_NGAP_UplinkNASTransport;
-    struct ASN_NGAP_UplinkNonUEAssociatedNRPPaTransport;
-    struct ASN_NGAP_UplinkRANConfigurationTransfer;
-    struct ASN_NGAP_UplinkRANStatusTransfer;
-    struct ASN_NGAP_UplinkUEAssociatedNRPPaTransport;
-    struct ASN_NGAP_WriteReplaceWarningRequest;
-    struct ASN_NGAP_WriteReplaceWarningResponse;
+    struct Reset;
+    struct ResetAcknowledge;
+    struct F1SetupFailure;
+    struct F1SetupRequest;
+    struct F1SetupResponse;
+    //struct ASN_NGAP_OverloadStart;
+    //struct ASN_NGAP_OverloadStop;
+    struct Paging;
+    //struct ASN_NGAP_PathSwitchRequest;
+    //struct ASN_NGAP_PathSwitchRequestAcknowledge;
+    //struct ASN_NGAP_PathSwitchRequestFailure;
+    //struct ASN_NGAP_PDUSessionResourceModifyConfirm;
+    //struct ASN_NGAP_PDUSessionResourceModifyIndication;
+    //struct ASN_NGAP_PDUSessionResourceModifyRequest;
+    //struct ASN_NGAP_PDUSessionResourceModifyResponse;
+    //struct ASN_NGAP_PDUSessionResourceNotify;
+    //struct ASN_NGAP_PDUSessionResourceReleaseCommand;
+    //struct ASN_NGAP_PDUSessionResourceReleaseResponse;
+    //struct ASN_NGAP_PDUSessionResourceSetupRequest;
+    //struct ASN_NGAP_PDUSessionResourceSetupResponse;
+    struct PrivateMessage;
+    struct PWSCancelRequest;
+    struct PWSCancelResponse;
+    struct PWSFailureIndication;
+    struct PWSRestartIndication;
+    struct GNBDUConfigurationUpdate;
+    struct GNBDUConfigurationUpdateAcknowledge;
+    struct GNBDUConfigurationUpdateFailure;
+    //struct ASN_NGAP_RerouteNASRequest;
+    //struct ASN_NGAP_RRCInactiveTransitionReport;
+    //struct ASN_NGAP_SecondaryRATDataUsageReport;
+    //struct ASN_NGAP_TraceFailureIndication;
+    //struct ASN_NGAP_TraceStart;
+    struct UEContextModificationFailure;
+    struct UEContextModificationRequest;
+    struct UEContextModificationResponse;
+    struct UEContextReleaseCommand;
+    struct UEContextReleaseComplete;
+    struct UEContextReleaseRequest;
+    //struct ASN_NGAP_UERadioCapabilityCheckRequest;
+    //struct ASN_NGAP_UERadioCapabilityCheckResponse;
+    //struct ASN_NGAP_UERadioCapabilityInfoIndication;
+    //struct ASN_NGAP_UETNLABindingReleaseRequest;
+    struct ULRRCMessageTransfer;
+    //struct ASN_NGAP_UplinkNonUEAssociatedNRPPaTransport;
+    //struct ASN_NGAP_UplinkRANConfigurationTransfer;
+    //struct ASN_NGAP_UplinkRANStatusTransfer;
+    //struct ASN_NGAP_UplinkUEAssociatedNRPPaTransport;
+    //struct ASN_NGAP_WriteReplaceWarningRequest;
+    //struct ASN_NGAP_WriteReplaceWarningResponse;
 }
 
 namespace asn::f1ap
@@ -103,15 +103,20 @@ enum class F1apMessageType
     GNBCUConfigurationUpdate,
     GNBCUConfigurationUpdateAcknowledge,
     GNBCUConfigurationUpdateFailure,
+    /*
     AMFStatusIndication,
     CellTrafficTrace,
     DeactivateTrace,
+    */
     DLRRCMessageTransfert,
+    /*
     DownlinkNonUEAssociatedNRPPaTransport,
     DownlinkRANConfigurationTransfer,
     DownlinkRANStatusTransfer,
     DownlinkUEAssociatedNRPPaTransport,
+    */
     ErrorIndication,
+    /*
     HandoverCancel,
     HandoverCancelAcknowledge,
     HandoverCommand,
@@ -121,22 +126,28 @@ enum class F1apMessageType
     HandoverRequest,
     HandoverRequestAcknowledge,
     HandoverRequired,
-    InitialContextSetupFailure,
-    InitialContextSetupRequest,
-    InitialContextSetupResponse,
-    InitialUEMessage,
+    */
+    UEContextSetupFailure,
+    UEContextSetupRequest,
+    UEContextSetupResponse,
+    InitialULRRCMessageTransfer,
+    /*
     LocationReport,
     LocationReportingControl,
     LocationReportingFailureIndication,
     NASNonDeliveryIndication,
-    NGReset,
-    NGResetAcknowledge,
-    NGSetupFailure,
-    NGSetupRequest,
-    NGSetupResponse,
+    */
+    Reset,
+    ResetAcknowledge,
+    F1SetupFailure,
+    F1SetupRequest,
+    F1SetupResponse,
+    /*
     OverloadStart,
     OverloadStop,
+    */
     Paging,
+    /*
     PathSwitchRequest,
     PathSwitchRequestAcknowledge,
     PathSwitchRequestFailure,
@@ -149,36 +160,44 @@ enum class F1apMessageType
     PDUSessionResourceReleaseResponse,
     PDUSessionResourceSetupRequest,
     PDUSessionResourceSetupResponse,
+    */
     PrivateMessage,
     PWSCancelRequest,
     PWSCancelResponse,
     PWSFailureIndication,
     PWSRestartIndication,
-    RANConfigurationUpdate,
-    RANConfigurationUpdateAcknowledge,
-    RANConfigurationUpdateFailure,
+    GNBDUConfigurationUpdate,
+    GNBDUConfigurationUpdateAcknowledge,
+    GNBDUConfigurationUpdateFailure,
+    /*
     RerouteNASRequest,
     RRCInactiveTransitionReport,
     SecondaryRATDataUsageReport,
     TraceFailureIndication,
     TraceStart,
+    */
     UEContextModificationFailure,
     UEContextModificationRequest,
     UEContextModificationResponse,
     UEContextReleaseCommand,
     UEContextReleaseComplete,
     UEContextReleaseRequest,
+    /*
     UERadioCapabilityCheckRequest,
     UERadioCapabilityCheckResponse,
     UERadioCapabilityInfoIndication,
     UETNLABindingReleaseRequest,
-    UplinkNASTransport,
+    */
+    ULRRCMessageTransfer,
+    /*
     UplinkNonUEAssociatedNRPPaTransport,
     UplinkRANConfigurationTransfer,
     UplinkRANStatusTransfer,
     UplinkUEAssociatedNRPPaTransport,
     WriteReplaceWarningRequest,
     WriteReplaceWarningResponse
+    */
+
 };
 
 template <F1apMessageType T>
@@ -202,6 +221,16 @@ struct F1apMessageEnumToType<F1apMessageType::GNBCUConfigurationUpdateFailure>
     typedef GNBCUConfigurationUpdateFailure T;
 };
 template <>
+struct F1apMessageEnumToType<F1apMessageType::DLRRCMessageTransfert>
+{
+    typedef DLRRCMessageTransfer T;
+};
+template <>
+struct F1apMessageEnumToType<F1apMessageType::ErrorIndication>
+{
+    typedef ErrorIndication T;
+};
+/*template <>
 struct F1apMessageEnumToType<F1apMessageType::AMFStatusIndication>
 {
     typedef ASN_NGAP_AMFStatusIndication T;
@@ -215,11 +244,6 @@ template <>
 struct F1apMessageEnumToType<F1apMessageType::DeactivateTrace>
 {
     typedef ASN_NGAP_DeactivateTrace T;
-};
-template <>
-struct F1apMessageEnumToType<F1apMessageType::DLRRCMessageTransfert>
-{
-    typedef DLRRCMessageTransfer T;
 };
 template <>
 struct F1apMessageEnumToType<F1apMessageType::DownlinkNonUEAssociatedNRPPaTransport>
@@ -240,11 +264,6 @@ template <>
 struct F1apMessageEnumToType<F1apMessageType::DownlinkUEAssociatedNRPPaTransport>
 {
     typedef ASN_NGAP_DownlinkUEAssociatedNRPPaTransport T;
-};
-template <>
-struct F1apMessageEnumToType<F1apMessageType::ErrorIndication>
-{
-    typedef ErrorIndication T;
 };
 template <>
 struct F1apMessageEnumToType<F1apMessageType::HandoverCancel>
@@ -291,26 +310,28 @@ struct F1apMessageEnumToType<F1apMessageType::HandoverRequired>
 {
     typedef ASN_NGAP_HandoverRequired T;
 };
+*/
 template <>
-struct F1apMessageEnumToType<F1apMessageType::InitialContextSetupFailure>
+struct F1apMessageEnumToType<F1apMessageType::UEContextSetupFailure>
 {
-    typedef ASN_NGAP_InitialContextSetupFailure T;
+    typedef UEContextSetupFailure T;
 };
 template <>
-struct F1apMessageEnumToType<F1apMessageType::InitialContextSetupRequest>
+struct F1apMessageEnumToType<F1apMessageType::UEContextSetupRequest>
 {
-    typedef ASN_NGAP_InitialContextSetupRequest T;
+    typedef UEContextSetupRequest T;
 };
 template <>
-struct F1apMessageEnumToType<F1apMessageType::InitialContextSetupResponse>
+struct F1apMessageEnumToType<F1apMessageType::UEContextSetupResponse>
 {
-    typedef ASN_NGAP_InitialContextSetupResponse T;
+    typedef UEContextSetupResponse T;
 };
 template <>
-struct F1apMessageEnumToType<F1apMessageType::InitialUEMessage>
+struct F1apMessageEnumToType<F1apMessageType::InitialULRRCMessageTransfer>
 {
-    typedef ASN_NGAP_InitialUEMessage T;
+    typedef InitialULRRCMessageTransfer T;
 };
+/*
 template <>
 struct F1apMessageEnumToType<F1apMessageType::LocationReport>
 {
@@ -331,31 +352,33 @@ struct F1apMessageEnumToType<F1apMessageType::NASNonDeliveryIndication>
 {
     typedef ASN_NGAP_NASNonDeliveryIndication T;
 };
+*/
 template <>
-struct F1apMessageEnumToType<F1apMessageType::NGReset>
+struct F1apMessageEnumToType<F1apMessageType::Reset>
 {
-    typedef ASN_NGAP_NGReset T;
+    typedef Reset T;
 };
 template <>
-struct F1apMessageEnumToType<F1apMessageType::NGResetAcknowledge>
+struct F1apMessageEnumToType<F1apMessageType::ResetAcknowledge>
 {
-    typedef ASN_NGAP_NGResetAcknowledge T;
+    typedef ResetAcknowledge T;
 };
 template <>
-struct F1apMessageEnumToType<F1apMessageType::NGSetupFailure>
+struct F1apMessageEnumToType<F1apMessageType::F1SetupFailure>
 {
-    typedef ASN_NGAP_NGSetupFailure T;
+    typedef F1SetupFailure T;
 };
 template <>
-struct F1apMessageEnumToType<F1apMessageType::NGSetupRequest>
+struct F1apMessageEnumToType<F1apMessageType::F1SetupRequest>
 {
-    typedef ASN_NGAP_NGSetupRequest T;
+    typedef F1SetupRequest T;
 };
 template <>
-struct F1apMessageEnumToType<F1apMessageType::NGSetupResponse>
+struct F1apMessageEnumToType<F1apMessageType::F1SetupResponse>
 {
-    typedef ASN_NGAP_NGSetupResponse T;
+    typedef F1SetupResponse T;
 };
+/*
 template <>
 struct F1apMessageEnumToType<F1apMessageType::OverloadStart>
 {
@@ -365,12 +388,13 @@ template <>
 struct F1apMessageEnumToType<F1apMessageType::OverloadStop>
 {
     typedef ASN_NGAP_OverloadStop T;
-};
+};*/
 template <>
 struct F1apMessageEnumToType<F1apMessageType::Paging>
 {
-    typedef ASN_NGAP_Paging T;
+    typedef Paging T;
 };
+/*
 template <>
 struct F1apMessageEnumToType<F1apMessageType::PathSwitchRequest>
 {
@@ -430,47 +454,48 @@ template <>
 struct F1apMessageEnumToType<F1apMessageType::PDUSessionResourceSetupResponse>
 {
     typedef ASN_NGAP_PDUSessionResourceSetupResponse T;
-};
+};*/
 template <>
 struct F1apMessageEnumToType<F1apMessageType::PrivateMessage>
 {
-    typedef ASN_NGAP_PrivateMessage T;
+    typedef PrivateMessage T;
 };
 template <>
 struct F1apMessageEnumToType<F1apMessageType::PWSCancelRequest>
 {
-    typedef ASN_NGAP_PWSCancelRequest T;
+    typedef PWSCancelRequest T;
 };
 template <>
 struct F1apMessageEnumToType<F1apMessageType::PWSCancelResponse>
 {
-    typedef ASN_NGAP_PWSCancelResponse T;
+    typedef PWSCancelResponse T;
 };
 template <>
 struct F1apMessageEnumToType<F1apMessageType::PWSFailureIndication>
 {
-    typedef ASN_NGAP_PWSFailureIndication T;
+    typedef PWSFailureIndication T;
 };
 template <>
 struct F1apMessageEnumToType<F1apMessageType::PWSRestartIndication>
 {
-    typedef ASN_NGAP_PWSRestartIndication T;
+    typedef PWSRestartIndication T;
 };
 template <>
-struct F1apMessageEnumToType<F1apMessageType::RANConfigurationUpdate>
+struct F1apMessageEnumToType<F1apMessageType::GNBDUConfigurationUpdate>
 {
-    typedef ASN_NGAP_RANConfigurationUpdate T;
+    typedef GNBDUConfigurationUpdate T;
 };
 template <>
-struct F1apMessageEnumToType<F1apMessageType::RANConfigurationUpdateAcknowledge>
+struct F1apMessageEnumToType<F1apMessageType::GNBDUConfigurationUpdateAcknowledge>
 {
-    typedef ASN_NGAP_RANConfigurationUpdateAcknowledge T;
+    typedef GNBDUConfigurationUpdateAcknowledge T;
 };
 template <>
-struct F1apMessageEnumToType<F1apMessageType::RANConfigurationUpdateFailure>
+struct F1apMessageEnumToType<F1apMessageType::GNBDUConfigurationUpdateFailure>
 {
-    typedef ASN_NGAP_RANConfigurationUpdateFailure T;
+    typedef GNBDUConfigurationUpdateFailure T;
 };
+/*
 template <>
 struct F1apMessageEnumToType<F1apMessageType::RerouteNASRequest>
 {
@@ -496,36 +521,38 @@ struct F1apMessageEnumToType<F1apMessageType::TraceStart>
 {
     typedef ASN_NGAP_TraceStart T;
 };
+*/
 template <>
 struct F1apMessageEnumToType<F1apMessageType::UEContextModificationFailure>
 {
-    typedef ASN_NGAP_UEContextModificationFailure T;
+    typedef UEContextModificationFailure T;
 };
 template <>
 struct F1apMessageEnumToType<F1apMessageType::UEContextModificationRequest>
 {
-    typedef ASN_NGAP_UEContextModificationRequest T;
+    typedef UEContextModificationRequest T;
 };
 template <>
 struct F1apMessageEnumToType<F1apMessageType::UEContextModificationResponse>
 {
-    typedef ASN_NGAP_UEContextModificationResponse T;
+    typedef UEContextModificationResponse T;
 };
 template <>
 struct F1apMessageEnumToType<F1apMessageType::UEContextReleaseCommand>
 {
-    typedef ASN_NGAP_UEContextReleaseCommand T;
+    typedef UEContextReleaseCommand T;
 };
 template <>
 struct F1apMessageEnumToType<F1apMessageType::UEContextReleaseComplete>
 {
-    typedef ASN_NGAP_UEContextReleaseComplete T;
+    typedef UEContextReleaseComplete T;
 };
 template <>
 struct F1apMessageEnumToType<F1apMessageType::UEContextReleaseRequest>
 {
-    typedef ASN_NGAP_UEContextReleaseRequest T;
+    typedef UEContextReleaseRequest T;
 };
+/*
 template <>
 struct F1apMessageEnumToType<F1apMessageType::UERadioCapabilityCheckRequest>
 {
@@ -546,11 +573,13 @@ struct F1apMessageEnumToType<F1apMessageType::UETNLABindingReleaseRequest>
 {
     typedef ASN_NGAP_UETNLABindingReleaseRequest T;
 };
+*/
 template <>
-struct F1apMessageEnumToType<F1apMessageType::UplinkNASTransport>
+struct F1apMessageEnumToType<F1apMessageType::ULRRCMessageTransfer>
 {
-    typedef ASN_NGAP_UplinkNASTransport T;
+    typedef ULRRCMessageTransfer T;
 };
+/*
 template <>
 struct F1apMessageEnumToType<F1apMessageType::UplinkNonUEAssociatedNRPPaTransport>
 {
@@ -581,7 +610,7 @@ struct F1apMessageEnumToType<F1apMessageType::WriteReplaceWarningResponse>
 {
     typedef ASN_NGAP_WriteReplaceWarningResponse T;
 };
-
+*/
 template <typename T>
 struct F1apMessageTypeToEnum;
 
@@ -609,6 +638,7 @@ struct F1apMessageTypeToEnum<GNBCUConfigurationUpdateFailure>
         V = (int)F1apMessageType::GNBCUConfigurationUpdateFailure
     };
 };
+/*
 template <>
 struct F1apMessageTypeToEnum<ASN_NGAP_AMFStatusIndication>
 {
@@ -633,6 +663,7 @@ struct F1apMessageTypeToEnum<ASN_NGAP_DeactivateTrace>
         V = (int)F1apMessageType::DeactivateTrace
     };
 };
+*/
 template <>
 struct F1apMessageTypeToEnum<DLRRCMessageTransfer>
 {
@@ -641,6 +672,7 @@ struct F1apMessageTypeToEnum<DLRRCMessageTransfer>
         V = (int)F1apMessageType::DLRRCMessageTransfert
     };
 };
+/*
 template <>
 struct F1apMessageTypeToEnum<ASN_NGAP_DownlinkNonUEAssociatedNRPPaTransport>
 {
@@ -673,6 +705,7 @@ struct F1apMessageTypeToEnum<ASN_NGAP_DownlinkUEAssociatedNRPPaTransport>
         V = (int)F1apMessageType::DownlinkUEAssociatedNRPPaTransport
     };
 };
+*/
 template <>
 struct F1apMessageTypeToEnum<ErrorIndication>
 {
@@ -681,6 +714,7 @@ struct F1apMessageTypeToEnum<ErrorIndication>
         V = (int)F1apMessageType::ErrorIndication
     };
 };
+/*
 template <>
 struct F1apMessageTypeToEnum<ASN_NGAP_HandoverCancel>
 {
@@ -753,38 +787,40 @@ struct F1apMessageTypeToEnum<ASN_NGAP_HandoverRequired>
         V = (int)F1apMessageType::HandoverRequired
     };
 };
+*/
 template <>
-struct F1apMessageTypeToEnum<ASN_NGAP_InitialContextSetupFailure>
+struct F1apMessageTypeToEnum<UEContextSetupFailure>
 {
     enum
     {
-        V = (int)F1apMessageType::InitialContextSetupFailure
+        V = (int)F1apMessageType::UEContextSetupFailure
     };
 };
 template <>
-struct F1apMessageTypeToEnum<ASN_NGAP_InitialContextSetupRequest>
+struct F1apMessageTypeToEnum<UEContextSetupRequest>
 {
     enum
     {
-        V = (int)F1apMessageType::InitialContextSetupRequest
+        V = (int)F1apMessageType::UEContextSetupRequest
     };
 };
 template <>
-struct F1apMessageTypeToEnum<ASN_NGAP_InitialContextSetupResponse>
+struct F1apMessageTypeToEnum<UEContextSetupResponse>
 {
     enum
     {
-        V = (int)F1apMessageType::InitialContextSetupResponse
+        V = (int)F1apMessageType::UEContextSetupResponse
     };
 };
 template <>
-struct F1apMessageTypeToEnum<ASN_NGAP_InitialUEMessage>
+struct F1apMessageTypeToEnum<InitialULRRCMessageTransfer>
 {
     enum
     {
-        V = (int)F1apMessageType::InitialUEMessage
+        V = (int)F1apMessageType::InitialULRRCMessageTransfer
     };
 };
+/*
 template <>
 struct F1apMessageTypeToEnum<ASN_NGAP_LocationReport>
 {
@@ -817,46 +853,48 @@ struct F1apMessageTypeToEnum<ASN_NGAP_NASNonDeliveryIndication>
         V = (int)F1apMessageType::NASNonDeliveryIndication
     };
 };
+*/
 template <>
-struct F1apMessageTypeToEnum<ASN_NGAP_NGReset>
+struct F1apMessageTypeToEnum<Reset>
 {
     enum
     {
-        V = (int)F1apMessageType::NGReset
+        V = (int)F1apMessageType::Reset
     };
 };
 template <>
-struct F1apMessageTypeToEnum<ASN_NGAP_NGResetAcknowledge>
+struct F1apMessageTypeToEnum<ResetAcknowledge>
 {
     enum
     {
-        V = (int)F1apMessageType::NGResetAcknowledge
+        V = (int)F1apMessageType::ResetAcknowledge
     };
 };
 template <>
-struct F1apMessageTypeToEnum<ASN_NGAP_NGSetupFailure>
+struct F1apMessageTypeToEnum<F1SetupFailure>
 {
     enum
     {
-        V = (int)F1apMessageType::NGSetupFailure
+        V = (int)F1apMessageType::F1SetupFailure
     };
 };
 template <>
-struct F1apMessageTypeToEnum<ASN_NGAP_NGSetupRequest>
+struct F1apMessageTypeToEnum<F1SetupRequest>
 {
     enum
     {
-        V = (int)F1apMessageType::NGSetupRequest
+        V = (int)F1apMessageType::F1SetupRequest
     };
 };
 template <>
-struct F1apMessageTypeToEnum<ASN_NGAP_NGSetupResponse>
+struct F1apMessageTypeToEnum<F1SetupResponse>
 {
     enum
     {
-        V = (int)F1apMessageType::NGSetupResponse
+        V = (int)F1apMessageType::F1SetupResponse
     };
 };
+/*
 template <>
 struct F1apMessageTypeToEnum<ASN_NGAP_OverloadStart>
 {
@@ -873,14 +911,16 @@ struct F1apMessageTypeToEnum<ASN_NGAP_OverloadStop>
         V = (int)F1apMessageType::OverloadStop
     };
 };
+*/
 template <>
-struct F1apMessageTypeToEnum<ASN_NGAP_Paging>
+struct F1apMessageTypeToEnum<Paging>
 {
     enum
     {
         V = (int)F1apMessageType::Paging
     };
 };
+/*
 template <>
 struct F1apMessageTypeToEnum<ASN_NGAP_PathSwitchRequest>
 {
@@ -977,8 +1017,9 @@ struct F1apMessageTypeToEnum<ASN_NGAP_PDUSessionResourceSetupResponse>
         V = (int)F1apMessageType::PDUSessionResourceSetupResponse
     };
 };
+*/
 template <>
-struct F1apMessageTypeToEnum<ASN_NGAP_PrivateMessage>
+struct F1apMessageTypeToEnum<PrivateMessage>
 {
     enum
     {
@@ -986,7 +1027,7 @@ struct F1apMessageTypeToEnum<ASN_NGAP_PrivateMessage>
     };
 };
 template <>
-struct F1apMessageTypeToEnum<ASN_NGAP_PWSCancelRequest>
+struct F1apMessageTypeToEnum<PWSCancelRequest>
 {
     enum
     {
@@ -994,7 +1035,7 @@ struct F1apMessageTypeToEnum<ASN_NGAP_PWSCancelRequest>
     };
 };
 template <>
-struct F1apMessageTypeToEnum<ASN_NGAP_PWSCancelResponse>
+struct F1apMessageTypeToEnum<PWSCancelResponse>
 {
     enum
     {
@@ -1002,7 +1043,7 @@ struct F1apMessageTypeToEnum<ASN_NGAP_PWSCancelResponse>
     };
 };
 template <>
-struct F1apMessageTypeToEnum<ASN_NGAP_PWSFailureIndication>
+struct F1apMessageTypeToEnum<PWSFailureIndication>
 {
     enum
     {
@@ -1010,7 +1051,7 @@ struct F1apMessageTypeToEnum<ASN_NGAP_PWSFailureIndication>
     };
 };
 template <>
-struct F1apMessageTypeToEnum<ASN_NGAP_PWSRestartIndication>
+struct F1apMessageTypeToEnum<PWSRestartIndication>
 {
     enum
     {
@@ -1018,29 +1059,30 @@ struct F1apMessageTypeToEnum<ASN_NGAP_PWSRestartIndication>
     };
 };
 template <>
-struct F1apMessageTypeToEnum<ASN_NGAP_RANConfigurationUpdate>
+struct F1apMessageTypeToEnum<GNBDUConfigurationUpdate>
 {
     enum
     {
-        V = (int)F1apMessageType::RANConfigurationUpdate
+        V = (int)F1apMessageType::GNBDUConfigurationUpdate
     };
 };
 template <>
-struct F1apMessageTypeToEnum<ASN_NGAP_RANConfigurationUpdateAcknowledge>
+struct F1apMessageTypeToEnum<GNBDUConfigurationUpdateAcknowledge>
 {
     enum
     {
-        V = (int)F1apMessageType::RANConfigurationUpdateAcknowledge
+        V = (int)F1apMessageType::GNBDUConfigurationUpdateAcknowledge
     };
 };
 template <>
-struct F1apMessageTypeToEnum<ASN_NGAP_RANConfigurationUpdateFailure>
+struct F1apMessageTypeToEnum<GNBDUConfigurationUpdateFailure>
 {
     enum
     {
-        V = (int)F1apMessageType::RANConfigurationUpdateFailure
+        V = (int)F1apMessageType::GNBDUConfigurationUpdateFailure
     };
 };
+/*
 template <>
 struct F1apMessageTypeToEnum<ASN_NGAP_RerouteNASRequest>
 {
@@ -1081,8 +1123,9 @@ struct F1apMessageTypeToEnum<ASN_NGAP_TraceStart>
         V = (int)F1apMessageType::TraceStart
     };
 };
+*/
 template <>
-struct F1apMessageTypeToEnum<ASN_NGAP_UEContextModificationFailure>
+struct F1apMessageTypeToEnum<UEContextModificationFailure>
 {
     enum
     {
@@ -1090,7 +1133,7 @@ struct F1apMessageTypeToEnum<ASN_NGAP_UEContextModificationFailure>
     };
 };
 template <>
-struct F1apMessageTypeToEnum<ASN_NGAP_UEContextModificationRequest>
+struct F1apMessageTypeToEnum<UEContextModificationRequest>
 {
     enum
     {
@@ -1098,7 +1141,7 @@ struct F1apMessageTypeToEnum<ASN_NGAP_UEContextModificationRequest>
     };
 };
 template <>
-struct F1apMessageTypeToEnum<ASN_NGAP_UEContextModificationResponse>
+struct F1apMessageTypeToEnum<UEContextModificationResponse>
 {
     enum
     {
@@ -1106,7 +1149,7 @@ struct F1apMessageTypeToEnum<ASN_NGAP_UEContextModificationResponse>
     };
 };
 template <>
-struct F1apMessageTypeToEnum<ASN_NGAP_UEContextReleaseCommand>
+struct F1apMessageTypeToEnum<UEContextReleaseCommand>
 {
     enum
     {
@@ -1114,7 +1157,7 @@ struct F1apMessageTypeToEnum<ASN_NGAP_UEContextReleaseCommand>
     };
 };
 template <>
-struct F1apMessageTypeToEnum<ASN_NGAP_UEContextReleaseComplete>
+struct F1apMessageTypeToEnum<UEContextReleaseComplete>
 {
     enum
     {
@@ -1122,13 +1165,14 @@ struct F1apMessageTypeToEnum<ASN_NGAP_UEContextReleaseComplete>
     };
 };
 template <>
-struct F1apMessageTypeToEnum<ASN_NGAP_UEContextReleaseRequest>
+struct F1apMessageTypeToEnum<UEContextReleaseRequest>
 {
     enum
     {
         V = (int)F1apMessageType::UEContextReleaseRequest
     };
 };
+/*
 template <>
 struct F1apMessageTypeToEnum<ASN_NGAP_UERadioCapabilityCheckRequest>
 {
@@ -1161,14 +1205,17 @@ struct F1apMessageTypeToEnum<ASN_NGAP_UETNLABindingReleaseRequest>
         V = (int)F1apMessageType::UETNLABindingReleaseRequest
     };
 };
+*/
 template <>
-struct F1apMessageTypeToEnum<ASN_NGAP_UplinkNASTransport>
+struct F1apMessageTypeToEnum<ULRRCMessageTransfer>
 {
     enum
     {
-        V = (int)F1apMessageType::UplinkNASTransport
+        V = (int)F1apMessageType::ULRRCMessageTransfer
     };
 };
+template <>
+/*
 template <>
 struct F1apMessageTypeToEnum<ASN_NGAP_UplinkNonUEAssociatedNRPPaTransport>
 {
@@ -1217,7 +1264,7 @@ struct F1apMessageTypeToEnum<ASN_NGAP_WriteReplaceWarningResponse>
         V = (int)F1apMessageType::WriteReplaceWarningResponse
     };
 };
-
+*/
 struct F1apMessageToDescription_InitiatingMessage
 {
     typedef InitiatingMessage T;
@@ -1240,6 +1287,7 @@ template <>
 struct F1apMessageToDescription<GNBCUConfigurationUpdate> : F1apMessageToDescription_InitiatingMessage
 {
 };
+/*
 template <>
 struct F1apMessageToDescription<ASN_NGAP_AMFStatusIndication> : F1apMessageToDescription_InitiatingMessage
 {
@@ -1252,10 +1300,12 @@ template <>
 struct F1apMessageToDescription<ASN_NGAP_DeactivateTrace> : F1apMessageToDescription_InitiatingMessage
 {
 };
+*/
 template <>
 struct F1apMessageToDescription<DLRRCMessageTransfer> : F1apMessageToDescription_InitiatingMessage
 {
 };
+/*
 template <>
 struct F1apMessageToDescription<ASN_NGAP_DownlinkNonUEAssociatedNRPPaTransport>
     : F1apMessageToDescription_InitiatingMessage
@@ -1274,10 +1324,12 @@ struct F1apMessageToDescription<ASN_NGAP_DownlinkUEAssociatedNRPPaTransport>
     : F1apMessageToDescription_InitiatingMessage
 {
 };
+*/
 template <>
 struct F1apMessageToDescription<ErrorIndication> : F1apMessageToDescription_InitiatingMessage
 {
 };
+/*
 template <>
 struct F1apMessageToDescription<ASN_NGAP_HandoverCancel> : F1apMessageToDescription_InitiatingMessage
 {
@@ -1294,14 +1346,16 @@ template <>
 struct F1apMessageToDescription<ASN_NGAP_HandoverRequired> : F1apMessageToDescription_InitiatingMessage
 {
 };
+*/
 template <>
-struct F1apMessageToDescription<ASN_NGAP_InitialContextSetupRequest> : F1apMessageToDescription_InitiatingMessage
+struct F1apMessageToDescription<UEContextSetupRequest> : F1apMessageToDescription_InitiatingMessage
 {
 };
 template <>
-struct F1apMessageToDescription<ASN_NGAP_InitialUEMessage> : F1apMessageToDescription_InitiatingMessage
+struct F1apMessageToDescription<InitialULRRCMessageTransfer> : F1apMessageToDescription_InitiatingMessage
 {
 };
+/*
 template <>
 struct F1apMessageToDescription<ASN_NGAP_LocationReport> : F1apMessageToDescription_InitiatingMessage
 {
@@ -1319,14 +1373,16 @@ template <>
 struct F1apMessageToDescription<ASN_NGAP_NASNonDeliveryIndication> : F1apMessageToDescription_InitiatingMessage
 {
 };
+*/
 template <>
-struct F1apMessageToDescription<ASN_NGAP_NGReset> : F1apMessageToDescription_InitiatingMessage
+struct F1apMessageToDescription<Reset> : F1apMessageToDescription_InitiatingMessage
 {
 };
 template <>
-struct F1apMessageToDescription<ASN_NGAP_NGSetupRequest> : F1apMessageToDescription_InitiatingMessage
+struct F1apMessageToDescription<F1SetupRequest> : F1apMessageToDescription_InitiatingMessage
 {
 };
+/*
 template <>
 struct F1apMessageToDescription<ASN_NGAP_OverloadStart> : F1apMessageToDescription_InitiatingMessage
 {
@@ -1335,10 +1391,12 @@ template <>
 struct F1apMessageToDescription<ASN_NGAP_OverloadStop> : F1apMessageToDescription_InitiatingMessage
 {
 };
+*/
 template <>
-struct F1apMessageToDescription<ASN_NGAP_Paging> : F1apMessageToDescription_InitiatingMessage
+struct F1apMessageToDescription<Paging> : F1apMessageToDescription_InitiatingMessage
 {
 };
+/*
 template <>
 struct F1apMessageToDescription<ASN_NGAP_PathSwitchRequest> : F1apMessageToDescription_InitiatingMessage
 {
@@ -1364,26 +1422,28 @@ template <>
 struct F1apMessageToDescription<ASN_NGAP_PDUSessionResourceSetupRequest> : F1apMessageToDescription_InitiatingMessage
 {
 };
+*/
 template <>
-struct F1apMessageToDescription<ASN_NGAP_PrivateMessage> : F1apMessageToDescription_InitiatingMessage
+struct F1apMessageToDescription<PrivateMessage> : F1apMessageToDescription_InitiatingMessage
 {
 };
 template <>
-struct F1apMessageToDescription<ASN_NGAP_PWSCancelRequest> : F1apMessageToDescription_InitiatingMessage
+struct F1apMessageToDescription<PWSCancelRequest> : F1apMessageToDescription_InitiatingMessage
 {
 };
 template <>
-struct F1apMessageToDescription<ASN_NGAP_PWSFailureIndication> : F1apMessageToDescription_InitiatingMessage
+struct F1apMessageToDescription<PWSFailureIndication> : F1apMessageToDescription_InitiatingMessage
 {
 };
 template <>
-struct F1apMessageToDescription<ASN_NGAP_PWSRestartIndication> : F1apMessageToDescription_InitiatingMessage
+struct F1apMessageToDescription<PWSRestartIndication> : F1apMessageToDescription_InitiatingMessage
 {
 };
 template <>
-struct F1apMessageToDescription<ASN_NGAP_RANConfigurationUpdate> : F1apMessageToDescription_InitiatingMessage
+struct F1apMessageToDescription<GNBDUConfigurationUpdate> : F1apMessageToDescription_InitiatingMessage
 {
 };
+/*
 template <>
 struct F1apMessageToDescription<ASN_NGAP_RerouteNASRequest> : F1apMessageToDescription_InitiatingMessage
 {
@@ -1404,18 +1464,20 @@ template <>
 struct F1apMessageToDescription<ASN_NGAP_TraceStart> : F1apMessageToDescription_InitiatingMessage
 {
 };
+*/
 template <>
-struct F1apMessageToDescription<ASN_NGAP_UEContextModificationRequest> : F1apMessageToDescription_InitiatingMessage
+struct F1apMessageToDescription<UEContextModificationRequest> : F1apMessageToDescription_InitiatingMessage
 {
 };
 template <>
-struct F1apMessageToDescription<ASN_NGAP_UEContextReleaseCommand> : F1apMessageToDescription_InitiatingMessage
+struct F1apMessageToDescription<UEContextReleaseCommand> : F1apMessageToDescription_InitiatingMessage
 {
 };
 template <>
-struct F1apMessageToDescription<ASN_NGAP_UEContextReleaseRequest> : F1apMessageToDescription_InitiatingMessage
+struct F1apMessageToDescription<UEContextReleaseRequest> : F1apMessageToDescription_InitiatingMessage
 {
 };
+/*
 template <>
 struct F1apMessageToDescription<ASN_NGAP_UERadioCapabilityCheckRequest> : F1apMessageToDescription_InitiatingMessage
 {
@@ -1428,10 +1490,12 @@ template <>
 struct F1apMessageToDescription<ASN_NGAP_UETNLABindingReleaseRequest> : F1apMessageToDescription_InitiatingMessage
 {
 };
+*/
 template <>
-struct F1apMessageToDescription<ASN_NGAP_UplinkNASTransport> : F1apMessageToDescription_InitiatingMessage
+struct F1apMessageToDescription<ULRRCMessageTransfer> : F1apMessageToDescription_InitiatingMessage
 {
 };
+/*
 template <>
 struct F1apMessageToDescription<ASN_NGAP_UplinkNonUEAssociatedNRPPaTransport>
     : F1apMessageToDescription_InitiatingMessage
@@ -1453,11 +1517,12 @@ template <>
 struct F1apMessageToDescription<ASN_NGAP_WriteReplaceWarningRequest> : F1apMessageToDescription_InitiatingMessage
 {
 };
-
+*/
 template <>
 struct F1apMessageToDescription<GNBCUConfigurationUpdateAcknowledge> : F1apMessageToDescription_SuccessfulOutcome
 {
 };
+/*
 template <>
 struct F1apMessageToDescription<ASN_NGAP_HandoverCancelAcknowledge> : F1apMessageToDescription_SuccessfulOutcome
 {
@@ -1470,18 +1535,20 @@ template <>
 struct F1apMessageToDescription<ASN_NGAP_HandoverRequestAcknowledge> : F1apMessageToDescription_SuccessfulOutcome
 {
 };
+*/
 template <>
-struct F1apMessageToDescription<ASN_NGAP_InitialContextSetupResponse> : F1apMessageToDescription_SuccessfulOutcome
+struct F1apMessageToDescription<UEContextSetupResponse> : F1apMessageToDescription_SuccessfulOutcome
 {
 };
 template <>
-struct F1apMessageToDescription<ASN_NGAP_NGResetAcknowledge> : F1apMessageToDescription_SuccessfulOutcome
+struct F1apMessageToDescription<ResetAcknowledge> : F1apMessageToDescription_SuccessfulOutcome
 {
 };
 template <>
-struct F1apMessageToDescription<ASN_NGAP_NGSetupResponse> : F1apMessageToDescription_SuccessfulOutcome
+struct F1apMessageToDescription<F1SetupResponse> : F1apMessageToDescription_SuccessfulOutcome
 {
 };
+/*
 template <>
 struct F1apMessageToDescription<ASN_NGAP_PathSwitchRequestAcknowledge> : F1apMessageToDescription_SuccessfulOutcome
 {
@@ -1502,22 +1569,24 @@ template <>
 struct F1apMessageToDescription<ASN_NGAP_PDUSessionResourceSetupResponse> : F1apMessageToDescription_SuccessfulOutcome
 {
 };
+*/
 template <>
-struct F1apMessageToDescription<ASN_NGAP_PWSCancelResponse> : F1apMessageToDescription_SuccessfulOutcome
+struct F1apMessageToDescription<PWSCancelResponse> : F1apMessageToDescription_SuccessfulOutcome
 {
 };
 template <>
-struct F1apMessageToDescription<ASN_NGAP_RANConfigurationUpdateAcknowledge> : F1apMessageToDescription_SuccessfulOutcome
+struct F1apMessageToDescription<GNBDUConfigurationUpdateAcknowledge> : F1apMessageToDescription_SuccessfulOutcome
 {
 };
 template <>
-struct F1apMessageToDescription<ASN_NGAP_UEContextModificationResponse> : F1apMessageToDescription_SuccessfulOutcome
+struct F1apMessageToDescription<UEContextModificationResponse> : F1apMessageToDescription_SuccessfulOutcome
 {
 };
 template <>
-struct F1apMessageToDescription<ASN_NGAP_UEContextReleaseComplete> : F1apMessageToDescription_SuccessfulOutcome
+struct F1apMessageToDescription<UEContextReleaseComplete> : F1apMessageToDescription_SuccessfulOutcome
 {
 };
+/*
 template <>
 struct F1apMessageToDescription<ASN_NGAP_UERadioCapabilityCheckResponse> : F1apMessageToDescription_SuccessfulOutcome
 {
@@ -1526,11 +1595,12 @@ template <>
 struct F1apMessageToDescription<ASN_NGAP_WriteReplaceWarningResponse> : F1apMessageToDescription_SuccessfulOutcome
 {
 };
-
+*/
 template <>
 struct F1apMessageToDescription<GNBCUConfigurationUpdateFailure> : F1apMessageToDescription_UnsuccessfulOutcome
 {
 };
+/*
 template <>
 struct F1apMessageToDescription<ASN_NGAP_HandoverFailure> : F1apMessageToDescription_UnsuccessfulOutcome
 {
@@ -1539,24 +1609,27 @@ template <>
 struct F1apMessageToDescription<ASN_NGAP_HandoverPreparationFailure> : F1apMessageToDescription_UnsuccessfulOutcome
 {
 };
+*/
 template <>
-struct F1apMessageToDescription<ASN_NGAP_InitialContextSetupFailure> : F1apMessageToDescription_UnsuccessfulOutcome
+struct F1apMessageToDescription<UEContextSetupFailure> : F1apMessageToDescription_UnsuccessfulOutcome
 {
 };
 template <>
-struct F1apMessageToDescription<ASN_NGAP_NGSetupFailure> : F1apMessageToDescription_UnsuccessfulOutcome
+struct F1apMessageToDescription<F1SetupFailure> : F1apMessageToDescription_UnsuccessfulOutcome
 {
 };
+/*
 template <>
 struct F1apMessageToDescription<ASN_NGAP_PathSwitchRequestFailure> : F1apMessageToDescription_UnsuccessfulOutcome
 {
 };
+*/
 template <>
-struct F1apMessageToDescription<ASN_NGAP_RANConfigurationUpdateFailure> : F1apMessageToDescription_UnsuccessfulOutcome
+struct F1apMessageToDescription<GNBDUConfigurationUpdateFailure> : F1apMessageToDescription_UnsuccessfulOutcome
 {
 };
 template <>
-struct F1apMessageToDescription<ASN_NGAP_UEContextModificationFailure> : F1apMessageToDescription_UnsuccessfulOutcome
+struct F1apMessageToDescription<UEContextModificationFailure> : F1apMessageToDescription_UnsuccessfulOutcome
 {
 };
 
