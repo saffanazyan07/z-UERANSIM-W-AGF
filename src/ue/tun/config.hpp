@@ -12,10 +12,10 @@
 #include <string>
 #include <utility>
 
-namespace nr::w_agf::tun
+namespace nr::u::tun
 {
 
 int AllocateTun(const char *ifPrefix, char **allocatedName);
 void ConfigureTun(const char *tunName, const char *ipAddr, int mtu, bool configureRoute);
 
-} // namespace nr::w_agf::tun
+} // namespace nr::u::tun

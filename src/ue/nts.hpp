@@ -21,7 +21,7 @@
 #include <utils/nts.hpp>
 #include <utils/octet_string.hpp>
 
-namespace nr::w_agf
+namespace nr::ue
 {
 
 struct NmAppToTun : NtsMessage
@@ -346,4 +346,4 @@ struct NmUeCliCommand : NtsMessage
     }
 };
 
-} // namespace nr::w_agf
+} // namespace nr::ue

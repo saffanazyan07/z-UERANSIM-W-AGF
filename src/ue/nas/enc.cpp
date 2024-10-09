@@ -11,7 +11,7 @@
 #include <lib/crypt/crypt.hpp>
 #include <stdexcept>
 
-namespace nr::w_agf::nas_enc
+namespace nr::ue::nas_enc
 {
 
 static nas::ESecurityHeaderType MakeSecurityHeaderType(const NasSecurityContext &ctx, nas::EMessageType msgType,
@@ -182,4 +182,4 @@ uint32_t ComputeMac(nas::ETypeOfIntegrityProtectionAlgorithm alg, NasCount count
     }
 }
 
-} // namespace nr::w_agf::nas_enc
+} // namespace nr::ue::nas_enc

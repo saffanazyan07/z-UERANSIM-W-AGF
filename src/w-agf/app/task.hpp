@@ -25,7 +25,7 @@ class DUAppTask : public NtsTask
 
     DUStatusInfo m_statusInfo;
 
-    friend class DUCmdHandler;
+    friend class WagfCmdHandler;
 
   public:
     explicit DUAppTask(TaskBase *base);

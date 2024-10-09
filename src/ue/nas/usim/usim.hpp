@@ -18,7 +18,7 @@
 #include <utils/common_types.hpp>
 #include <utils/octet_string.hpp>
 
-namespace nr::w_agf
+namespace nr::u
 {
 
 class Usim
@@ -45,4 +45,4 @@ class Usim
     void invalidate();
 };
 
-} // namespace nr::w_agf
+} // namespace nr::u

@@ -42,7 +42,7 @@ extern "C"
     struct ASN_RRC_SIB1;
 }
 
-namespace nr::w_agf
+namespace nr::u
 {
 
 class UeRrcTask : public NtsTask
@@ -139,4 +139,4 @@ class UeRrcTask : public NtsTask
     void performUac(std::shared_ptr<LightSync<UacInput, UacOutput>> &uacCtl);
 };
 
-} // namespace nr::w_agf
+} // namespace nr::u

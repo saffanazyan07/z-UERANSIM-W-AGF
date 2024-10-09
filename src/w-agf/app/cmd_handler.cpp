@@ -18,17 +18,17 @@
 namespace nr::w_agf
 {
 
-void DUCmdHandler::sendResult(const InetAddress &address, const std::string &output)
+void WagfCmdHandler::sendResult(const InetAddress &address, const std::string &output)
 {
     m_base->cliCallbackTask->push(std::make_unique<app::NwCliSendResponse>(address, output, false));
 }
 
-void DUCmdHandler::sendError(const InetAddress &address, const std::string &output)
+void WagfCmdHandler::sendError(const InetAddress &address, const std::string &output)
 {
     m_base->cliCallbackTask->push(std::make_unique<app::NwCliSendResponse>(address, output, true));
 }
 
-void DUCmdHandler::pauseTasks()
+void WagfCmdHandler::pauseTasks()
 {
 //    m_base->gtpTask->requestPause();
 //    m_base->rlsTask->requestPause();
@@ -37,7 +37,7 @@ void DUCmdHandler::pauseTasks()
     m_base->sctpTask->requestPause();
 }
 
-void DUCmdHandler::unpauseTasks()
+void WagfCmdHandler::unpauseTasks()
 {
 //    m_base->gtpTask->requestUnpause();
 //    m_base->rlsTask->requestUnpause();
@@ -46,7 +46,7 @@ void DUCmdHandler::unpauseTasks()
     m_base->sctpTask->requestUnpause();
 }
 
-bool DUCmdHandler::isAllPaused()
+bool WagfCmdHandler::isAllPaused()
 {
 //    if (!m_base->gtpTask->isPauseConfirmed())
 //        return false;
@@ -61,7 +61,7 @@ bool DUCmdHandler::isAllPaused()
     return true;
 }
 
-void DUCmdHandler::handleCmd(NmDUCliCommand &msg)
+void WagfCmdHandler::handleCmd(NmDUCliCommand &msg)
 {
     pauseTasks();
 
@@ -92,7 +92,7 @@ void DUCmdHandler::handleCmd(NmDUCliCommand &msg)
     unpauseTasks();
 }
 
-void DUCmdHandler::handleCmdImpl(NmDUCliCommand &msg)
+void WagfCmdHandler::handleCmdImpl(NmDUCliCommand &msg)
 {
     switch (msg.cmd->present)
     {

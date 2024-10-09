@@ -20,7 +20,7 @@
 #include <asn/rrc/ASN_RRC_RRCSetupRequest-IEs.h>
 #include <asn/rrc/ASN_RRC_RRCSetupRequest.h>
 
-namespace nr::w_agf
+namespace nr::u
 {
 
 static ASN_RRC_UL_CCCH_Message *ConstructSetupRequest(ASN_RRC_InitialUE_Identity_t initialUeId,
@@ -155,4 +155,4 @@ void UeRrcTask::handleEstablishmentFailure()
     m_base->nasTask->push(std::make_unique<NmUeRrcToNas>(NmUeRrcToNas::RRC_ESTABLISHMENT_FAILURE));
 }
 
-} // namespace nr::w_agf
+} // namespace nr::u

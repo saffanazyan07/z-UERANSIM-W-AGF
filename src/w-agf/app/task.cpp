@@ -41,7 +41,7 @@ void DUAppTask::onLoop()
     }
     case NtsMessageType::DU_CLI_COMMAND: {
         auto &w = dynamic_cast<NmDUCliCommand &>(*msg);
-        DUCmdHandler handler{m_base};
+        WagfCmdHandler handler{m_base};
         handler.handleCmd(w);
         break;
     }

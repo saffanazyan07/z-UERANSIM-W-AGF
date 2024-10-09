@@ -14,7 +14,7 @@
 #include <ue/nas/task.hpp>
 #include <ue/rls/task.hpp>
 
-namespace nr::w_agf
+namespace nr::u
 {
 
 void UeRrcTask::performCellSelection()
@@ -288,4 +288,4 @@ bool UeRrcTask::lookForAcceptableCell(ActiveCellInfo &cellInfo, CellSelectionRep
     return true;
 }
 
-} // namespace nr::w_agf
+} // namespace nr::u

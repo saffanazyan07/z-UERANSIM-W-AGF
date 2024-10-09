@@ -14,7 +14,7 @@
 #include <utils/common.hpp>
 #include <utils/random.hpp>
 
-namespace nr::w_agf
+namespace nr::u
 {
 
 UeRlsTask::UeRlsTask(TaskBase *base) : m_base{base}
@@ -145,4 +145,4 @@ void UeRlsTask::onQuit()
     delete m_shCtx;
 }
 
-} // namespace nr::w_agf
+} // namespace nr::u

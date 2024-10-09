@@ -60,7 +60,7 @@ F1AP_PDU *F1apPduFromPduDescription(InitiatingMessage *desc)
 {
     auto pdu = asn::New<F1AP_PDU>();
     pdu->present = F1AP_PDU_PR_initiatingMessage;
-    pdu->choice.initiatingMessage = desc;
+    *pdu->choice.initiatingMessage = *desc;
     return pdu;
 }
 
@@ -68,7 +68,7 @@ F1AP_PDU *F1apPduFromPduDescription(SuccessfulOutcome *desc)
 {
     auto pdu = asn::New<F1AP_PDU>();
     pdu->present = F1AP_PDU_PR_successfulOutcome;
-    pdu->choice.successfulOutcome = desc;
+    *pdu->choice.successfulOutcome = *desc;
     return pdu;
 }
 
@@ -76,7 +76,7 @@ F1AP_PDU *F1apPduFromPduDescription(UnsuccessfulOutcome *desc)
 {
     auto pdu = asn::New<F1AP_PDU>();
     pdu->present = F1AP_PDU_PR_unsuccessfulOutcome;
-    pdu->choice.unsuccessfulOutcome = desc;
+    *pdu->choice.unsuccessfulOutcome = *desc;
     return pdu;
 }
 
@@ -913,17 +913,17 @@ static bool GetProtocolIeInfo(const F1AP_PDU &pdu, const asn_TYPE_descriptor_t &
     if (pdu.present == F1AP_PDU_PR_initiatingMessage)
     {
         desc = &asn_DEF_InitiatingMessage;
-        ptr = pdu.choice.initiatingMessage;
+        ptr = &pdu.choice.initiatingMessage;
     }
     else if (pdu.present == F1AP_PDU_PR_successfulOutcome)
     {
         desc = &asn_DEF_SuccessfulOutcome;
-        ptr = pdu.choice.successfulOutcome;
+        ptr = &pdu.choice.successfulOutcome;
     }
     else if (pdu.present == F1AP_PDU_PR_unsuccessfulOutcome)
     {
         desc = &asn_DEF_UnsuccessfulOutcome;
-        ptr = pdu.choice.unsuccessfulOutcome;
+        ptr = &pdu.choice.unsuccessfulOutcome;
     }
     else
         return false;

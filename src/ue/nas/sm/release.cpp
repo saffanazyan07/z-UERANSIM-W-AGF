@@ -13,7 +13,7 @@
 #include <ue/app/task.hpp>
 #include <ue/nas/mm/mm.hpp>
 
-namespace nr::w_agf
+namespace nr::u
 {
 
 void NasSm::sendReleaseRequest(int psi)
@@ -165,4 +165,4 @@ void NasSm::receiveReleaseCommand(const nas::PduSessionReleaseCommand &msg)
     }
 }
 
-} // namespace nr::w_agf
+} // namespace nr::u

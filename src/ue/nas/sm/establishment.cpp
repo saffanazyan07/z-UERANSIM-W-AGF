@@ -13,7 +13,7 @@
 #include <ue/app/task.hpp>
 #include <ue/nas/mm/mm.hpp>
 
-namespace nr::w_agf
+namespace nr::u
 {
 
 static nas::IE5gSmCapability MakeSmCapability()
@@ -204,4 +204,4 @@ void NasSm::receiveEstablishmentReject(const nas::PduSessionEstablishmentReject 
     }
 }
 
-} // namespace nr::w_agf
+} // namespace nr::u

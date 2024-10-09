@@ -10,13 +10,13 @@
 namespace nr::w_agf
 {
 
-class DUCmdHandler
+class WagfCmdHandler
 {
   private:
     TaskBase *m_base;
 
   public:
-    explicit DUCmdHandler(TaskBase *base) : m_base(base)
+    explicit WagfCmdHandler(TaskBase *base) : m_base(base)
     {
     }
 

@@ -13,7 +13,7 @@
 #include <ue/nas/sm/sm.hpp>
 #include <ue/rrc/task.hpp>
 
-namespace nr::w_agf
+namespace nr::ue
 {
 
 static bool IsInitialNasMessage(const nas::PlainMmMessage &msg)
@@ -389,4 +389,4 @@ bool NasMm::checkForReplay(const nas::SecuredMmMessage &msg)
     return true;
 }
 
-} // namespace nr::w_agf
+} // namespace nr::ue

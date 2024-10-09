@@ -28,7 +28,7 @@
 #include <utils/nts.hpp>
 #include <utils/octet_string.hpp>
 
-namespace nr::w_agf
+namespace nr::ue
 {
 
 class UeAppTask;
@@ -304,7 +304,7 @@ enum class EMmSubState
     MM_DEREGISTERED_ECALL_INACTIVE,
     MM_DEREGISTERED_INITIAL_REGISTRATION_NEEDED,
 
-    MM_REGISTERED_INITIATED_PS,
+   DUCmdHandler MM_REGISTERED_INITIATED_PS,
 
     MM_REGISTERED_PS,
     MM_REGISTERED_NORMAL_SERVICE,
@@ -654,4 +654,4 @@ Json ToJson(const EPsState &v);
 Json ToJson(const EServiceReqCause &v);
 Json ToJson(const ERrcState &v);
 
-} // namespace nr::w_agf
+} // namespace nr::ue

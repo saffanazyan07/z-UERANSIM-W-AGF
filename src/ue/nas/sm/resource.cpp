@@ -13,7 +13,7 @@
 #include <ue/app/task.hpp>
 #include <ue/nas/mm/mm.hpp>
 
-namespace nr::w_agf
+namespace nr::u
 {
 
 static bool IsEstablished(EPsState state)
@@ -155,4 +155,4 @@ bool NasSm::anySessionMatches(const SessionConfig &config)
     });
 }
 
-} // namespace nr::w_agf
+} // namespace nr::u

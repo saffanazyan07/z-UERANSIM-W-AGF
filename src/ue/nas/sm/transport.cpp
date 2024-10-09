@@ -13,7 +13,7 @@
 #include <lib/nas/utils.hpp>
 #include <ue/nas/mm/mm.hpp>
 
-namespace nr::w_agf
+namespace nr::u
 {
 
 static ENasTransportHint MapMsgTypeToHint(nas::EMessageType msgType)
@@ -161,4 +161,4 @@ void NasSm::receiveForwardingFailure(const nas::SmMessage &msg, nas::EMmCause ca
     abortProcedureByPti(msg.pti);
 }
 
-} // namespace nr::w_agf
+} // namespace nr::u

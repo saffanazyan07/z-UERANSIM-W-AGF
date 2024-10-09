@@ -35,7 +35,7 @@ class SctpTask : public NtsTask
     std::unique_ptr<Logger> m_logger;
     std::unordered_map<int, ClientEntry *> m_clients;
 
-    friend class DUCmdHandler;
+    friend class WagfCmdHandler;
 
   public:
     explicit SctpTask(TaskBase *base);

@@ -23,7 +23,7 @@
 #include "ext/crypt-ext/hmac-sha256.h"
 
 
-namespace nr::w_agf
+namespace nr::u
 {
 
 class NasSm;
@@ -206,4 +206,4 @@ class NasMm
     void handleNasEvent(const NmUeNasToNas &msg);
 };
 
-} // namespace nr::w_agf
+} // namespace nr::u

@@ -11,7 +11,7 @@
 #include <ue/nts.hpp>
 #include <ue/types.hpp>
 
-namespace nr::w_agf
+namespace nr::ue
 {
 
 class UeCmdHandler
@@ -39,4 +39,4 @@ class UeCmdHandler
     void sendError(const InetAddress &address, const std::string &output);
 };
 
-} // namespace nr::w_agf
+} // namespace nr::ue

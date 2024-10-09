@@ -10,7 +10,7 @@
 
 #include <stdexcept>
 
-namespace nr::w_agf
+namespace nr::u
 {
 
 SqnManager::SqnManager(uint64_t indBitLen, uint64_t wrappingDelta)
@@ -70,4 +70,4 @@ OctetString SqnManager::getSqn() const
     return OctetString::FromOctet8(getSqnMs()).subCopy(2);
 }
 
-} // namespace nr::w_agf
+} // namespace nr::u

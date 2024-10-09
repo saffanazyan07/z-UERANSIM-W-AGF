@@ -35,9 +35,9 @@ static std::string GetErrorMessage(const std::string &cause)
     return what;
 }
 
-static std::unique_ptr<nr::w_agf::NmUeTunToApp> NmError(std::string &&error)
+static std::unique_ptr<nr::u::NmUeTunToApp> NmError(std::string &&error)
 {
-    auto m = std::make_unique<nr::w_agf::NmUeTunToApp>(nr::w_agf::NmUeTunToApp::TUN_ERROR);
+    auto m = std::make_unique<nr::u::NmUeTunToApp>(nr::u::NmUeTunToApp::TUN_ERROR);
     m->error = std::move(error);
     return m;
 }
@@ -63,7 +63,7 @@ static void ReceiverThread(ReceiverArgs *args)
 
         if (n > 0)
         {
-            auto m = std::make_unique<nr::w_agf::NmUeTunToApp>(nr::w_agf::NmUeTunToApp::DATA_PDU_DELIVERY);
+            auto m = std::make_unique<nr::u::NmUeTunToApp>(nr::u::NmUeTunToApp::DATA_PDU_DELIVERY);
             m->psi = psi;
             m->data = OctetString::FromArray(buffer, static_cast<size_t>(n));
             targetTask->push(std::move(m));
@@ -71,7 +71,7 @@ static void ReceiverThread(ReceiverArgs *args)
     }
 }
 
-namespace nr::w_agf
+namespace nr::u
 {
 
 ue::TunTask::TunTask(TaskBase *base, int psi, int fd) : m_base{base}, m_psi{psi}, m_fd{fd}, m_receiver{}
@@ -120,4 +120,4 @@ void TunTask::onLoop()
     }
 }
 
-} // namespace nr::w_agf
+} // namespace nr::u

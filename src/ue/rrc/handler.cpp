@@ -29,7 +29,7 @@
 #include <asn/rrc/ASN_RRC_ULInformationTransfer-IEs.h>
 #include <asn/rrc/ASN_RRC_ULInformationTransfer.h>
 
-namespace nr::w_agf
+namespace nr::u
 {
 
 void UeRrcTask::receivePaging(const ASN_RRC_Paging &msg)
@@ -56,4 +56,4 @@ void UeRrcTask::receivePaging(const ASN_RRC_Paging &msg)
     m_base->nasTask->push(std::move(w));
 }
 
-} // namespace nr::w_agf
+} // namespace nr::u

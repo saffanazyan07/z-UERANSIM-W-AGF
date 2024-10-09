@@ -309,7 +309,7 @@ static void AddIpRoutes(const std::string &if_name, const std::string &table_nam
     std::string output = ExecStrict(cmd.str());
 }
 
-namespace nr::w_agf::tun
+namespace nr::u::tun
 {
 
 int AllocateTun(const char *ifPrefix, char **allocatedName)
@@ -368,4 +368,4 @@ void ConfigureTun(const char *tunName, const char *ipAddr, int mtu, bool configu
     }
 }
 
-} // namespace nr::w_agf::tun
+} // namespace nr::u::tun

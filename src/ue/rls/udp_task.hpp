@@ -17,7 +17,7 @@
 #include <ue/types.hpp>
 #include <utils/nts.hpp>
 
-namespace nr::w_agf
+namespace nr::u
 {
 
 class RlsUdpTask : public NtsTask
@@ -65,4 +65,4 @@ class RlsUdpTask : public NtsTask
     void send(int cellId, const rls::RlsMessage &msg);
 };
 
-} // namespace nr::w_agf
+} // namespace nr::u

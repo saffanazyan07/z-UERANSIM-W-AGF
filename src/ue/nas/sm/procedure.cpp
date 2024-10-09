@@ -12,7 +12,7 @@
 #include <ue/app/task.hpp>
 #include <ue/nas/mm/mm.hpp>
 
-namespace nr::w_agf
+namespace nr::u
 {
 
 bool NasSm::checkPtiAndPsi(const nas::SmMessage &msg)
@@ -84,4 +84,4 @@ void NasSm::abortProcedureByPtiOrPsi(int pti, int psi)
         abortProcedureByPti(id);
 }
 
-} // namespace nr::w_agf
+} // namespace nr::u

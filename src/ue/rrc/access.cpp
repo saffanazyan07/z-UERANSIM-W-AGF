@@ -13,7 +13,7 @@
 #include <lib/rrc/encode.hpp>
 #include <ue/nas/task.hpp>
 
-namespace nr::w_agf
+namespace nr::u
 {
 
 void UeRrcTask::performUac(std::shared_ptr<LightSync<UacInput, UacOutput>> &uacCtl)
@@ -64,4 +64,4 @@ void UeRrcTask::performUac(std::shared_ptr<LightSync<UacInput, UacOutput>> &uacC
     uacCtl->notifyProcessed(std::move(output));
 }
 
-} // namespace nr::w_agf
+} // namespace nr::u

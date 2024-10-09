@@ -9,7 +9,7 @@
 #include "sm.hpp"
 #include <lib/nas/utils.hpp>
 
-namespace nr::w_agf
+namespace nr::u
 {
 
 int NasSm::allocatePduSessionId(const SessionConfig &config)
@@ -76,4 +76,4 @@ void NasSm::freePduSessionId(int psi)
     m_pduSessions[psi]->psState = EPsState::INACTIVE;
 }
 
-} // namespace nr::w_agf
+} // namespace nr::u

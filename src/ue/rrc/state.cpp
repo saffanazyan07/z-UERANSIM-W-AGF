@@ -13,7 +13,7 @@
 #include <lib/rrc/encode.hpp>
 #include <ue/nas/task.hpp>
 
-namespace nr::w_agf
+namespace nr::u
 {
 
 void UeRrcTask::triggerCycle()
@@ -56,4 +56,4 @@ void UeRrcTask::onSwitchState(ERrcState oldState, ERrcState newState)
 {
 }
 
-} // namespace nr::w_agf
+} // namespace nr::u

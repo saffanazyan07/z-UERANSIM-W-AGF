@@ -16,7 +16,7 @@
 #include <ue/rrc/task.hpp>
 #include <utils/common.hpp>
 
-namespace nr::w_agf
+namespace nr::u
 {
 
 static void AssignCause(std::optional<EInitialRegCause> &oldCause, EInitialRegCause newCause)
@@ -201,4 +201,4 @@ bool NasMm::hasPendingProcedure()
     return false;
 }
 
-} // namespace nr::w_agf
+} // namespace nr::u

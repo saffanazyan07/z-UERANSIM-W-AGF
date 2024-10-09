@@ -27,8 +27,8 @@
 #include <yaml-cpp/yaml.h>
 
 static app::CliServer *g_cliServer = nullptr;
-static nr::w_agf::UeConfig *g_refConfig = nullptr;
-static ConcurrentMap<std::string, nr::w_agf::UserEquipment *> g_ueMap{};
+static nr::ue::UeConfig *g_refConfig = nullptr;
+static ConcurrentMap<std::string, nr::ue::UserEquipment *> g_ueMap{};
 static app::CliResponseTask *g_cliRespTask = nullptr;
 
 static struct Options
@@ -49,7 +49,7 @@ struct NwUeControllerCmd : NtsMessage
     } present;
 
     // PERFORM_SWITCH_OFF
-    nr::w_agf::UserEquipment *ue{};
+    nr::ue::UserEquipment *ue{};
 
     explicit NwUeControllerCmd(PR present) : NtsMessage(NtsMessageType::UE_CTL_COMMAND), present(present)
     {
@@ -100,9 +100,9 @@ class UeControllerTask : public NtsTask
 
 static UeControllerTask *g_controllerTask;
 //zy start
-static nr::w_agf::UeConfig *ReadConfigYaml()
+static nr::ue::UeConfig *ReadConfigYaml()
 {
-    auto *result = new nr::w_agf::UeConfig();
+    auto *result = new nr::ue::UeConfig();
     auto config = YAML::LoadFile(g_options.configFile);
 
     result->hplmn.mcc = yaml::GetInt32(config, "mcc", 1, 999);
@@ -176,9 +176,9 @@ static nr::w_agf::UeConfig *ReadConfigYaml()
 
     std::string opType = yaml::GetString(config, "opType");
     if (opType == "OP")
-        result->opType = nr::w_agf::OpType::OP;
+        result->opType = nr::ue::OpType::OP;
     else if (opType == "OPC")
-        result->opType = nr::w_agf::OpType::OPC;
+        result->opType = nr::ue::OpType::OPC;
     else
         throw std::runtime_error("Invalid OP type: " + opType);
 
@@ -186,7 +186,7 @@ static nr::w_agf::UeConfig *ReadConfigYaml()
     {
         for (auto &sess : yaml::GetSequence(config, "sessions"))
         {
-            nr::w_agf::SessionConfig s{};
+            nr::ue::SessionConfig s{};
 
             if (yaml::HasField(sess, "apn"))
                 s.apn = yaml::GetString(sess, "apn");
@@ -346,9 +346,9 @@ static void IncrementNumber(std::string &s, int delta)
     s = LargeSum(s, std::to_string(delta));
 }
 
-static nr::w_agf::UeConfig *GetConfigByUe(int ueIndex)
+static nr::ue::UeConfig *GetConfigByUe(int ueIndex)
 {
-    auto *c = new nr::w_agf::UeConfig();
+    auto *c = new nr::ue::UeConfig();
     c->key = g_refConfig->key.copy();
     c->opC = g_refConfig->opC.copy();
     c->opType = g_refConfig->opType;
@@ -470,7 +470,7 @@ static void Loop()
 static class UeController : public app::IUeController
 {
   public:
-    void performSwitchOff(nr::w_agf::UserEquipment *ue) override
+    void performSwitchOff(nr::ue::UserEquipment *ue) override
     {
         auto w = std::make_unique<NwUeControllerCmd>(NwUeControllerCmd::PERFORM_SWITCH_OFF);
         w->ue = ue;
@@ -509,7 +509,7 @@ int main(int argc, char **argv)
     for (int i = 0; i < g_options.count; i++)
     {
         auto *config = GetConfigByUe(i);
-        auto *ue = new nr::w_agf::UserEquipment(config, &g_ueController, nullptr, g_cliRespTask);
+        auto *ue = new nr::ue::UserEquipment(config, &g_ueController, nullptr, g_cliRespTask);
         g_ueMap.put(config->getNodeName(), ue);
     }
 

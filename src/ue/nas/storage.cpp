@@ -17,7 +17,7 @@ static void BackupTaiListInSharedCtx(const std::vector<Tai> &buffer, size_t coun
     });
 }
 
-namespace nr::w_agf
+namespace nr::ue
 {
 
 MmStorage::MmStorage(TaskBase *base) : m_base{base}
@@ -76,4 +76,4 @@ MmStorage::MmStorage(TaskBase *base) : m_base{base}
     configuredNssai->set(m_base->config->configuredNssai);
 }
 
-} // namespace nr::w_agf
+} // namespace nr::ue

@@ -18,7 +18,7 @@
 #include <utils/nts.hpp>
 #include <vector>
 
-namespace nr::w_agf
+namespace nr::ue
 {
 
 class UeAppTask : public NtsTask
@@ -46,4 +46,4 @@ class UeAppTask : public NtsTask
     void setupTunInterface(const PduSession *pduSession);
 };
 
-} // namespace nr::w_agf
+} // namespace nr::ue

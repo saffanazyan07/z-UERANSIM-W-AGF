@@ -10,7 +10,7 @@
 
 #include <ue/types.hpp>
 
-namespace nr::w_agf::keys
+namespace nr::ue::keys
 {
 
 /**
@@ -76,4 +76,4 @@ OctetString CalculateResStar(const OctetString &key, const std::string &snn, con
  */
 OctetString CalculateAuts(const OctetString &sqn, const OctetString &ak, const OctetString &macS);
 
-} // namespace nr::w_agf::keys
+} // namespace nr::ue::keys

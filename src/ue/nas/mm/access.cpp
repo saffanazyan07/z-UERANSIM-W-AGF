@@ -16,7 +16,7 @@
 
 #include <asn/rrc/ASN_RRC_EstablishmentCause.h>
 
-namespace nr::w_agf
+namespace nr::ue
 {
 
 static std::string AccessIdentitiesToString(const std::bitset<16> &ais)
@@ -306,4 +306,4 @@ EUacResult NasMm::performUac()
     }
 }
 
-} // namespace nr::w_agf
+} // namespace nr::ue

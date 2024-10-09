@@ -21,7 +21,7 @@ static constexpr const int LOOP_PERIOD = 1000;
 static constexpr const int RECEIVE_TIMEOUT = 200;
 static constexpr const int HEARTBEAT_THRESHOLD = 2000; // (LOOP_PERIOD + RECEIVE_TIMEOUT)'dan büyük olmalı
 
-namespace nr::w_agf
+namespace nr::u
 {
 
 RlsUdpTask::RlsUdpTask(TaskBase *base, RlsSharedContext *shCtx, const std::vector<std::string> &searchSpace)
@@ -172,4 +172,4 @@ void RlsUdpTask::initialize(NtsTask *ctlTask)
     m_ctlTask = ctlTask;
 }
 
-} // namespace nr::w_agf
+} // namespace nr::u

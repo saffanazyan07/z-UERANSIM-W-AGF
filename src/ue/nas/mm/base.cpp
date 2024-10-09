@@ -15,7 +15,7 @@
 #include <ue/rrc/task.hpp>
 #include <utils/common.hpp>
 
-namespace nr::w_agf
+namespace nr::ue
 {
 
 static EMmState GetMmStateFromSubState(EMmSubState subState)
@@ -445,4 +445,4 @@ void NasMm::onSimRemoval()
     switchMmState(EMmSubState::MM_DEREGISTERED_PS);
 }
 
-} // namespace nr::w_agf
+} // namespace nr::ue
