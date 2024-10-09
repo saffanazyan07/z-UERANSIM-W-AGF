@@ -1214,7 +1214,7 @@ struct F1apMessageTypeToEnum<ULRRCMessageTransfer>
         V = (int)F1apMessageType::ULRRCMessageTransfer
     };
 };
-template <>
+
 /*
 template <>
 struct F1apMessageTypeToEnum<ASN_NGAP_UplinkNonUEAssociatedNRPPaTransport>
