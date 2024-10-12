@@ -60,7 +60,7 @@ F1AP_PDU *F1apPduFromPduDescription(InitiatingMessage *desc)
 {
     auto pdu = asn::New<F1AP_PDU>();
     pdu->present = F1AP_PDU_PR_initiatingMessage;
-    *pdu->choice.initiatingMessage = *desc;
+    pdu->choice.initiatingMessage = *desc;
     return pdu;
 }
 
@@ -68,7 +68,7 @@ F1AP_PDU *F1apPduFromPduDescription(SuccessfulOutcome *desc)
 {
     auto pdu = asn::New<F1AP_PDU>();
     pdu->present = F1AP_PDU_PR_successfulOutcome;
-    *pdu->choice.successfulOutcome = *desc;
+    pdu->choice.successfulOutcome = *desc;
     return pdu;
 }
 
@@ -76,7 +76,7 @@ F1AP_PDU *F1apPduFromPduDescription(UnsuccessfulOutcome *desc)
 {
     auto pdu = asn::New<F1AP_PDU>();
     pdu->present = F1AP_PDU_PR_unsuccessfulOutcome;
-    *pdu->choice.unsuccessfulOutcome = *desc;
+    pdu->choice.unsuccessfulOutcome = *desc;
     return pdu;
 }
 
@@ -900,6 +900,119 @@ struct IeFieldInfo
 
 static bool GetProtocolIeInfo(const F1AP_PDU &pdu, const asn_TYPE_descriptor_t &ieType, IeFieldInfo &info)
 {
+    if (!utils::IsLittleEndian())
+        throw std::runtime_error("Big Endian architecture is not supported");
+
+    const asn_TYPE_descriptor_t *desc = nullptr;
+    const void *ptr = nullptr;
+
+    // Check the present value of the PDU
+    switch (pdu.present)
+    {
+    case F1AP_PDU_PR_initiatingMessage:
+        desc = &asn_DEF_InitiatingMessage;
+        ptr = static_cast<const void*>(&pdu.choice.initiatingMessage);
+        break;
+    case F1AP_PDU_PR_successfulOutcome:
+        desc = &asn_DEF_SuccessfulOutcome;
+        ptr = static_cast<const void*>(&pdu.choice.successfulOutcome);
+        break;
+    case F1AP_PDU_PR_unsuccessfulOutcome:
+        desc = &asn_DEF_UnsuccessfulOutcome;
+        ptr = static_cast<const void*>(&pdu.choice.unsuccessfulOutcome);
+        break;
+    default:
+        return false;
+    }
+
+    // Navigate to the IE container
+    ptr = static_cast<const int8_t*>(ptr) + desc->elements[2].memb_offset;
+    desc = desc->elements[2].type;
+
+    const auto *members = desc->elements;
+    unsigned memberCount = desc->elements_count;
+
+    const auto *choiceSpecs = reinterpret_cast<const asn_CHOICE_specifics_t *>(desc->specifics);
+    unsigned presentEnumSize = choiceSpecs->pres_size;
+
+    const auto *presPtr = static_cast<const int8_t*>(ptr) + choiceSpecs->pres_offset;
+
+    // Read the present value
+    uint64_t presentValue = 0;
+    for (unsigned i = 0; i < presentEnumSize; i++)
+        presentValue += (static_cast<uint64_t>(*(presPtr + i)) & 0xFF) << (i * 8);
+
+    if (presentValue == 0 || presentValue > memberCount)
+        return false;
+
+    // Cast safely and ensure const correctness
+    ptr = static_cast<const int8_t*>(ptr) + members[presentValue - 1].memb_offset;
+    desc = members[presentValue - 1].type;
+
+    members = desc->elements;
+    memberCount = desc->elements_count;
+
+    ptr = static_cast<const int8_t*>(ptr) + members[0].memb_offset;
+    desc = members[0].type;
+
+    // Cast to const void* to avoid issues
+    info.protocolIeContainerPtr = const_cast<void*>(ptr);
+
+    members = desc->elements;
+    memberCount = desc->elements_count;
+
+    ptr = static_cast<const int8_t*>(ptr) + members[0].memb_offset;
+    desc = members[0].type;
+
+    members = desc->elements;
+    memberCount = desc->elements_count;
+
+    info.ieIdOffset = members[0].memb_offset;
+    info.ieCriticalityOffset = members[1].memb_offset;
+    info.ieStructSize = reinterpret_cast<const asn_SEQUENCE_specifics_t *>(desc->specifics)->struct_size;
+
+    info.listPtr = const_cast<void*>(ptr);
+
+    info.presOffset = members[2].memb_offset;
+    info.choiceOffset = members[2].memb_offset;
+
+    ptr = static_cast<const int8_t*>(ptr) + members[2].memb_offset;
+    desc = members[2].type;
+
+    members = desc->elements;
+    memberCount = desc->elements_count;
+
+    choiceSpecs = reinterpret_cast<const asn_CHOICE_specifics_t *>(desc->specifics);
+    info.presOffset += choiceSpecs->pres_offset;
+
+    info.presSize = choiceSpecs->pres_size;
+
+    info.memberIndex = ~0U;
+
+    for (unsigned i = 0; i < memberCount; i++)
+    {
+        if (members[i].type == &ieType)
+        {
+            info.memberIndex = i;
+            break;
+        }
+    }
+
+    if (info.memberIndex == ~0U)
+        return false;
+
+    ptr = static_cast<const int8_t*>(ptr) + members[info.memberIndex].memb_offset;
+    desc = members[info.memberIndex].type;
+
+    info.choiceOffset += members[info.memberIndex].memb_offset;
+
+    info.list = reinterpret_cast<asn_anonymous_set_ *>(info.listPtr);
+
+    return true;
+}
+
+/*static bool GetProtocolIeInfo(const F1AP_PDU &pdu, const asn_TYPE_descriptor_t &ieType, IeFieldInfo &info)
+{
     // This function assumes all ASN structs are "C++ standard layout".
     // Therefore no problem is expected since the structs are already standard layout.
 
@@ -908,27 +1021,27 @@ static bool GetProtocolIeInfo(const F1AP_PDU &pdu, const asn_TYPE_descriptor_t &
         throw std::runtime_error("Big Endian architecture is not supported");
 
     asn_TYPE_descriptor_t *desc;
-    void *ptr;
+    const void *ptr;
 
     if (pdu.present == F1AP_PDU_PR_initiatingMessage)
     {
         desc = &asn_DEF_InitiatingMessage;
-        ptr = &pdu.choice.initiatingMessage;
+        ptr = static_cast<const void*>(&pdu.choice.initiatingMessage);
     }
     else if (pdu.present == F1AP_PDU_PR_successfulOutcome)
     {
         desc = &asn_DEF_SuccessfulOutcome;
-        ptr = &pdu.choice.successfulOutcome;
+        ptr = static_cast<const void*>(&pdu.choice.successfulOutcome);
     }
     else if (pdu.present == F1AP_PDU_PR_unsuccessfulOutcome)
     {
         desc = &asn_DEF_UnsuccessfulOutcome;
-        ptr = &pdu.choice.unsuccessfulOutcome;
+        ptr = static_cast<const void*>(&pdu.choice.unsuccessfulOutcome);
     }
     else
         return false;
 
-    ptr = reinterpret_cast<int8_t *>(ptr) + desc->elements[2].memb_offset;
+    ptr = static_cast<const int8_t*>(ptr) + desc->elements[2].memb_offset;
     desc = desc->elements[2].type;
 
     auto members = desc->elements;
@@ -938,7 +1051,8 @@ static bool GetProtocolIeInfo(const F1AP_PDU &pdu, const asn_TYPE_descriptor_t &
 
     unsigned presentEnumSize = choiceSpecs->pres_size;
 
-    auto presPtr = reinterpret_cast<int8_t *>(ptr) + choiceSpecs->pres_offset;
+    auto presPtr = static_cast<const int8_t*>(ptr) + choiceSpecs->pres_offset;
+    //auto presPtr = reinterpret_cast<int8_t *>(ptr) + choiceSpecs->pres_offset;
 
     uint64_t presentValue = 0;
     for (unsigned i = 0; i < presentEnumSize; i++)
@@ -947,7 +1061,8 @@ static bool GetProtocolIeInfo(const F1AP_PDU &pdu, const asn_TYPE_descriptor_t &
     if (presentValue == 0)
         return false;
 
-    ptr = reinterpret_cast<int8_t *>(ptr) + members[presentValue - 1].memb_offset;
+    ptr = static_cast<const int8_t*>(ptr) + members[presentValue - 1].memb_offset;
+    //ptr = reinterpret_cast<int8_t *>(ptr) + members[presentValue - 1].memb_offset;
     desc = members[presentValue - 1].type;
 
     members = desc->elements;
@@ -971,7 +1086,8 @@ static bool GetProtocolIeInfo(const F1AP_PDU &pdu, const asn_TYPE_descriptor_t &
     info.ieCriticalityOffset = members[1].memb_offset;
     info.ieStructSize = reinterpret_cast<const asn_SEQUENCE_specifics_t *>(desc->specifics)->struct_size;
 
-    info.listPtr = ptr;
+    info.listPtr = const_cast<void*>(ptr);
+    //info.listPtr = ptr;
 
     info.presOffset = members[2].memb_offset;
     info.choiceOffset = members[2].memb_offset;
@@ -1011,7 +1127,7 @@ static bool GetProtocolIeInfo(const F1AP_PDU &pdu, const asn_TYPE_descriptor_t &
 
     return true;
 }
-
+*/
 bool IsProtocolIeUsable(const F1AP_PDU &pdu, const asn_TYPE_descriptor_t &ieType)
 {
     IeFieldInfo inf{};
