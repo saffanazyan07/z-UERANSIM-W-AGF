@@ -20,8 +20,7 @@
 #include <asn/f1ap/GNB-DU-UE-F1AP-ID.h>
 #include <asn/f1ap/SuccessfulOutcome.h>
 #include <asn/f1ap/UnsuccessfulOutcome.h>
-#include <asn/f1ap/ASN_NGAP_UserLocationInformation.h>
-#include <asn/f1ap/ASN_NGAP_UserLocationInformationNR.h>
+
 
 static e_Criticality FindCriticalityOfUserIe(F1AP_PDU *pdu, ProtocolIE_ID_t ieId)
 {
@@ -30,58 +29,58 @@ static e_Criticality FindCriticalityOfUserIe(F1AP_PDU *pdu, ProtocolIE_ID_t ieId
         : pdu->present == F1AP_PDU_PR_successfulOutcome ? pdu->choice.successfulOutcome->procedureCode
                                                                  : pdu->choice.unsuccessfulOutcome->procedureCode;
 
-    if (ieId == ASN_NGAP_ProtocolIE_ID_id_UserLocationInformation)
+    if (ieId == ProtocolIE_ID_id_UserLocationInformation)
     {
-        return procedureCode == ASN_NGAP_ProcedureCode_id_InitialUEMessage ? ASN_NGAP_Criticality_reject
-                                                                           : ASN_NGAP_Criticality_ignore;
+        return procedureCode == ProcedureCode_id_InitialUEMessage ? Criticality_reject
+                                                                           : Criticality_ignore;
     }
 
-    if (ieId == ASN_NGAP_ProtocolIE_ID_id_RAN_UE_NGAP_ID || ieId == ASN_NGAP_ProtocolIE_ID_id_AMF_UE_NGAP_ID)
+    if (ieId == ProtocolIE_ID_id_DU_UE_F1AP_ID || ieId == ProtocolIE_ID_id_CU_UE_F1AP_ID)
     {
-        if (procedureCode == ASN_NGAP_ProcedureCode_id_RerouteNASRequest)
+        if (procedureCode == ProcedureCode_id_RerouteNASRequest)
         {
-            return ieId == ASN_NGAP_ProtocolIE_ID_id_RAN_UE_NGAP_ID ? ASN_NGAP_Criticality_reject
-                                                                    : ASN_NGAP_Criticality_ignore;
+            return ieId == ProtocolIE_ID_id_DU_UE_F1AP_ID ? Criticality_reject
+                                                                    : Criticality_ignore;
         }
 
         if (pdu->present == F1AP_PDU_PR_initiatingMessage)
         {
-            if (procedureCode == ASN_NGAP_ProcedureCode_id_UEContextReleaseRequest ||
-                procedureCode == ASN_NGAP_ProcedureCode_id_HandoverPreparation)
-                return ASN_NGAP_Criticality_reject;
+            if (procedureCode == ProcedureCode_id_UEContextReleaseRequest ||
+                procedureCode == ProcedureCode_id_HandoverPreparation)
+                return Criticality_reject;
         }
 
-        if (procedureCode == ASN_NGAP_ProcedureCode_id_PDUSessionResourceNotify ||
-            procedureCode == ASN_NGAP_ProcedureCode_id_PDUSessionResourceModifyIndication ||
-            procedureCode == ASN_NGAP_ProcedureCode_id_RRCInactiveTransitionReport ||
-            procedureCode == ASN_NGAP_ProcedureCode_id_HandoverNotification ||
-            procedureCode == ASN_NGAP_ProcedureCode_id_PathSwitchRequest ||
-            procedureCode == ASN_NGAP_ProcedureCode_id_HandoverCancel ||
-            procedureCode == ASN_NGAP_ProcedureCode_id_UplinkRANStatusTransfer ||
-            procedureCode == ASN_NGAP_ProcedureCode_id_InitialUEMessage ||
-            procedureCode == ASN_NGAP_ProcedureCode_id_DownlinkNASTransport ||
-            procedureCode == ASN_NGAP_ProcedureCode_id_UplinkNASTransport ||
-            procedureCode == ASN_NGAP_ProcedureCode_id_NASNonDeliveryIndication ||
-            procedureCode == ASN_NGAP_ProcedureCode_id_UplinkUEAssociatedNRPPaTransport ||
-            procedureCode == ASN_NGAP_ProcedureCode_id_UplinkNonUEAssociatedNRPPaTransport ||
-            procedureCode == ASN_NGAP_ProcedureCode_id_CellTrafficTrace ||
-            procedureCode == ASN_NGAP_ProcedureCode_id_TraceStart ||
-            procedureCode == ASN_NGAP_ProcedureCode_id_DeactivateTrace ||
-            procedureCode == ASN_NGAP_ProcedureCode_id_TraceFailureIndication ||
-            procedureCode == ASN_NGAP_ProcedureCode_id_LocationReport ||
-            procedureCode == ASN_NGAP_ProcedureCode_id_LocationReportingControl ||
-            procedureCode == ASN_NGAP_ProcedureCode_id_LocationReportingFailureIndication ||
-            procedureCode == ASN_NGAP_ProcedureCode_id_UERadioCapabilityInfoIndication)
-            return ASN_NGAP_Criticality_reject;
+        if (procedureCode == ProcedureCode_id_PDUSessionResourceNotify ||
+            procedureCode == ProcedureCode_id_PDUSessionResourceModifyIndication ||
+            procedureCode == ProcedureCode_id_RRCInactiveTransitionReport ||
+            procedureCode == ProcedureCode_id_HandoverNotification ||
+            procedureCode == ProcedureCode_id_PathSwitchRequest ||
+            procedureCode == ProcedureCode_id_HandoverCancel ||
+            procedureCode == ProcedureCode_id_UplinkRANStatusTransfer ||
+            procedureCode == ProcedureCode_id_InitialUEMessage ||
+            procedureCode == ProcedureCode_id_DownlinkNASTransport ||
+            procedureCode == ProcedureCode_id_UplinkNASTransport ||
+            procedureCode == ProcedureCode_id_NASNonDeliveryIndication ||
+            procedureCode == ProcedureCode_id_UplinkUEAssociatedNRPPaTransport ||
+            procedureCode == ProcedureCode_id_UplinkNonUEAssociatedNRPPaTransport ||
+            procedureCode == ProcedureCode_id_CellTrafficTrace ||
+            procedureCode == ProcedureCode_id_TraceStart ||
+            procedureCode == ProcedureCode_id_DeactivateTrace ||
+            procedureCode == ProcedureCode_id_TraceFailureIndication ||
+            procedureCode == ProcedureCode_id_LocationReport ||
+            procedureCode == ProcedureCode_id_LocationReportingControl ||
+            procedureCode == ProcedureCode_id_LocationReportingFailureIndication ||
+            procedureCode == ProcedureCode_id_UERadioCapabilityInfoIndication)
+            return Criticality_reject;
     }
 
-    return ASN_NGAP_Criticality_ignore;
+    return Criticality_ignore;
 }
 
 namespace nr::CU
 {
 
-void NgapTask::sendNgapNonUe(int associatedAmf, F1AP_PDU *pdu)
+void F1apTask::sendNgapNonUe(int associatedAmf, F1AP_PDU *pdu)
 {
     auto *amf = findAmfContext(associatedAmf);
     if (amf == nullptr)
@@ -95,7 +94,7 @@ void NgapTask::sendNgapNonUe(int associatedAmf, F1AP_PDU *pdu)
 
     if (asn_check_constraints(&asn_DEF_F1AP_PDU, pdu, errorBuffer, &len) != 0)
     {
-        m_logger->err("NGAP PDU ASN constraint validation failed");
+        m_logger->err("F1AP PDU ASN constraint validation failed");
         asn::Free(asn_DEF_F1AP_PDU, pdu);
         return;
     }
@@ -103,7 +102,7 @@ void NgapTask::sendNgapNonUe(int associatedAmf, F1AP_PDU *pdu)
     ssize_t encoded;
     uint8_t *buffer;
     if (!ngap_encode::Encode(asn_DEF_F1AP_PDU, pdu, encoded, buffer))
-        m_logger->err("NGAP APER encoding failed");
+        m_logger->err("F1AP APER encoding failed");
     else
     {
         auto msg = std::make_unique<NmCUSctp>(NmCUSctp::SEND_MESSAGE);
@@ -126,7 +125,7 @@ void NgapTask::sendNgapNonUe(int associatedAmf, F1AP_PDU *pdu)
     asn::Free(asn_DEF_F1AP_PDU, pdu);
 }
 
-void NgapTask::sendNgapUeAssociated(int ueId, F1AP_PDU *pdu)
+void F1apTask::sendNgapUeAssociated(int ueId, F1AP_PDU *pdu)
 {
     /* Find UE and AMF contexts */
 
@@ -149,21 +148,21 @@ void NgapTask::sendNgapUeAssociated(int ueId, F1AP_PDU *pdu)
         if (ue->amfUeNgapId > 0)
         {
             asn::ngap::AddProtocolIeIfUsable(
-                *pdu, asn_DEF_ASN_NGAP_AMF_UE_NGAP_ID, ASN_NGAP_ProtocolIE_ID_id_AMF_UE_NGAP_ID,
-                FindCriticalityOfUserIe(pdu, ASN_NGAP_ProtocolIE_ID_id_AMF_UE_NGAP_ID), [ue](void *mem) {
+                *pdu, asn_DEF_ASN_NGAP_AMF_UE_NGAP_ID, ProtocolIE_ID_id_CU_UE_F1AP_ID,
+                FindCriticalityOfUserIe(pdu, ProtocolIE_ID_id_CU_UE_F1AP_ID), [ue](void *mem) {
                     auto &id = *reinterpret_cast<ASN_NGAP_AMF_UE_NGAP_ID_t *>(mem);
                     asn::SetSigned64(ue->amfUeNgapId, id);
                 });
         }
 
         asn::ngap::AddProtocolIeIfUsable(
-            *pdu, asn_DEF_ASN_NGAP_RAN_UE_NGAP_ID, ASN_NGAP_ProtocolIE_ID_id_RAN_UE_NGAP_ID,
-            FindCriticalityOfUserIe(pdu, ASN_NGAP_ProtocolIE_ID_id_RAN_UE_NGAP_ID),
+            *pdu, asn_DEF_ASN_NGAP_RAN_UE_NGAP_ID, ProtocolIE_ID_id_DU_UE_F1AP_ID,
+            FindCriticalityOfUserIe(pdu, ProtocolIE_ID_id_DU_UE_F1AP_ID),
             [ue](void *mem) { *reinterpret_cast<ASN_NGAP_RAN_UE_NGAP_ID_t *>(mem) = ue->ranUeNgapId; });
 
         asn::ngap::AddProtocolIeIfUsable(
-            *pdu, asn_DEF_ASN_NGAP_UserLocationInformation, ASN_NGAP_ProtocolIE_ID_id_UserLocationInformation,
-            FindCriticalityOfUserIe(pdu, ASN_NGAP_ProtocolIE_ID_id_UserLocationInformation), [this](void *mem) {
+            *pdu, asn_DEF_ASN_NGAP_UserLocationInformation, ProtocolIE_ID_id_UserLocationInformation,
+            FindCriticalityOfUserIe(pdu, ProtocolIE_ID_id_UserLocationInformation), [this](void *mem) {
                 auto *loc = reinterpret_cast<ASN_NGAP_UserLocationInformation *>(mem);
                 loc->present = ASN_NGAP_UserLocationInformation_PR_userLocationInformationNR;
                 loc->choice.userLocationInformationNR = asn::New<ASN_NGAP_UserLocationInformationNR>();
@@ -217,7 +216,7 @@ void NgapTask::sendNgapUeAssociated(int ueId, F1AP_PDU *pdu)
     asn::Free(asn_DEF_F1AP_PDU, pdu);
 }
 
-void NgapTask::handleSctpMessage(int amfId, uint16_t stream, const UniqueBuffer &buffer)
+void F1apTask::handleSctpMessage(int amfId, uint16_t stream, const UniqueBuffer &buffer)
 {
     auto *amf = findAmfContext(amfId);
     if (amf == nullptr)
@@ -290,7 +289,7 @@ void NgapTask::handleSctpMessage(int amfId, uint16_t stream, const UniqueBuffer 
             receivePaging(amf->ctxId, &value.choice.Paging);
             break;
         default:
-            m_logger->err("Unhandled NGAP initiating-message received (%d)", value.present);
+            m_logger->err("Unhandled F1AP initiating-message received (%d)", value.present);
             break;
         }
     }
@@ -303,7 +302,7 @@ void NgapTask::handleSctpMessage(int amfId, uint16_t stream, const UniqueBuffer 
             receiveNgSetupResponse(amf->ctxId, &value.choice.NGSetupResponse);
             break;
         default:
-            m_logger->err("Unhandled NGAP successful-outcome received (%d)", value.present);
+            m_logger->err("Unhandled F1AP successful-outcome received (%d)", value.present);
             break;
         }
     }
@@ -316,25 +315,25 @@ void NgapTask::handleSctpMessage(int amfId, uint16_t stream, const UniqueBuffer 
             receiveNgSetupFailure(amf->ctxId, &value.choice.NGSetupFailure);
             break;
         default:
-            m_logger->err("Unhandled NGAP unsuccessful-outcome received (%d)", value.present);
+            m_logger->err("Unhandled F1AP unsuccessful-outcome received (%d)", value.present);
             break;
         }
     }
     else
     {
-        m_logger->warn("Empty NGAP PDU ignored");
+        m_logger->warn("Empty F1AP PDU ignored");
     }
 
     asn::Free(asn_DEF_F1AP_PDU, pdu);
 }
 
-bool NgapTask::handleSctpStreamId(int amfId, int stream, const F1AP_PDU &pdu)
+bool F1apTask::handleSctpStreamId(int amfId, int stream, const F1AP_PDU &pdu)
 {
     if (m_base->config->ignoreStreamIds)
         return true;
 
     auto *ptr =
-        asn::ngap::FindProtocolIeInPdu(pdu, asn_DEF_ASN_NGAP_UE_NGAP_IDs, ASN_NGAP_ProtocolIE_ID_id_UE_NGAP_IDs);
+        asn::ngap::FindProtocolIeInPdu(pdu, asn_DEF_ASN_NGAP_UE_NGAP_IDs, ProtocolIE_ID_id_UE_NGAP_IDs);
     if (ptr != nullptr)
     {
         if (stream == 0)
@@ -362,7 +361,7 @@ bool NgapTask::handleSctpStreamId(int amfId, int stream, const F1AP_PDU &pdu)
     else
     {
         ptr = asn::ngap::FindProtocolIeInPdu(pdu, asn_DEF_ASN_NGAP_RAN_UE_NGAP_ID,
-                                             ASN_NGAP_ProtocolIE_ID_id_RAN_UE_NGAP_ID);
+                                             ProtocolIE_ID_id_DU_UE_F1AP_ID);
         if (ptr != nullptr)
         {
             if (stream == 0)
@@ -372,7 +371,7 @@ bool NgapTask::handleSctpStreamId(int amfId, int stream, const F1AP_PDU &pdu)
                 return false;
             }
 
-            auto id = static_cast<int64_t>(*reinterpret_cast<ASN_NGAP_RAN_UE_NGAP_ID_t *>(ptr));
+            auto id = static_cast<int64_t>(*reinterpret_cast<GNB_DU_UE_F1AP_ID_t *>(ptr));
             auto *ue = findUeByRanId(id);
             if (ue == nullptr)
                 return false;
