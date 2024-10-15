@@ -16,6 +16,7 @@
 
 #include <utils/scoped_thread.hpp>
 #include <asn/ngap/ASN_NGAP_QosFlowSetupRequestList.h>
+
 #include <asn/rrc/ASN_RRC_InitialUE-Identity.h>
 
 namespace nr::CU
@@ -24,10 +25,10 @@ namespace nr::CU
 class CUAppTask;
 class GtpTask;
 class NgapTask;
+class F1apTask;
 class CURrcTask;
 //class CURlsTask;
 class SctpTask;
-class F1apTask;
 class SctpServerTask;
 
 enum class EAmfState

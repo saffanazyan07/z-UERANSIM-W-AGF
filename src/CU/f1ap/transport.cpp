@@ -9,7 +9,7 @@
 
 #include <CU/app/task.hpp>
 #include <CU/nts.hpp>
-#include <CU/sctp/task.hpp>
+#include <CU/sctpServer/sctp_task.hpp>
 #include <lib/asn/f1ap.hpp>
 #include <lib/asn/utils.hpp>
 
@@ -31,15 +31,15 @@ static e_Criticality FindCriticalityOfUserIe(F1AP_PDU *pdu, ProtocolIE_ID_t ieId
 
     if (ieId == ProtocolIE_ID_id_UserLocationInformation)
     {
-        return procedureCode == ProcedureCode_id_InitialUEMessage ? Criticality_reject
+        return procedureCode == ASN_F1AP_ProcedureCode_id_InitialULRRCMessageTransfer ? Criticality_reject
                                                                            : Criticality_ignore;
     }
 
-    if (ieId == ProtocolIE_ID_id_DU_UE_F1AP_ID || ieId == ProtocolIE_ID_id_CU_UE_F1AP_ID)
+    if (ieId == ProtocolIE_ID_id_gNB_DU_UE_F1AP_ID || ieId == ProtocolIE_ID_id_gNB_CU_UE_F1AP_ID)
     {
         if (procedureCode == ProcedureCode_id_RerouteNASRequest)
         {
-            return ieId == ProtocolIE_ID_id_DU_UE_F1AP_ID ? Criticality_reject
+            return ieId == ProtocolIE_ID_id_gNB_DU_UE_F1AP_ID ? Criticality_reject
                                                                     : Criticality_ignore;
         }
 
@@ -80,7 +80,7 @@ static e_Criticality FindCriticalityOfUserIe(F1AP_PDU *pdu, ProtocolIE_ID_t ieId
 namespace nr::CU
 {
 
-void F1apTask::sendNgapNonUe(int associatedAmf, F1AP_PDU *pdu)
+void F1apTask::recvF1apNonUe(int associatedAmf, F1AP_PDU *pdu)
 {
     auto *amf = findAmfContext(associatedAmf);
     if (amf == nullptr)
@@ -125,7 +125,7 @@ void F1apTask::sendNgapNonUe(int associatedAmf, F1AP_PDU *pdu)
     asn::Free(asn_DEF_F1AP_PDU, pdu);
 }
 
-void F1apTask::sendNgapUeAssociated(int ueId, F1AP_PDU *pdu)
+void F1apTask::recvF1apUeAssociated(int ueId, F1AP_PDU *pdu)
 {
     /* Find UE and AMF contexts */
 
@@ -136,7 +136,7 @@ void F1apTask::sendNgapUeAssociated(int ueId, F1AP_PDU *pdu)
         return;
     }
 
-    auto *amf = findAmfContext(ue->associatedAmfId);
+    auto *amf = findAmfContext(ue->associatedcuId);
     if (amf == nullptr)
     {
         asn::Free(asn_DEF_F1AP_PDU, pdu);
@@ -147,7 +147,7 @@ void F1apTask::sendNgapUeAssociated(int ueId, F1AP_PDU *pdu)
     {
         if (ue->amfUeNgapId > 0)
         {
-            asn::ngap::AddProtocolIeIfUsable(
+            asn::f1ap::AddProtocolIeIfUsable(
                 *pdu, asn_DEF_ASN_NGAP_AMF_UE_NGAP_ID, ProtocolIE_ID_id_CU_UE_F1AP_ID,
                 FindCriticalityOfUserIe(pdu, ProtocolIE_ID_id_CU_UE_F1AP_ID), [ue](void *mem) {
                     auto &id = *reinterpret_cast<ASN_NGAP_AMF_UE_NGAP_ID_t *>(mem);
@@ -155,12 +155,12 @@ void F1apTask::sendNgapUeAssociated(int ueId, F1AP_PDU *pdu)
                 });
         }
 
-        asn::ngap::AddProtocolIeIfUsable(
-            *pdu, asn_DEF_ASN_NGAP_RAN_UE_NGAP_ID, ProtocolIE_ID_id_DU_UE_F1AP_ID,
+        asn::f1ap::AddProtocolIeIfUsable(
+            *pdu, asn_DEF_GNB_DU_UE_F1AP_ID, ProtocolIE_ID_id_DU_UE_F1AP_ID,
             FindCriticalityOfUserIe(pdu, ProtocolIE_ID_id_DU_UE_F1AP_ID),
             [ue](void *mem) { *reinterpret_cast<ASN_NGAP_RAN_UE_NGAP_ID_t *>(mem) = ue->ranUeNgapId; });
 
-        asn::ngap::AddProtocolIeIfUsable(
+        asn::f1ap::AddProtocolIeIfUsable(
             *pdu, asn_DEF_ASN_NGAP_UserLocationInformation, ProtocolIE_ID_id_UserLocationInformation,
             FindCriticalityOfUserIe(pdu, ProtocolIE_ID_id_UserLocationInformation), [this](void *mem) {
                 auto *loc = reinterpret_cast<ASN_NGAP_UserLocationInformation *>(mem);
@@ -216,9 +216,9 @@ void F1apTask::sendNgapUeAssociated(int ueId, F1AP_PDU *pdu)
     asn::Free(asn_DEF_F1AP_PDU, pdu);
 }
 
-void F1apTask::handleSctpMessage(int amfId, uint16_t stream, const UniqueBuffer &buffer)
+void F1apTask::handleSctpMessage(int cuId, uint16_t stream, const UniqueBuffer &buffer)
 {
-    auto *amf = findAmfContext(amfId);
+    auto *amf = findAmfContext(cuId);
     if (amf == nullptr)
         return;
 
@@ -227,7 +227,7 @@ void F1apTask::handleSctpMessage(int amfId, uint16_t stream, const UniqueBuffer 
     {
         m_logger->err("APER decoding failed for SCTP message");
         asn::Free(asn_DEF_F1AP_PDU, pdu);
-        sendErrorIndication(amfId, NgapCause::Protocol_transfer_syntax_error);
+        sendErrorIndication(cuId, NgapCause::Protocol_transfer_syntax_error);
         return;
     }
 
@@ -255,11 +255,8 @@ void F1apTask::handleSctpMessage(int amfId, uint16_t stream, const UniqueBuffer 
         case InitiatingMessage__value_PR_ErrorIndication:
             receiveErrorIndication(amf->ctxId, &value.choice.ErrorIndication);
             break;
-        case InitiatingMessage__value_PR_InitialContextSetupRequest:
+        case InitiatingMessage__value_PR_UEContextSetupRequest:
             receiveInitialContextSetup(amf->ctxId, &value.choice.InitialContextSetupRequest);
-            break;
-        case InitiatingMessage__value_PR_RerouteNASRequest:
-            receiveRerouteNasRequest(amf->ctxId, &value.choice.RerouteNASRequest);
             break;
         case InitiatingMessage__value_PR_UEContextReleaseCommand:
             receiveContextRelease(amf->ctxId, &value.choice.UEContextReleaseCommand);
@@ -267,23 +264,14 @@ void F1apTask::handleSctpMessage(int amfId, uint16_t stream, const UniqueBuffer 
         case InitiatingMessage__value_PR_UEContextModificationRequest:
             receiveContextModification(amf->ctxId, &value.choice.UEContextModificationRequest);
             break;
-        case InitiatingMessage__value_PR_PDUSessionResourceSetupRequest:
-            receiveSessionResourceSetupRequest(amf->ctxId, &value.choice.PDUSessionResourceSetupRequest);
+        case InitiatingMessage__value_PR_F1SetupRequest:
+            receiveSessionResourceSetupRequest(amf->ctxId, &value.choice.F1SetupRequest);
             break;
-        case InitiatingMessage__value_PR_DownlinkNASTransport:
-            receiveDownlinkNasTransport(amf->ctxId, &value.choice.DownlinkNASTransport);
+        case InitiatingMessage__value_PR_DLRRCMessageTransfer:
+            receiveDownlinkNasTransport(amf->ctxId, &value.choice.DLRRCMessageTransfer);
             break;
-        case InitiatingMessage__value_PR_AMFConfigurationUpdate:
-            receiveAmfConfigurationUpdate(amf->ctxId, &value.choice.AMFConfigurationUpdate);
-            break;
-        case InitiatingMessage__value_PR_OverloadStart:
-            receiveOverloadStart(amf->ctxId, &value.choice.OverloadStart);
-            break;
-        case InitiatingMessage__value_PR_OverloadStop:
-            receiveOverloadStop(amf->ctxId, &value.choice.OverloadStop);
-            break;
-        case InitiatingMessage__value_PR_PDUSessionResourceReleaseCommand:
-            receiveSessionResourceReleaseCommand(amf->ctxId, &value.choice.PDUSessionResourceReleaseCommand);
+        case InitiatingMessage__value_PR_GNBCUConfigurationUpdate:
+            receiveAmfConfigurationUpdate(amf->ctxId, &value.choice.GNBCUConfigurationUpdate);
             break;
         case InitiatingMessage__value_PR_Paging:
             receivePaging(amf->ctxId, &value.choice.Paging);
@@ -298,8 +286,8 @@ void F1apTask::handleSctpMessage(int amfId, uint16_t stream, const UniqueBuffer 
         auto value = pdu->choice.successfulOutcome->value;
         switch (value.present)
         {
-        case SuccessfulOutcome__value_PR_NGSetupResponse:
-            receiveNgSetupResponse(amf->ctxId, &value.choice.NGSetupResponse);
+        case SuccessfulOutcome__value_PR_F1SetupResponse:
+            receiveNgSetupResponse(amf->ctxId, &value.choice.F1SetupResponse);
             break;
         default:
             m_logger->err("Unhandled F1AP successful-outcome received (%d)", value.present);
@@ -311,8 +299,8 @@ void F1apTask::handleSctpMessage(int amfId, uint16_t stream, const UniqueBuffer 
         auto value = pdu->choice.unsuccessfulOutcome->value;
         switch (value.present)
         {
-        case UnsuccessfulOutcome__value_PR_NGSetupFailure:
-            receiveNgSetupFailure(amf->ctxId, &value.choice.NGSetupFailure);
+        case UnsuccessfulOutcome__value_PR_F1SetupFailure:
+            receiveNgSetupFailure(amf->ctxId, &value.choice.F1SetupFailure);
             break;
         default:
             m_logger->err("Unhandled F1AP unsuccessful-outcome received (%d)", value.present);
@@ -327,24 +315,24 @@ void F1apTask::handleSctpMessage(int amfId, uint16_t stream, const UniqueBuffer 
     asn::Free(asn_DEF_F1AP_PDU, pdu);
 }
 
-bool F1apTask::handleSctpStreamId(int amfId, int stream, const F1AP_PDU &pdu)
+bool F1apTask::handleSctpStreamId(int cuId, int stream, const F1AP_PDU &pdu)
 {
     if (m_base->config->ignoreStreamIds)
         return true;
 
     auto *ptr =
-        asn::ngap::FindProtocolIeInPdu(pdu, asn_DEF_ASN_NGAP_UE_NGAP_IDs, ProtocolIE_ID_id_UE_NGAP_IDs);
+        asn::f1ap::FindProtocolIeInPdu(pdu, asn_DEF_ASN_NGAP_UE_NGAP_IDs, ProtocolIE_ID_id_UE_NGAP_IDs);
     if (ptr != nullptr)
     {
         if (stream == 0)
         {
             m_logger->err("Received stream number == 0 in UE-associated signalling");
-            sendErrorIndication(amfId, NgapCause::Protocol_unspecified);
+            sendErrorIndication(cuId, NgapCause::Protocol_unspecified);
             return false;
         }
 
         auto &ids = *reinterpret_cast<ASN_NGAP_UE_NGAP_IDs *>(ptr);
-        auto *ue = findUeByNgapIdPair(amfId, ngap_utils::FindNgapIdPairFromAsnNgapIds(ids));
+        auto *ue = findUeByNgapIdPair(cuId, ngap_utils::FindNgapIdPairFromAsnNgapIds(ids));
         if (ue == nullptr)
             return false;
 
@@ -354,25 +342,25 @@ bool F1apTask::handleSctpStreamId(int amfId, int stream, const F1AP_PDU &pdu)
         {
             m_logger->err("received stream number is inconsistent. received %d, expected :%d", stream,
                           ue->downlinkStream);
-            sendErrorIndication(amfId, NgapCause::Protocol_unspecified);
+            sendErrorIndication(cuId, NgapCause::Protocol_unspecified);
             return false;
         }
     }
     else
     {
-        ptr = asn::ngap::FindProtocolIeInPdu(pdu, asn_DEF_ASN_NGAP_RAN_UE_NGAP_ID,
+        ptr = asn::f1ap::FindProtocolIeInPdu(pdu, asn_DEF_GNB_DU_UE_F1AP_ID,
                                              ProtocolIE_ID_id_DU_UE_F1AP_ID);
         if (ptr != nullptr)
         {
             if (stream == 0)
             {
                 m_logger->err("Received stream number == 0 in UE-associated signalling");
-                sendErrorIndication(amfId, NgapCause::Protocol_unspecified);
+                sendErrorIndication(cuId, NgapCause::Protocol_unspecified);
                 return false;
             }
 
             auto id = static_cast<int64_t>(*reinterpret_cast<GNB_DU_UE_F1AP_ID_t *>(ptr));
-            auto *ue = findUeByRanId(id);
+            auto *ue = findUeByDUId(id);
             if (ue == nullptr)
                 return false;
 
@@ -382,7 +370,7 @@ bool F1apTask::handleSctpStreamId(int amfId, int stream, const F1AP_PDU &pdu)
             {
                 m_logger->err("received stream number is inconsistent. received %d, expected :%d", stream,
                               ue->downlinkStream);
-                sendErrorIndication(amfId, NgapCause::Protocol_unspecified);
+                sendErrorIndication(cuId, NgapCause::Protocol_unspecified);
                 return false;
             }
         }
@@ -391,7 +379,7 @@ bool F1apTask::handleSctpStreamId(int amfId, int stream, const F1AP_PDU &pdu)
             if (stream != 0)
             {
                 m_logger->err("Received stream number != 0 in non-UE-associated signalling");
-                sendErrorIndication(amfId, NgapCause::Protocol_unspecified);
+                sendErrorIndication(cuId, NgapCause::Protocol_unspecified);
                 return false;
             }
         }
@@ -453,7 +441,7 @@ void F1apTask::handleSctpMessage(int duId, uint16_t stream, const UniqueBuffer &
     if (pdu == "")
     {
         m_logger->err("Decoding failed for SCTP message");
-        //sendErrorIndication(amfId, NgapCause::Protocol_transfer_syntax_error);
+        //sendErrorIndication(cuId, NgapCause::Protocol_transfer_syntax_error);
         return;
     }
     else

@@ -3,7 +3,7 @@
  * From ASN.1 module "NGAP-CommonDataTypes"
  * 	found in "asn/ngap-15.8.0.asn1"
  * 	`asn1c -fcompound-names -pdu=all -findirect-choice -fno-include-deps -gen-PER -no-gen-OER -no-gen-example -D ngap`
- */
+ */ 
 
 #ifndef	_ASN_NGAP_ProcedureCode_H_
 #define	_ASN_NGAP_ProcedureCode_H_

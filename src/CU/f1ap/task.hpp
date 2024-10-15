@@ -44,7 +44,7 @@ class F1apTask : public NtsTask
     std::string Merge(std::vector<std::string> vec);
 
     /* Interface management */
-    void handleAssociationSetup(int amfId, int inCount, int outCount);
+    void handleAssociationSetup(int cuId, int inCount, int outCount);
     void handleAssociationShutdown(int duId);
     void receiveF1SetupRequest(int duId, int gNB_DU_ID /*, int cellId */);
     void sendF1SetupResponse(int duId);

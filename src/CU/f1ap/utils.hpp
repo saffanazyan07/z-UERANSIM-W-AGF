@@ -41,8 +41,8 @@ NgapIdPair FindNgapIdPairFromAsnNgapIds(const ASN_NGAP_UE_NGAP_IDs &ngapIDs);
 template <typename T>
 inline NgapIdPair FindNgapIdPair(T *msg)
 {
-    auto *ieAmfUeNgapId = asn::ngap::GetProtocolIe(msg, ProtocolIE_ID_id_CU_UE_F1AP_ID);
-    auto *ieRanUeNgapId = asn::ngap::GetProtocolIe(msg, ProtocolIE_ID_id_DU_UE_F1AP_ID);
+    auto *ieAmfUeNgapId = asn::f1ap::GetProtocolIe(msg, ProtocolIE_ID_id_CU_UE_F1AP_ID);
+    auto *ieRanUeNgapId = asn::f1ap::GetProtocolIe(msg, ProtocolIE_ID_id_DU_UE_F1AP_ID);
 
     std::optional<int64_t> amfUeNgapId{}, ranUeNgapId{};
     if (ieAmfUeNgapId)
@@ -56,7 +56,7 @@ inline NgapIdPair FindNgapIdPair(T *msg)
 template <typename T>
 inline NgapIdPair FindNgapIdPairFromUeNgapIds(T *msg)
 {
-    auto *ieUeNgapIds = asn::ngap::GetProtocolIe(msg, ProtocolIE_ID_id_UE_NGAP_IDs);
+    auto *ieUeNgapIds = asn::f1ap::GetProtocolIe(msg, ProtocolIE_ID_id_UE_NGAP_IDs);
     if (ieUeNgapIds)
         return FindNgapIdPairFromAsnNgapIds(ieUeNgapIds->UE_NGAP_IDs);
     return NgapIdPair{{}, {}};
