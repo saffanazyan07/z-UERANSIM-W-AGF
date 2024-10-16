@@ -11,7 +11,7 @@
 #include <lib/nas/utils.hpp>
 #include <ue/nas/sm/sm.hpp>
 
-namespace nr::u
+namespace nr::ue
 {
 
 EProcRc NasMm::sendServiceRequest(EServiceReqCause reqCause)
@@ -487,4 +487,4 @@ void NasMm::receiveServiceReject(const nas::ServiceReject &msg)
     }
 }
 
-} // namespace nr::u
+} // namespace nr::ue
