@@ -14,7 +14,7 @@
 #include <utils/common.hpp>
 #include <utils/random.hpp>
 
-namespace nr::u
+namespace nr::ue
 {
 
 UeRlsTask::UeRlsTask(TaskBase *base) : m_base{base}
@@ -145,4 +145,4 @@ void UeRlsTask::onQuit()
     delete m_shCtx;
 }
 
-} // namespace nr::u
+} // namespace nr::ue
