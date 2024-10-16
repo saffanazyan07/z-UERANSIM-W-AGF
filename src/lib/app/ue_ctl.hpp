@@ -8,7 +8,7 @@
 
 #pragma once
 
-namespace nr::w_agf
+namespace nr::ue
 {
 
 class UserEquipment;
@@ -21,7 +21,7 @@ namespace app
 class IUeController
 {
   public:
-    virtual void performSwitchOff(nr::w_agf::UserEquipment *ue) = 0;
+    virtual void performSwitchOff(nr::ue::UserEquipment *ue) = 0;
 };
 
 } // namespace app
