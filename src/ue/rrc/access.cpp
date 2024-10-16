@@ -64,4 +64,4 @@ void UeRrcTask::performUac(std::shared_ptr<LightSync<UacInput, UacOutput>> &uacC
     uacCtl->notifyProcessed(std::move(output));
 }
 
-} // namespace nr::u
+} // namespace nr::ue
