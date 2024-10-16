@@ -19,7 +19,7 @@
 #include <asn/rrc/ASN_RRC_SIB1.h>
 #include <asn/rrc/ASN_RRC_UAC-BarringInfoSet.h>
 
-namespace nr::u
+namespace nr::ue
 {
 
 void UeRrcTask::receiveMib(int cellId, const ASN_RRC_MIB &msg)
@@ -67,4 +67,4 @@ void UeRrcTask::receiveSib1(int cellId, const ASN_RRC_SIB1 &msg)
     updateAvailablePlmns();
 }
 
-} // namespace nr::u
+} // namespace nr::ue
