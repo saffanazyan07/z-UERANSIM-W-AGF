@@ -13,7 +13,7 @@
 #include <lib/rrc/encode.hpp>
 #include <ue/nas/task.hpp>
 
-namespace nr::u
+namespace nr::ue
 {
 
 void UeRrcTask::performUac(std::shared_ptr<LightSync<UacInput, UacOutput>> &uacCtl)
