@@ -13,7 +13,7 @@
 #include <ue/app/task.hpp>
 #include <ue/nas/mm/mm.hpp>
 
-namespace nr::u
+namespace nr::ue
 {
 
 std::unique_ptr<UeTimer> NasSm::newTransactionTimer(int code)
@@ -86,4 +86,4 @@ void NasSm::onTransactionTimerExpire(int pti)
     }
 }
 
-} // namespace nr::u
+} // namespace nr::ue
