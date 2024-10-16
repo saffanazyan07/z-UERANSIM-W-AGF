@@ -139,4 +139,4 @@ class UeRrcTask : public NtsTask
     void performUac(std::shared_ptr<LightSync<UacInput, UacOutput>> &uacCtl);
 };
 
-} // namespace nr::u
+} // namespace nr::ue
