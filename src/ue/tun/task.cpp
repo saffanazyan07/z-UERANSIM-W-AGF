@@ -71,7 +71,7 @@ static void ReceiverThread(ReceiverArgs *args)
     }
 }
 
-namespace nr::u
+namespace nr::ue
 {
 
 ue::TunTask::TunTask(TaskBase *base, int psi, int fd) : m_base{base}, m_psi{psi}, m_fd{fd}, m_receiver{}
@@ -120,4 +120,4 @@ void TunTask::onLoop()
     }
 }
 
-} // namespace nr::u
+} // namespace nr::ue
