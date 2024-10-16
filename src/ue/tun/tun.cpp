@@ -47,4 +47,4 @@ bool TunConfigure(const std::string &tunName, const std::string &ipAddress, int 
     return true;
 }
 
-} // namespace nr::u::tun
+} // namespace nr::ue::tun
