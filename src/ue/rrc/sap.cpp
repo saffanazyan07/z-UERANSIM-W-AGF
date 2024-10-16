@@ -13,7 +13,7 @@
 #include <ue/nts.hpp>
 #include <ue/rls/task.hpp>
 
-namespace nr::u
+namespace nr::ue
 {
 
 void UeRrcTask::handleRlsSapMessage(NmUeRlsToRrc &msg)
@@ -64,4 +64,4 @@ void UeRrcTask::handleNasSapMessage(NmUeNasToRrc &msg)
     }
 }
 
-} // namespace nr::u
+} // namespace nr::ue
