@@ -25,7 +25,7 @@
 #include <utils/logger.hpp>
 #include <utils/nts.hpp>
 
-namespace nr::u
+namespace nr::ue
 {
 
 class UeRlsTask : public NtsTask
@@ -50,4 +50,4 @@ class UeRlsTask : public NtsTask
     void onQuit() override;
 };
 
-} // namespace nr::u
+} // namespace nr::ue
