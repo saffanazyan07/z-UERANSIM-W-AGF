@@ -17,7 +17,7 @@
 #include <asn/rrc/ASN_RRC_ULInformationTransfer-IEs.h>
 #include <asn/rrc/ASN_RRC_ULInformationTransfer.h>
 
-namespace nr::u
+namespace nr::ue
 {
 
 void UeRrcTask::deliverUplinkNas(uint32_t pduId, OctetString &&nasPdu)
@@ -70,4 +70,4 @@ void UeRrcTask::receiveDownlinkInformationTransfer(const ASN_RRC_DLInformationTr
     m_base->nasTask->push(std::move(m));
 }
 
-} // namespace nr::u
+} // namespace nr::ue
