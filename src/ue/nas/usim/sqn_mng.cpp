@@ -10,7 +10,7 @@
 
 #include <stdexcept>
 
-namespace nr::u
+namespace nr::ue
 {
 
 SqnManager::SqnManager(uint64_t indBitLen, uint64_t wrappingDelta)
