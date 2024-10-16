@@ -35,9 +35,9 @@ static std::string GetErrorMessage(const std::string &cause)
     return what;
 }
 
-static std::unique_ptr<nr::u::NmUeTunToApp> NmError(std::string &&error)
+static std::unique_ptr<nr::ue::NmUeTunToApp> NmError(std::string &&error)
 {
-    auto m = std::make_unique<nr::u::NmUeTunToApp>(nr::u::NmUeTunToApp::TUN_ERROR);
+    auto m = std::make_unique<nr::ue::NmUeTunToApp>(nr::ue::NmUeTunToApp::TUN_ERROR);
     m->error = std::move(error);
     return m;
 }
