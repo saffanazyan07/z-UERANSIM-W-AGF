@@ -13,7 +13,7 @@
 #include <ue/nas/task.hpp>
 #include <ue/rrc/task.hpp>
 
-namespace nr::u
+namespace nr::ue
 {
 
 void NasMm::onTimerExpire(UeTimer &timer)
@@ -179,4 +179,4 @@ void NasMm::onTimerExpire(UeTimer &timer)
     }
 }
 
-} // namespace nr::u
+} // namespace nr::ue
