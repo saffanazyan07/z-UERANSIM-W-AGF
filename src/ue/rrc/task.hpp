@@ -42,7 +42,7 @@ extern "C"
     struct ASN_RRC_SIB1;
 }
 
-namespace nr::u
+namespace nr::ue
 {
 
 class UeRrcTask : public NtsTask
