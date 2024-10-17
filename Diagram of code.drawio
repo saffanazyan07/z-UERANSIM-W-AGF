@@ -1,14 +1,14 @@
 <mxfile host="app.diagrams.net" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36" version="24.7.17">
   <diagram id="MOsLEfLqw7qmocMtyYsT" name="code architecture">
-    <mxGraphModel dx="2261" dy="786" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="2261" dy="1955" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="pgsDWBy4ftnsqzTcQmr3-1" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="796" y="30" width="120" height="60" as="geometry" />
+          <mxGeometry x="796" y="-10" width="120" height="100" as="geometry" />
         </mxCell>
-        <mxCell id="pgsDWBy4ftnsqzTcQmr3-2" value="CU&lt;br&gt;namespace&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;nr::CU&lt;/span&gt;&amp;nbsp;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
-          <mxGeometry x="826" y="45" width="60" height="30" as="geometry" />
+        <mxCell id="pgsDWBy4ftnsqzTcQmr3-2" value="CU&lt;br&gt;namespace&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;nr::CU&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;nr::CU::ngap_utils&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;nr::CU::ngap_encode&lt;/span&gt;&amp;nbsp;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="800" y="-10" width="110" height="100" as="geometry" />
         </mxCell>
         <mxCell id="pgsDWBy4ftnsqzTcQmr3-3" value="UE" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="24" y="31" width="120" height="60" as="geometry" />
@@ -847,7 +847,7 @@
         <mxCell id="pgsDWBy4ftnsqzTcQmr3-184" value="" style="rounded=0;whiteSpace=wrap;html=1;fontColor=#FF0000;" vertex="1" parent="1">
           <mxGeometry x="431" y="808" width="183" height="25" as="geometry" />
         </mxCell>
-        <mxCell id="pgsDWBy4ftnsqzTcQmr3-185" value="handleSctpMessage&lt;div&gt;&lt;font color=&quot;#ff0000&quot;&gt;(handle f1 setup req)&lt;/font&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="pgsDWBy4ftnsqzTcQmr3-185" value="handleSctpMessage&lt;div&gt;&lt;font color=&quot;#ff0000&quot;&gt;(handle f1 setup response)&lt;/font&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="431" y="872" width="183" height="25" as="geometry" />
         </mxCell>
         <mxCell id="pgsDWBy4ftnsqzTcQmr3-186" value="F1apTask::" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
@@ -856,7 +856,7 @@
         <mxCell id="pgsDWBy4ftnsqzTcQmr3-187" value="&lt;font color=&quot;#ff0000&quot;&gt;sendF1ap&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="431" y="904" width="183" height="25" as="geometry" />
         </mxCell>
-        <mxCell id="pgsDWBy4ftnsqzTcQmr3-188" value="&lt;font color=&quot;#ff0000&quot;&gt;Merge&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="pgsDWBy4ftnsqzTcQmr3-188" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="431" y="840" width="183" height="25" as="geometry" />
         </mxCell>
         <mxCell id="pgsDWBy4ftnsqzTcQmr3-189" value="" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1">
