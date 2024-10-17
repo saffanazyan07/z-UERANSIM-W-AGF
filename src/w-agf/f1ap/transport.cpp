@@ -83,7 +83,7 @@ namespace nr::w_agf
 
 void F1apTask::sendF1apNonUe(int associatedAmf, F1AP_PDU *pdu)
 {
-    auto *amf = findAmfContext(associatedAmf);
+    auto *cu = findAmfContext(associatedAmf);
     if (amf == nullptr)
     {
         asn::Free(asn_DEF_F1AP_PDU, pdu);
@@ -107,7 +107,7 @@ void F1apTask::sendF1apNonUe(int associatedAmf, F1AP_PDU *pdu)
     else
     {
         auto msg = std::make_unique<NmCUSctp>(NmCUSctp::SEND_MESSAGE);
-        msg->clientId = amf->ctxId;
+        msg->clientId = cu->ctxId;
         msg->stream = 0;
         msg->buffer = UniqueBuffer{buffer, static_cast<size_t>(encoded)};
         m_base->sctpTask->push(std::move(msg));
@@ -117,7 +117,7 @@ void F1apTask::sendF1apNonUe(int associatedAmf, F1AP_PDU *pdu)
             std::string xer = ngap_encode::EncodeXer(asn_DEF_F1AP_PDU, pdu);
             if (xer.length() > 0)
             {
-                m_base->nodeListener->onSend(app::NodeType::CU, m_base->config->name, app::NodeType::AMF, amf->amfName,
+                m_base->nodeListener->onSend(app::NodeType::CU, m_base->config->name, app::NodeType::AMF, cu->cuName,
                                              app::ConnectionType::NGAP, xer);
             }
         }
@@ -137,7 +137,7 @@ void F1apTask::sendNgapUeAssociated(int ueId, F1AP_PDU *pdu)
         return;
     }
 
-    auto *amf = findAmfContext(ue->associatedcuId);
+    auto *cu = findAmfContext(ue->associatedcuId);
     if (amf == nullptr)
     {
         asn::Free(asn_DEF_F1AP_PDU, pdu);
@@ -198,7 +198,7 @@ void F1apTask::sendNgapUeAssociated(int ueId, F1AP_PDU *pdu)
     else
     {
         auto msg = std::make_unique<NmCUSctp>(NmCUSctp::SEND_MESSAGE);
-        msg->clientId = amf->ctxId;
+        msg->clientId = cu->ctxId;
         msg->stream = ue->uplinkStream;
         msg->buffer = UniqueBuffer{buffer, static_cast<size_t>(encoded)};
         m_base->sctpTask->push(std::move(msg));
@@ -208,7 +208,7 @@ void F1apTask::sendNgapUeAssociated(int ueId, F1AP_PDU *pdu)
             std::string xer = ngap_encode::EncodeXer(asn_DEF_F1AP_PDU, pdu);
             if (xer.length() > 0)
             {
-                m_base->nodeListener->onSend(app::NodeType::CU, m_base->config->name, app::NodeType::AMF, amf->amfName,
+                m_base->nodeListener->onSend(app::NodeType::CU, m_base->config->name, app::NodeType::AMF, cu->cuName,
                                              app::ConnectionType::NGAP, xer);
             }
         }
@@ -219,7 +219,7 @@ void F1apTask::sendNgapUeAssociated(int ueId, F1AP_PDU *pdu)
 
 void F1apTask::handleSctpMessage(int cuId, uint16_t stream, const UniqueBuffer &buffer)
 {
-    auto *amf = findAmfContext(cuId);
+    auto *cu = findAmfContext(cuId);
     if (amf == nullptr)
         return;
 
@@ -237,12 +237,12 @@ void F1apTask::handleSctpMessage(int cuId, uint16_t stream, const UniqueBuffer &
         std::string xer = ngap_encode::EncodeXer(asn_DEF_F1AP_PDU, pdu);
         if (xer.length() > 0)
         {
-            m_base->nodeListener->onReceive(app::NodeType::CU, m_base->config->name, app::NodeType::AMF, amf->amfName,
+            m_base->nodeListener->onReceive(app::NodeType::CU, m_base->config->name, app::NodeType::AMF, cu->cuName,
                                             app::ConnectionType::NGAP, xer);
         }
     }
 
-    if (!handleSctpStreamId(amf->ctxId, stream, *pdu))
+    if (!handleSctpStreamId(cu->ctxId, stream, *pdu))
     {
         asn::Free(asn_DEF_F1AP_PDU, pdu);
         return;
@@ -254,28 +254,28 @@ void F1apTask::handleSctpMessage(int cuId, uint16_t stream, const UniqueBuffer &
         switch (value.present)
         {
         case InitiatingMessage__value_PR_ErrorIndication:
-            receiveErrorIndication(amf->ctxId, &value.choice.ErrorIndication);
+            receiveErrorIndication(cu->ctxId, &value.choice.ErrorIndication);
             break;
         case InitiatingMessage__value_PR_UEContextSetupRequest:
-            receiveInitialContextSetup(amf->ctxId, &value.choice.InitialContextSetupRequest);
+            receiveInitialContextSetup(cu->ctxId, &value.choice.InitialContextSetupRequest);
             break;
         case InitiatingMessage__value_PR_UEContextReleaseCommand:
-            receiveContextRelease(amf->ctxId, &value.choice.UEContextReleaseCommand);
+            receiveContextRelease(cu->ctxId, &value.choice.UEContextReleaseCommand);
             break;
         case InitiatingMessage__value_PR_UEContextModificationRequest:
-            receiveContextModification(amf->ctxId, &value.choice.UEContextModificationRequest);
+            receiveContextModification(cu->ctxId, &value.choice.UEContextModificationRequest);
             break;
         case InitiatingMessage__value_PR_F1SetupRequest:
-            receiveSessionResourceSetupRequest(amf->ctxId, &value.choice.F1SetupRequest);
+            receiveSessionResourceSetupRequest(cu->ctxId, &value.choice.F1SetupRequest);
             break;
         case InitiatingMessage__value_PR_DLRRCMessageTransfer:
-            receiveDownlinkNasTransport(amf->ctxId, &value.choice.DLRRCMessageTransfer);
+            receiveDownlinkNasTransport(cu->ctxId, &value.choice.DLRRCMessageTransfer);
             break;
         case InitiatingMessage__value_PR_GNBCUConfigurationUpdate:
-            receiveAmfConfigurationUpdate(amf->ctxId, &value.choice.GNBCUConfigurationUpdate);
+            receiveAmfConfigurationUpdate(cu->ctxId, &value.choice.GNBCUConfigurationUpdate);
             break;
         case InitiatingMessage__value_PR_Paging:
-            receivePaging(amf->ctxId, &value.choice.Paging);
+            receivePaging(cu->ctxId, &value.choice.Paging);
             break;
         default:
             m_logger->err("Unhandled F1AP initiating-message received (%d)", value.present);
@@ -288,7 +288,7 @@ void F1apTask::handleSctpMessage(int cuId, uint16_t stream, const UniqueBuffer &
         switch (value.present)
         {
         case SuccessfulOutcome__value_PR_F1SetupResponse:
-            receiveNgSetupResponse(amf->ctxId, &value.choice.F1SetupResponse);
+            receiveNgSetupResponse(cu->ctxId, &value.choice.F1SetupResponse);
             break;
         default:
             m_logger->err("Unhandled F1AP successful-outcome received (%d)", value.present);
@@ -301,7 +301,7 @@ void F1apTask::handleSctpMessage(int cuId, uint16_t stream, const UniqueBuffer &
         switch (value.present)
         {
         case UnsuccessfulOutcome__value_PR_F1SetupFailure:
-            receiveNgSetupFailure(amf->ctxId, &value.choice.F1SetupFailure);
+            receiveNgSetupFailure(cu->ctxId, &value.choice.F1SetupFailure);
             break;
         default:
             m_logger->err("Unhandled F1AP unsuccessful-outcome received (%d)", value.present);

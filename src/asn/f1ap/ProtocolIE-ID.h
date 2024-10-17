@@ -35,7 +35,6 @@ xer_type_decoder_f ProtocolIE_ID_decode_xer;
 xer_type_encoder_f ProtocolIE_ID_encode_xer;
 per_type_decoder_f ProtocolIE_ID_decode_uper;
 per_type_encoder_f ProtocolIE_ID_encode_uper;
-#define ProtocolIE_ID_id_AllowedNSSAI	((ASN_F1AP_ProtocolIE_ID_t)0)
 #define ProtocolIE_ID_id_Cause    ((ASN_F1AP_ProtocolIE_ID_t)0)
 #define ProtocolIE_ID_id_Cells_Failed_to_be_Activated_List  ((ASN_F1AP_ProtocolIE_ID_t)1)
 #define ProtocolIE_ID_id_Cells_Failed_to_be_Activated_List_Item ((ASN_F1AP_ProtocolIE_ID_t)2)
