@@ -28,4 +28,4 @@ void Usim::invalidate()
     m_isValid = false;
 }
 
-} // namespace nr::u
+} // namespace nr::ue

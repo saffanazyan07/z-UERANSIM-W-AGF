@@ -45,4 +45,4 @@ class Usim
     void invalidate();
 };
 
-} // namespace nr::u
+} // namespace nr::ue

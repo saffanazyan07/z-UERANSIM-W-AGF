@@ -70,4 +70,4 @@ OctetString SqnManager::getSqn() const
     return OctetString::FromOctet8(getSqnMs()).subCopy(2);
 }
 
-} // namespace nr::u
+} // namespace nr::ue

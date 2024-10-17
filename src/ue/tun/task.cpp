@@ -63,7 +63,7 @@ static void ReceiverThread(ReceiverArgs *args)
 
         if (n > 0)
         {
-            auto m = std::make_unique<nr::u::NmUeTunToApp>(nr::u::NmUeTunToApp::DATA_PDU_DELIVERY);
+            auto m = std::make_unique<nr::ue::NmUeTunToApp>(nr::ue::NmUeTunToApp::DATA_PDU_DELIVERY);
             m->psi = psi;
             m->data = OctetString::FromArray(buffer, static_cast<size_t>(n));
             targetTask->push(std::move(m));
