@@ -16,7 +16,7 @@
 #include <asn/rrc/ASN_RRC_UL-CCCH-Message.h>
 #include <asn/rrc/ASN_RRC_UL-DCCH-Message.h>
 
-namespace nr::u
+namespace nr::ue
 {
 
 void UeRrcTask::handleDownlinkRrc(int cellId, rrc::RrcChannel channel, const OctetString &rrcPdu)
@@ -208,4 +208,4 @@ void UeRrcTask::receiveRrcMessage(ASN_RRC_PCCH_Message *msg)
     }
 }
 
-} // namespace nr::u
+} // namespace nr::ue

@@ -15,7 +15,7 @@
 #include <ue/nas/mm/mm.hpp>
 #include <ue/rls/task.hpp>
 
-namespace nr::u
+namespace nr::ue
 {
 
 void NasSm::handleNasEvent(const NmUeNasToNas &msg)
@@ -104,4 +104,4 @@ void NasSm::handleDownlinkDataRequest(int psi, OctetString &&data)
     m_base->appTask->push(std::move(w));
 }
 
-} // namespace nr::u
+} // namespace nr::ue

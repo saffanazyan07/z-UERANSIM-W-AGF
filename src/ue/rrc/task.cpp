@@ -20,7 +20,7 @@
 static constexpr const int TIMER_ID_MACHINE_CYCLE = 1;
 static constexpr const int TIMER_PERIOD_MACHINE_CYCLE = 2500;
 
-namespace nr::u
+namespace nr::ue
 {
 
 UeRrcTask::UeRrcTask(TaskBase *base) : m_base{base}, m_timers{}
@@ -85,4 +85,4 @@ void UeRrcTask::onLoop()
     }
 }
 
-} // namespace nr::u
+} // namespace nr::ue

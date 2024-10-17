@@ -10,7 +10,7 @@
 #include "config.hpp"
 #include <utils/libc_error.hpp>
 
-namespace nr::u::tun
+namespace nr::ue::tun
 {
 
 int TunAllocate(const char *namePrefix, std::string &allocatedName, std::string &error)
@@ -47,4 +47,4 @@ bool TunConfigure(const std::string &tunName, const std::string &ipAddress, int 
     return true;
 }
 
-} // namespace nr::u::tun
+} // namespace nr::ue::tun

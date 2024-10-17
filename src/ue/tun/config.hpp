@@ -12,7 +12,7 @@
 #include <string>
 #include <utility>
 
-namespace nr::u::tun
+namespace nr::ue::tun
 {
 
 int AllocateTun(const char *ifPrefix, char **allocatedName);

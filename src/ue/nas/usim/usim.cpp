@@ -8,7 +8,7 @@
 
 #include "usim.hpp"
 
-namespace nr::u
+namespace nr::ue
 {
 
 void ue::Usim::initialize(bool hasSupi)

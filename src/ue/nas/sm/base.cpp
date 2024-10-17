@@ -8,7 +8,7 @@
 
 #include "sm.hpp"
 
-namespace nr::u
+namespace nr::ue
 {
 
 NasSm::NasSm(TaskBase *base, NasTimers *timers) : m_base(base), m_timers(timers), m_mm(nullptr)
@@ -29,4 +29,4 @@ void NasSm::onQuit()
     // TODO
 }
 
-} // namespace nr::u
+} // namespace nr::ue

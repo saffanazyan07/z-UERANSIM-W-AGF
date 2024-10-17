@@ -14,7 +14,7 @@
 
 #include <utils/octet_string.hpp>
 
-namespace nr::u
+namespace nr::ue
 {
 
 class SqnManager
@@ -40,4 +40,4 @@ class SqnManager
     bool checkSqn(const OctetString &sqn);
 };
 
-} // namespace nr::u
+} // namespace nr::ue
