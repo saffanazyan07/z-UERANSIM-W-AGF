@@ -5,13 +5,13 @@
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="pgsDWBy4ftnsqzTcQmr3-1" value="CU&lt;br&gt;namespace&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;nr::CU&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;nr::CU::ngap_utils&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;nr::CU::ngap_encode&lt;/span&gt;&amp;nbsp;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="780" y="-10" width="150" height="100" as="geometry" />
+          <mxGeometry x="780" y="-35" width="150" height="100" as="geometry" />
         </mxCell>
         <mxCell id="pgsDWBy4ftnsqzTcQmr3-3" value="UE" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="24" y="31" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="pgsDWBy4ftnsqzTcQmr3-4" value="w-agf&lt;div&gt;namespace&lt;br&gt;&lt;/div&gt;&lt;div&gt;nr::CU&lt;br&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="324" y="30" width="120" height="60" as="geometry" />
+        <mxCell id="pgsDWBy4ftnsqzTcQmr3-4" value="w-agf&lt;div&gt;namespace&lt;br&gt;&lt;/div&gt;&lt;div&gt;nr:w_agf&lt;br&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="324" y="-34" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="pgsDWBy4ftnsqzTcQmr3-5" value="namespace asn::ngap" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="-250" y="150" width="120" height="60" as="geometry" />
