@@ -738,20 +738,20 @@
             <mxPoint x="169" y="356" as="sourcePoint" />
             <mxPoint x="192" y="609.5" as="targetPoint" />
             <Array as="points">
-              <mxPoint x="169" y="450" />
+              <mxPoint x="169" y="481" />
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="DSoae2xe9LhW92NF2xgS-7" value="handleDownlinkRrc" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="4z2SLn1p7yp7AMS-5eU--1">
+        <mxCell id="DSoae2xe9LhW92NF2xgS-7" value="triggerCycle" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="4z2SLn1p7yp7AMS-5eU--1">
           <mxGeometry x="192" y="373" width="183" height="25" as="geometry" />
         </mxCell>
-        <mxCell id="DSoae2xe9LhW92NF2xgS-8" value="receiveRrcMessage" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="4z2SLn1p7yp7AMS-5eU--1">
-          <mxGeometry x="192" y="437" width="183" height="25" as="geometry" />
+        <mxCell id="DSoae2xe9LhW92NF2xgS-8" value="onSwitchState" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="4z2SLn1p7yp7AMS-5eU--1">
+          <mxGeometry x="192" y="468" width="183" height="25" as="geometry" />
         </mxCell>
         <mxCell id="DSoae2xe9LhW92NF2xgS-9" value="UeRrcTask" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="4z2SLn1p7yp7AMS-5eU--1">
           <mxGeometry x="149" y="330" width="85" height="25" as="geometry" />
         </mxCell>
-        <mxCell id="DSoae2xe9LhW92NF2xgS-10" value="sendRrcMessage" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="4z2SLn1p7yp7AMS-5eU--1">
+        <mxCell id="DSoae2xe9LhW92NF2xgS-10" value="performCycle" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="4z2SLn1p7yp7AMS-5eU--1">
           <mxGeometry x="192" y="405" width="183" height="25" as="geometry" />
         </mxCell>
         <mxCell id="DSoae2xe9LhW92NF2xgS-11" value="" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="4z2SLn1p7yp7AMS-5eU--1">
@@ -764,6 +764,15 @@
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="169" y="417" as="sourcePoint" />
             <mxPoint x="189" y="417" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="DSoae2xe9LhW92NF2xgS-13" value="switchState" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="4z2SLn1p7yp7AMS-5eU--1">
+          <mxGeometry x="192" y="437" width="183" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="DSoae2xe9LhW92NF2xgS-14" value="" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="4z2SLn1p7yp7AMS-5eU--1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="169" y="449" as="sourcePoint" />
+            <mxPoint x="189" y="449" as="targetPoint" />
           </mxGeometry>
         </mxCell>
       </root>
