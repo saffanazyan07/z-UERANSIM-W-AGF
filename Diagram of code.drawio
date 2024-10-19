@@ -355,16 +355,16 @@
         <mxCell id="pgsDWBy4ftnsqzTcQmr3-93" value="handleAssociationShutdown" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="746" y="1097" width="176" height="25" as="geometry" />
         </mxCell>
-        <mxCell id="pgsDWBy4ftnsqzTcQmr3-94" value="&lt;span&gt;&lt;font color=&quot;#ff0000&quot;&gt;receiveF1SetupFailure&lt;/font&gt;&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=0" parent="1" vertex="1">
+        <mxCell id="pgsDWBy4ftnsqzTcQmr3-94" value="&lt;span&gt;sendF1SetupFailure&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=0;strokeColor=#000000;" parent="1" vertex="1">
           <mxGeometry x="746" y="1194" width="176" height="25" as="geometry" />
         </mxCell>
-        <mxCell id="pgsDWBy4ftnsqzTcQmr3-95" value="receiveErrorIndication" style="rounded=0;whiteSpace=wrap;html=1;fontColor=#FF0000;" parent="1" vertex="1">
+        <mxCell id="pgsDWBy4ftnsqzTcQmr3-95" value="&lt;font color=&quot;#000000&quot;&gt;receiveErrorIndication&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontColor=#FF0000;" parent="1" vertex="1">
           <mxGeometry x="746" y="1225" width="176" height="25" as="geometry" />
         </mxCell>
-        <mxCell id="pgsDWBy4ftnsqzTcQmr3-96" value="&lt;font color=&quot;#ff0000&quot;&gt;sendErrorIndication&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="pgsDWBy4ftnsqzTcQmr3-96" value="sendErrorIndication" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="746" y="1257" width="176" height="25" as="geometry" />
         </mxCell>
-        <mxCell id="pgsDWBy4ftnsqzTcQmr3-97" value="&lt;font color=&quot;#ff0000&quot;&gt;receiveCUConfigurationUpdate&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="pgsDWBy4ftnsqzTcQmr3-97" value="&lt;font color=&quot;#ff0000&quot;&gt;receiveDUConfigurationUpdate&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="746" y="1289" width="176" height="25" as="geometry" />
         </mxCell>
         <mxCell id="pgsDWBy4ftnsqzTcQmr3-98" value="&lt;font color=&quot;#ff0000&quot;&gt;receiveOverloadStart&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
@@ -439,28 +439,28 @@
         <mxCell id="pgsDWBy4ftnsqzTcQmr3-110" value="&lt;font color=&quot;#ff0000&quot;&gt;handleAssociationSetup&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="421" y="1065" width="176" height="25" as="geometry" />
         </mxCell>
-        <mxCell id="pgsDWBy4ftnsqzTcQmr3-111" value="receiveF1SetupRequest" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="pgsDWBy4ftnsqzTcQmr3-111" value="sendF1SetupRequest" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="421" y="1129" width="176" height="25" as="geometry" />
         </mxCell>
         <mxCell id="pgsDWBy4ftnsqzTcQmr3-112" value="F1apTask::" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="380" y="1022" width="70" height="25" as="geometry" />
         </mxCell>
-        <mxCell id="pgsDWBy4ftnsqzTcQmr3-113" value="sendF1SetupResponse" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="pgsDWBy4ftnsqzTcQmr3-113" value="receiveF1SetupResponse" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="421" y="1161" width="176" height="25" as="geometry" />
         </mxCell>
         <mxCell id="pgsDWBy4ftnsqzTcQmr3-114" value="handleAssociationShutdown" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="421" y="1097" width="176" height="25" as="geometry" />
         </mxCell>
-        <mxCell id="pgsDWBy4ftnsqzTcQmr3-115" value="&lt;span&gt;&lt;font color=&quot;#ff0000&quot;&gt;receiveNgSetupFailure&lt;/font&gt;&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=0" parent="1" vertex="1">
+        <mxCell id="pgsDWBy4ftnsqzTcQmr3-115" value="&lt;span&gt;receiveF1SetupFailure&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=0" parent="1" vertex="1">
           <mxGeometry x="421" y="1194" width="176" height="25" as="geometry" />
         </mxCell>
-        <mxCell id="pgsDWBy4ftnsqzTcQmr3-116" value="receiveErrorIndication" style="rounded=0;whiteSpace=wrap;html=1;fontColor=#FF0000;" parent="1" vertex="1">
+        <mxCell id="pgsDWBy4ftnsqzTcQmr3-116" value="&lt;font color=&quot;#000000&quot;&gt;receiveErrorIndication&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontColor=#FF0000;" parent="1" vertex="1">
           <mxGeometry x="421" y="1225" width="176" height="25" as="geometry" />
         </mxCell>
-        <mxCell id="pgsDWBy4ftnsqzTcQmr3-117" value="&lt;font color=&quot;#ff0000&quot;&gt;sendErrorIndication&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="pgsDWBy4ftnsqzTcQmr3-117" value="sendErrorIndication" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="421" y="1257" width="176" height="25" as="geometry" />
         </mxCell>
-        <mxCell id="pgsDWBy4ftnsqzTcQmr3-118" value="&lt;font color=&quot;#ff0000&quot;&gt;receiveAmfConfigurationUpdate&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="pgsDWBy4ftnsqzTcQmr3-118" value="&lt;font color=&quot;#ff0000&quot;&gt;receiveCUConfigurationUpdate&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="421" y="1289" width="176" height="25" as="geometry" />
         </mxCell>
         <mxCell id="pgsDWBy4ftnsqzTcQmr3-119" value="&lt;font color=&quot;#ff0000&quot;&gt;receiveOverloadStart&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
