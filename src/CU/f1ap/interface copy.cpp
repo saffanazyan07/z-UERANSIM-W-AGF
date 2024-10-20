@@ -132,7 +132,7 @@ void NgapTask::sendNgSetupRequest(int cuId)
 
     auto *ieRanNodeName = asn::New<ASN_NGAP_NGSetupRequestIEs>();
     ieRanNodeName->id = ASN_NGAP_ProtocolIE_ID_id_RANNodeName;
-    ieRanNodeName->criticality = ASN_NGAP_Criticality_ignore;
+    ieRanNodeName->criticality = Criticality_ignore;
     ieRanNodeName->value.present = ASN_NGAP_NGSetupRequestIEs__value_PR_RANNodeName;
     asn::SetPrintableString(ieRanNodeName->value.choice.RANNodeName, m_base->config->name);
 
@@ -162,7 +162,7 @@ void NgapTask::sendNgSetupRequest(int cuId)
 
     auto *iePagingDrx = asn::New<ASN_NGAP_NGSetupRequestIEs>();
     iePagingDrx->id = ASN_NGAP_ProtocolIE_ID_id_DefaultPagingDRX;
-    iePagingDrx->criticality = ASN_NGAP_Criticality_ignore;
+    iePagingDrx->criticality = Criticality_ignore;
     iePagingDrx->value.present = ASN_NGAP_NGSetupRequestIEs__value_PR_PagingDRX;
     iePagingDrx->value.choice.PagingDRX = ngap_utils::PagingDrxToAsn(m_base->config->pagingDrx);
 
@@ -233,7 +233,7 @@ void NgapTask::sendErrorIndication(int cuId, NgapCause cause, int ueId)
 {
     auto ieCause = asn::New<ASN_NGAP_ErrorIndicationIEs>();
     ieCause->id = ASN_NGAP_ProtocolIE_ID_id_Cause;
-    ieCause->criticality = ASN_NGAP_Criticality_ignore;
+    ieCause->criticality = Criticality_ignore;
     ieCause->value.present = ASN_NGAP_ErrorIndicationIEs__value_PR_Cause;
     ngap_utils::ToCauseAsn_Ref(cause, ieCause->value.choice.Cause);
 
@@ -277,7 +277,7 @@ void NgapTask::receiveAmfConfigurationUpdate(int cuId, ASN_NGAP_AMFConfiguration
 
         auto *ieCause = asn::New<ASN_NGAP_AMFConfigurationUpdateFailureIEs>();
         ieCause->id = ASN_NGAP_ProtocolIE_ID_id_Cause;
-        ieCause->criticality = ASN_NGAP_Criticality_ignore;
+        ieCause->criticality = Criticality_ignore;
         ieCause->value.present = ASN_NGAP_AMFConfigurationUpdateFailureIEs__value_PR_Cause;
         ngap_utils::ToCauseAsn_Ref(NgapCause::Transport_unspecified, ieCause->value.choice.Cause);
 
@@ -290,7 +290,7 @@ void NgapTask::receiveAmfConfigurationUpdate(int cuId, ASN_NGAP_AMFConfiguration
 
         auto *ieList = asn::New<ASN_NGAP_AMFConfigurationUpdateAcknowledgeIEs>();
         ieList->id = ASN_NGAP_ProtocolIE_ID_id_AMF_TNLAssociationSetupList;
-        ieList->criticality = ASN_NGAP_Criticality_ignore;
+        ieList->criticality = Criticality_ignore;
         ieList->value.present = ASN_NGAP_AMFConfigurationUpdateAcknowledgeIEs__value_PR_AMF_TNLAssociationSetupList;
 
         auto *pdu = asn::f1ap::NewMessagePdu<ASN_NGAP_AMFConfigurationUpdateAcknowledge>({ieList});

@@ -81,10 +81,10 @@ static e_Criticality FindCriticalityOfUserIe(F1AP_PDU *pdu, ProtocolIE_ID_t ieId
 namespace nr::w_agf
 {
 
-void F1apTask::sendF1apNonUe(int associatedAmf, F1AP_PDU *pdu)
+void F1apTask::sendF1apNonUe(int associatedCu, F1AP_PDU *pdu)
 {
-    auto *cu = findAmfContext(associatedAmf);
-    if (amf == nullptr)
+    auto *cu = findCuContext(associatedCu);
+    if (cu == nullptr)
     {
         asn::Free(asn_DEF_F1AP_PDU, pdu);
         return;
@@ -117,7 +117,7 @@ void F1apTask::sendF1apNonUe(int associatedAmf, F1AP_PDU *pdu)
             std::string xer = ngap_encode::EncodeXer(asn_DEF_F1AP_PDU, pdu);
             if (xer.length() > 0)
             {
-                m_base->nodeListener->onSend(app::NodeType::CU, m_base->config->name, app::NodeType::AMF, cu->cuName,
+                m_base->nodeListener->onSend(app::NodeType::CU, m_base->config->name, app::NodeType::CU, cu->cuName,
                                              app::ConnectionType::NGAP, xer);
             }
         }
@@ -128,7 +128,7 @@ void F1apTask::sendF1apNonUe(int associatedAmf, F1AP_PDU *pdu)
 
 void F1apTask::sendNgapUeAssociated(int ueId, F1AP_PDU *pdu)
 {
-    /* Find UE and AMF contexts */
+    /* Find UE and CU contexts */
 
     auto *ue = findUeContext(ueId);
     if (ue == nullptr)
@@ -137,8 +137,8 @@ void F1apTask::sendNgapUeAssociated(int ueId, F1AP_PDU *pdu)
         return;
     }
 
-    auto *cu = findAmfContext(ue->associatedcuId);
-    if (amf == nullptr)
+    auto *cu = findCuContext(ue->associatedcuId);
+    if (cu == nullptr)
     {
         asn::Free(asn_DEF_F1AP_PDU, pdu);
         return;
@@ -208,7 +208,7 @@ void F1apTask::sendNgapUeAssociated(int ueId, F1AP_PDU *pdu)
             std::string xer = ngap_encode::EncodeXer(asn_DEF_F1AP_PDU, pdu);
             if (xer.length() > 0)
             {
-                m_base->nodeListener->onSend(app::NodeType::CU, m_base->config->name, app::NodeType::AMF, cu->cuName,
+                m_base->nodeListener->onSend(app::NodeType::CU, m_base->config->name, app::NodeType::CU, cu->cuName,
                                              app::ConnectionType::NGAP, xer);
             }
         }
@@ -219,8 +219,8 @@ void F1apTask::sendNgapUeAssociated(int ueId, F1AP_PDU *pdu)
 
 void F1apTask::handleSctpMessage(int cuId, uint16_t stream, const UniqueBuffer &buffer)
 {
-    auto *cu = findAmfContext(cuId);
-    if (amf == nullptr)
+    auto *cu = findCuContext(cuId);
+    if (cu == nullptr)
         return;
 
     auto *pdu = ngap_encode::Decode<F1AP_PDU>(asn_DEF_F1AP_PDU, buffer.data(), buffer.size());
@@ -237,7 +237,7 @@ void F1apTask::handleSctpMessage(int cuId, uint16_t stream, const UniqueBuffer &
         std::string xer = ngap_encode::EncodeXer(asn_DEF_F1AP_PDU, pdu);
         if (xer.length() > 0)
         {
-            m_base->nodeListener->onReceive(app::NodeType::CU, m_base->config->name, app::NodeType::AMF, cu->cuName,
+            m_base->nodeListener->onReceive(app::NodeType::CU, m_base->config->name, app::NodeType::CU, cu->cuName,
                                             app::ConnectionType::NGAP, xer);
         }
     }
@@ -272,7 +272,7 @@ void F1apTask::handleSctpMessage(int cuId, uint16_t stream, const UniqueBuffer &
             receiveDownlinkNasTransport(cu->ctxId, &value.choice.DLRRCMessageTransfer);
             break;
         case InitiatingMessage__value_PR_GNBCUConfigurationUpdate:
-            receiveAmfConfigurationUpdate(cu->ctxId, &value.choice.GNBCUConfigurationUpdate);
+            receiveCuConfigurationUpdate(cu->ctxId, &value.choice.GNBCUConfigurationUpdate);
             break;
         case InitiatingMessage__value_PR_Paging:
             receivePaging(cu->ctxId, &value.choice.Paging);

@@ -82,7 +82,7 @@ namespace nr::CU
 
 void F1apTask::recvF1apNonUe(int associatedAmf, F1AP_PDU *pdu)
 {
-    auto *amf = findAmfContext(associatedAmf);
+    auto *amf =  findDuContext(associatedAmf);
     if (amf == nullptr)
     {
         asn::Free(asn_DEF_F1AP_PDU, pdu);
@@ -136,7 +136,7 @@ void F1apTask::recvF1apUeAssociated(int ueId, F1AP_PDU *pdu)
         return;
     }
 
-    auto *amf = findAmfContext(ue->associatedcuId);
+    auto *amf =  findDuContext(ue->associatedcuId);
     if (amf == nullptr)
     {
         asn::Free(asn_DEF_F1AP_PDU, pdu);
@@ -218,7 +218,7 @@ void F1apTask::recvF1apUeAssociated(int ueId, F1AP_PDU *pdu)
 
 void F1apTask::handleSctpMessage(int cuId, uint16_t stream, const UniqueBuffer &buffer)
 {
-    auto *amf = findAmfContext(cuId);
+    auto *amf =  findDuContext(cuId);
     if (amf == nullptr)
         return;
 

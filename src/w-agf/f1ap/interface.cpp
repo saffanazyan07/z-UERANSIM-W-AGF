@@ -13,18 +13,14 @@
 #include <asn/f1ap/GNBCUConfigurationUpdate.h>
 #include <asn/f1ap/GNBCUConfigurationUpdateFailure.h>
 #include <asn/f1ap/GNB-CU-Name.h>
-#include <asn/f1ap/ASN_NGAP_BroadcastPLMNItem.h>
+#include <asn/f1ap/BPLMN-ID-Info-Item.h>
 #include <asn/f1ap/ErrorIndication.h>
-#include <asn/f1ap/ASN_NGAP_GlobalGNB-ID.h>
 #include <asn/f1ap/InitiatingMessage.h>
 #include <asn/f1ap/F1AP-PDU.h>
 #include <asn/f1ap/F1SetupRequest.h>
-#include <asn/f1ap/ASN_NGAP_OverloadStartNSSAIItem.h>
-#include <asn/f1ap/ASN_NGAP_PLMNSupportItem.h>
 #include <asn/f1ap/ProtocolIE-Field.h>
-#include <asn/f1ap/ASN_NGAP_ServedGUAMIItem.h>
-#include <asn/f1ap/ASN_NGAP_SliceSupportItem.h>
-#include <asn/f1ap/ASN_NGAP_SupportedTAItem.h>
+#include <asn/f1ap/SliceSupportItem.h>
+
 
 namespace nr::w_agf
 {
@@ -45,10 +41,10 @@ static void AssignDefaultCUConfigs(F1apCUContext *cu, T *msg)
     {
         utils::ClearAndDelete(cu->servedGuamiList);
 
-        asn::ForeachItem(ie->ServedGUAMIList, [amf](ASN_NGAP_ServedGUAMIItem &item) {
+        asn::ForeachItem(ie->ServedGUAMIList, [cu](ASN_NGAP_ServedGUAMIItem &item) {
             auto servedGuami = new ServedGuami();
             if (item.backupAMFName)
-                servedGuami->backupAmfName = asn::GetPrintableString(*item.backupAMFName);
+                servedGuami->backupCuName = asn::GetPrintableString(*item.backupAMFName);
             ngap_utils::GuamiFromAsn_Ref(item.gUAMI, servedGuami->guami);
             cu->servedGuamiList.push_back(servedGuami);
         });
@@ -59,7 +55,7 @@ static void AssignDefaultCUConfigs(F1apCUContext *cu, T *msg)
     {
         utils::ClearAndDelete(cu->plmnSupportList);
 
-        asn::ForeachItem(ie->PLMNSupportList, [amf](ASN_NGAP_PLMNSupportItem &item) {
+        asn::ForeachItem(ie->PLMNSupportList, [cu](ASN_NGAP_PLMNSupportItem &item) {
             auto plmnSupport = new PlmnSupport();
             ngap_utils::PlmnFromAsn_Ref(item.pLMNIdentity, plmnSupport->plmn);
             asn::ForeachItem(item.sliceSupportList, [plmnSupport](ASN_NGAP_SliceSupportItem &ssItem) {
@@ -70,46 +66,46 @@ static void AssignDefaultCUConfigs(F1apCUContext *cu, T *msg)
     }
 }
 
-void F1apTask::handleAssociationSetup(int amfId, int ascId, int inCount, int outCount)
+void F1apTask::handleAssociationSetup(int cuId, int ascId, int inCount, int outCount)
 {
-    auto *cu = findAmfContext(amfId);
-    if (amf != nullptr)
+    auto *cu = findCuContext(cuId);
+    if (cu != nullptr)
     {
-        cu->association.associationId = amfId;
+        cu->association.associationId = cuId;
         cu->association.inStreams = inCount;
         cu->association.outStreams = outCount;
 
-        sendNgSetupRequest(cu->ctxId);
+        sendF1SetupRequest(cu->ctxId);
     }
 }
 
-void F1apTask::handleAssociationShutdown(int amfId)
+void F1apTask::handleAssociationShutdown(int cuId)
 {
-    auto *cu = findAmfContext(amfId);
-    if (amf == nullptr)
+    auto *cu = findCuContext(cuId);
+    if (cu == nullptr)
         return;
 
-    m_logger->err("Association terminated for AMF[%d]", amfId);
-    m_logger->debug("Removing AMF context[%d]", amfId);
+    m_logger->err("Association terminated for CU[%d]", cuId);
+    m_logger->debug("Removing CU context[%d]", cuId);
 
-    cu->state = EAmfState::NOT_CONNECTED;
+    cu->state = ECuState::NOT_CONNECTED;
 
     auto w = std::make_unique<NmCUSctp>(NmCUSctp::CONNECTION_CLOSE);
-    w->clientId = amfId;
+    w->clientId = cuId;
     m_base->sctpTask->push(std::move(w));
 
-    deleteAmfContext(amfId);
+    deleteCuContext(cuId);
 }
 
-void F1apTask::sendNgSetupRequest(int amfId)
+void F1apTask::sendF1SetupRequest(int cuId)
 {
     m_logger->debug("Sending NG Setup Request");
 
-    auto *cu = findAmfContext(amfId);
-    if (amf == nullptr)
+    auto *cu = findCuContext(cuId);
+    if (cu == nullptr)
         return;
 
-    cu->state = EAmfState::WAITING_NG_SETUP;
+    cu->state = ECuState::WAITING_NG_SETUP;
 
     // TODO: this procedure also re-initialises the NGAP UE-related contexts (if any)
     //  and erases all related signalling connections in the two nodes like an NG Reset procedure would do.
@@ -131,7 +127,7 @@ void F1apTask::sendNgSetupRequest(int amfId)
 
     auto *ieRanNodeName = asn::New<ASN_NGAP_NGSetupRequestIEs>();
     ieRanNodeName->id = ASN_NGAP_ProtocolIE_ID_id_RANNodeName;
-    ieRanNodeName->criticality = ASN_NGAP_Criticality_ignore;
+    ieRanNodeName->criticality = Criticality_ignore;
     ieRanNodeName->value.present = ASN_NGAP_NGSetupRequestIEs__value_PR_RANNodeName;
     asn::SetPrintableString(ieRanNodeName->value.choice.RANNodeName, m_base->config->name);
 
@@ -161,31 +157,31 @@ void F1apTask::sendNgSetupRequest(int amfId)
 
     auto *iePagingDrx = asn::New<ASN_NGAP_NGSetupRequestIEs>();
     iePagingDrx->id = ASN_NGAP_ProtocolIE_ID_id_DefaultPagingDRX;
-    iePagingDrx->criticality = ASN_NGAP_Criticality_ignore;
+    iePagingDrx->criticality = Criticality_ignore;
     iePagingDrx->value.present = ASN_NGAP_NGSetupRequestIEs__value_PR_PagingDRX;
     iePagingDrx->value.choice.PagingDRX = ngap_utils::PagingDrxToAsn(m_base->config->pagingDrx);
 
     auto *pdu = asn::f1ap::NewMessagePdu<ASN_NGAP_NGSetupRequest>(
         {ieGlobalCUId, ieRanNodeName, ieSupportedTaList, iePagingDrx});
 
-    sendNgapNonUe(amfId, pdu);
+    sendNgapNonUe(cuId, pdu);
 }
 
-void F1apTask::receiveNgSetupResponse(int amfId, ASN_NGAP_NGSetupResponse *msg)
+void F1apTask::receiveNgSetupResponse(int cuId, ASN_NGAP_NGSetupResponse *msg)
 {
     m_logger->debug("NG Setup Response received");
 
-    auto *cu = findAmfContext(amfId);
-    if (amf == nullptr)
+    auto *cu = findCuContext(cuId);
+    if (cu == nullptr)
         return;
 
-    AssignDefaultAmfConfigs(amf, msg);
+    AssignDefaultCuConfigs(cu, msg);
 
-    cu->state = EAmfState::CONNECTED;
+    cu->state = ECuState::CONNECTED;
     m_logger->info("NG Setup procedure is successful");
 
     if (!m_isInitialized && std::all_of(m_amfCtx.begin(), m_amfCtx.end(),
-                                        [](auto &amfCtx) { return amfCtx.second->state == EAmfState::CONNECTED; }))
+                                        [](auto &amfCtx) { return amfCtx.second->state == ECuState::CONNECTED; }))
     {
         m_isInitialized = true;
 
@@ -197,42 +193,42 @@ void F1apTask::receiveNgSetupResponse(int amfId, ASN_NGAP_NGSetupResponse *msg)
     }
 }
 
-void F1apTask::receiveNgSetupFailure(int amfId, ASN_NGAP_NGSetupFailure *msg)
+void F1apTask::receiveNgSetupFailure(int cuId, ASN_NGAP_NGSetupFailure *msg)
 {
-    auto *cu = findAmfContext(amfId);
-    if (amf == nullptr)
+    auto *cu = findCuContext(cuId);
+    if (cu == nullptr)
         return;
 
-    cu->state = EAmfState::WAITING_NG_SETUP;
+    cu->state = ECuState::WAITING_NG_SETUP;
 
-    auto *ie = asn::f1ap::GetProtocolIe(msg, ASN_NGAP_ProtocolIE_ID_id_Cause);
+    auto *ie = asn::f1ap::GetProtocolIe(msg, ProtocolIE_ID_id_Cause);
     if (ie)
         m_logger->err("NG Setup procedure is failed. Cause: %s", ngap_utils::CauseToString(ie->Cause).c_str());
     else
         m_logger->err("NG Setup procedure is failed.");
 }
 
-void F1apTask::receiveErrorIndication(int amfId, ASN_NGAP_ErrorIndication *msg)
+void F1apTask::receiveErrorIndication(int cuId, ASN_NGAP_ErrorIndication *msg)
 {
-    auto *cu = findAmfContext(amfId);
-    if (amf == nullptr)
+    auto *cu = findCuContext(cuId);
+    if (cu == nullptr)
     {
-        m_logger->err("Error indication received with not found AMF context");
+        m_logger->err("Error indication received with not found CU context");
         return;
     }
 
-    auto *ie = asn::f1ap::GetProtocolIe(msg, ASN_NGAP_ProtocolIE_ID_id_Cause);
+    auto *ie = asn::f1ap::GetProtocolIe(msg, ProtocolIE_ID_id_Cause);
     if (ie)
         m_logger->err("Error indication received. Cause: %s", ngap_utils::CauseToString(ie->Cause).c_str());
     else
         m_logger->err("Error indication received.");
 }
 
-void F1apTask::sendErrorIndication(int amfId, NgapCause cause, int ueId)
+void F1apTask::sendErrorIndication(int cuId, NgapCause cause, int ueId)
 {
     auto ieCause = asn::New<ASN_NGAP_ErrorIndicationIEs>();
-    ieCause->id = ASN_NGAP_ProtocolIE_ID_id_Cause;
-    ieCause->criticality = ASN_NGAP_Criticality_ignore;
+    ieCause->id = ProtocolIE_ID_id_Cause;
+    ieCause->criticality = Criticality_ignore;
     ieCause->value.present = ASN_NGAP_ErrorIndicationIEs__value_PR_Cause;
     ngap_utils::ToCauseAsn_Ref(cause, ieCause->value.choice.Cause);
 
@@ -244,15 +240,15 @@ void F1apTask::sendErrorIndication(int amfId, NgapCause cause, int ueId)
     if (ueId > 0)
         sendNgapUeAssociated(ueId, pdu);
     else
-        sendNgapNonUe(amfId, pdu);
+        sendNgapNonUe(cuId, pdu);
 }
 
-void F1apTask::receiveAmfConfigurationUpdate(int amfId, ASN_NGAP_AMFConfigurationUpdate *msg)
+void F1apTask::receiveCuConfigurationUpdate(int cuId, ASN_NGAP_AMFConfigurationUpdate *msg)
 {
-    m_logger->debug("AMF configuration update received");
+    m_logger->debug("CU configuration update received");
 
-    auto *cu = findAmfContext(amfId);
-    if (amf == nullptr)
+    auto *cu = findCuContext(cuId);
+    if (cu == nullptr)
         return;
 
     bool tnlModified = false;
@@ -269,40 +265,40 @@ void F1apTask::receiveAmfConfigurationUpdate(int amfId, ASN_NGAP_AMFConfiguratio
     if (ie && ie->AMF_TNLAssociationToUpdateList.list.count > 0)
         tnlModified = true;
 
-    // TODO: AMF TNL modification is not supported
+    // TODO: CU TNL modification is not supported
     if (tnlModified)
     {
-        m_logger->err("TNL modification is not supported, rejecting AMF configuration update");
+        m_logger->err("TNL modification is not supported, rejecting CU configuration update");
 
         auto *ieCause = asn::New<ASN_NGAP_AMFConfigurationUpdateFailureIEs>();
-        ieCause->id = ASN_NGAP_ProtocolIE_ID_id_Cause;
-        ieCause->criticality = ASN_NGAP_Criticality_ignore;
+        ieCause->id = ProtocolIE_ID_id_Cause;
+        ieCause->criticality = Criticality_ignore;
         ieCause->value.present = ASN_NGAP_AMFConfigurationUpdateFailureIEs__value_PR_Cause;
         ngap_utils::ToCauseAsn_Ref(NgapCause::Transport_unspecified, ieCause->value.choice.Cause);
 
         auto *pdu = asn::f1ap::NewMessagePdu<ASN_NGAP_AMFConfigurationUpdateFailure>({ieCause});
-        sendNgapNonUe(amfId, pdu);
+        sendNgapNonUe(cuId, pdu);
     }
     else
     {
-        AssignDefaultAmfConfigs(amf, msg);
+        AssignDefaultCuConfigs(cu, msg);
 
         auto *ieList = asn::New<ASN_NGAP_AMFConfigurationUpdateAcknowledgeIEs>();
         ieList->id = ASN_NGAP_ProtocolIE_ID_id_AMF_TNLAssociationSetupList;
-        ieList->criticality = ASN_NGAP_Criticality_ignore;
+        ieList->criticality = Criticality_ignore;
         ieList->value.present = ASN_NGAP_AMFConfigurationUpdateAcknowledgeIEs__value_PR_AMF_TNLAssociationSetupList;
 
         auto *pdu = asn::f1ap::NewMessagePdu<ASN_NGAP_AMFConfigurationUpdateAcknowledge>({ieList});
-        sendNgapNonUe(amfId, pdu);
+        sendNgapNonUe(cuId, pdu);
     }
 }
 
-void F1apTask::receiveOverloadStart(int amfId, ASN_NGAP_OverloadStart *msg)
+void F1apTask::receiveOverloadStart(int cuId, ASN_NGAP_OverloadStart *msg)
 {
-    m_logger->debug("AMF overload start received");
+    m_logger->debug("CU overload start received");
 
-    auto *cu = findAmfContext(amfId);
-    if (amf == nullptr)
+    auto *cu = findCuContext(cuId);
+    if (cu == nullptr)
         return;
 
     cu->overloadInfo = {};
@@ -326,7 +322,7 @@ void F1apTask::receiveOverloadStart(int amfId, ASN_NGAP_OverloadStart *msg)
             cu->overloadInfo.indication.action = EOverloadAction::ONLY_HIGH_PRI_AND_MT;
             break;
         default:
-            m_logger->warn("AMF overload action [%d] could not understand",
+            m_logger->warn("CU overload action [%d] could not understand",
                            (int)ie->OverloadResponse.choice.overloadAction);
             break;
         }
@@ -346,9 +342,9 @@ void F1apTask::receiveOverloadStart(int amfId, ASN_NGAP_OverloadStart *msg)
     }
 }
 
-void F1apTask::receiveOverloadStop(int amfId, ASN_NGAP_OverloadStop *msg)
+void F1apTask::receiveOverloadStop(int cuId, ASN_NGAP_OverloadStop *msg)
 {
-    m_logger->debug("AMF overload stop received");
+    m_logger->debug("CU overload stop received");
 
     // TODO
 }
