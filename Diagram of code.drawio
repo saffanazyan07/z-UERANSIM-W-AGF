@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36" version="24.8.0" pages="4">
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36" version="24.8.1" pages="5">
   <diagram id="MOsLEfLqw7qmocMtyYsT" name="f1ap &amp; ngap code architecture">
     <mxGraphModel dx="1621" dy="1675" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -3699,6 +3699,56 @@
             <mxPoint x="713" y="375" as="sourcePoint" />
             <mxPoint x="733" y="375" as="targetPoint" />
           </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="Ci2mK6oKeemhDfQguKgX" name="Halaman-5">
+    <mxGraphModel dx="1050" dy="530" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="FeaZ1mLCh9w725yUaenW-28" value="" style="ellipse;whiteSpace=wrap;html=1;dashed=1;dashPattern=1 4;" vertex="1" parent="1">
+          <mxGeometry x="280" y="600" width="510" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="FeaZ1mLCh9w725yUaenW-27" value="" style="ellipse;whiteSpace=wrap;html=1;dashed=1;dashPattern=1 4;" vertex="1" parent="1">
+          <mxGeometry x="530" y="435" width="336" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="FeaZ1mLCh9w725yUaenW-4" value="CU" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="264" y="370" width="126" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="FeaZ1mLCh9w725yUaenW-16" value="AGF" style="shape=cube;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;darkOpacity=0.05;darkOpacity2=0.1;size=10;" vertex="1" parent="1">
+          <mxGeometry x="570" y="610" width="95" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="FeaZ1mLCh9w725yUaenW-19" value="DU" style="shape=cube;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;darkOpacity=0.05;darkOpacity2=0.1;size=10;" vertex="1" parent="1">
+          <mxGeometry x="422" y="430" width="95" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="FeaZ1mLCh9w725yUaenW-20" value="RU" style="shape=cube;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;darkOpacity=0.05;darkOpacity2=0.1;size=10;" vertex="1" parent="1">
+          <mxGeometry x="637.5" y="430" width="95" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="FeaZ1mLCh9w725yUaenW-15" value="" style="fontColor=#0066CC;verticalAlign=top;verticalLabelPosition=bottom;labelPosition=center;align=center;html=1;outlineConnect=0;fillColor=#CCCCCC;strokeColor=#6881B3;gradientColor=none;gradientDirection=north;strokeWidth=2;shape=mxgraph.networks.radio_tower;" vertex="1" parent="1">
+          <mxGeometry x="657.5" y="335" width="55" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="FeaZ1mLCh9w725yUaenW-21" value="CP" style="shape=cube;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;darkOpacity=0.05;darkOpacity2=0.1;size=11;" vertex="1" parent="1">
+          <mxGeometry x="279.5" y="385" width="95" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="FeaZ1mLCh9w725yUaenW-22" value="UP" style="shape=cube;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;darkOpacity=0.05;darkOpacity2=0.1;size=11;" vertex="1" parent="1">
+          <mxGeometry x="279.5" y="460" width="95" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="FeaZ1mLCh9w725yUaenW-23" value="5G Core" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="100" y="370" width="126" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="FeaZ1mLCh9w725yUaenW-24" value="CP" style="shape=cube;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;darkOpacity=0.05;darkOpacity2=0.1;size=11;" vertex="1" parent="1">
+          <mxGeometry x="115.5" y="385" width="95" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="FeaZ1mLCh9w725yUaenW-25" value="UP" style="shape=cube;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;darkOpacity=0.05;darkOpacity2=0.1;size=11;" vertex="1" parent="1">
+          <mxGeometry x="115.5" y="460" width="95" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="FeaZ1mLCh9w725yUaenW-29" value="" style="image;points=[];aspect=fixed;html=1;align=center;shadow=0;dashed=0;image=img/lib/allied_telesis/buildings/Building_Cluster.svg;" vertex="1" parent="1">
+          <mxGeometry x="414" y="567.0400000000001" width="126.57" height="115.92" as="geometry" />
+        </mxCell>
+        <mxCell id="FeaZ1mLCh9w725yUaenW-35" value="fungsi ini lebih mengarah ke local network dan meyesuaikan dengan kebijakan lokal seperti pda IoT yang berhubungan dengan goverment daerah dan universities, dengan IoT device tetap untuk control &amp;amp; billing IoT. atau untuk broadcasting via cable di local area&amp;nbsp; &amp;nbsp;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="20" y="570" width="270" height="90" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
